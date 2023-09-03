@@ -1,11 +1,15 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
-import MyLayout from '../components/myLayout';
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+import MyLayout from "../components/myLayout";
+import { ConfigProvider } from "antd";
+import theme from "./themeConfig";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <MyLayout>
-      <Component {...pageProps} />
-    </MyLayout>
-  )
+    <ConfigProvider theme={theme}>
+      <MyLayout>
+        <Component {...pageProps} />
+      </MyLayout>
+    </ConfigProvider>
+  );
 }

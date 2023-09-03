@@ -93,6 +93,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    scrollbar-width: thin; /* ブラウザのデフォルトスクロールバーを表示 */
+  scrollbar-color: #333 transparent; /* スクロールバーの色を設定 */
 }
 
 a {

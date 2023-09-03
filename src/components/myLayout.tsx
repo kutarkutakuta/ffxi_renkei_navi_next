@@ -1,20 +1,23 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { Layout, Space } from "antd";
-const { Footer, Content } = Layout;
+import { Button, Layout, Space } from "antd";
+const { Footer, Content, Header } = Layout;
 
-import styles from "./myLayout.module.css";
+const headerStyle: React.CSSProperties = {
+  textAlign: 'center',
+  color: '#fff',
+  height: 50,
+};
 
 const contentStyle: React.CSSProperties = {
   textAlign: "left",
+  padding:"10px",
   minHeight: 500,
   color: "#fff",
-  backgroundColor: "#108ee9",
 };
 
 const footerStyle: React.CSSProperties = {
   textAlign: "center",
   color: "#fff",
-  backgroundColor: "#7dbcea",
   position: "sticky",
   bottom: 0,
 };
@@ -44,19 +47,12 @@ const MyLayout = ({ children }: Props) => {
 
   return (
     <Space direction="vertical" style={{ width: "100%" }} size={[0, 48]}>
-      <Layout style={{ minHeight: "100vh", overflow: "auto" }}>
+      <Layout  style={{ minHeight: "100vh", overflow: "auto" }}>
+        <Header style={headerStyle}>
+            FF11連携Navi
+        </Header>
         <Content style={contentStyle}>
-          <div
-            className={`${styles.headerPanel} ${
-              isVisible ? styles.visible : ""
-            }`}
-          >
-            <p>FF11連携Navi</p>
-          </div>
-          <div
-          >
-            {children}
-          </div>
+        {children}
         </Content>
         <Footer style={footerStyle}>Footer</Footer>
       </Layout>
