@@ -55,7 +55,7 @@ const MyLayout = ({ children }: Props) => {
   return (
     <Layout  style={{ minHeight: "100vh", overflow: "auto" }}>
         <Header style={headerStyle}>
-        <Image height={50} src="images/renkei_navi_title2.png" 
+        <Image height={30} src="images/renkei_navi_title1.png" 
         preview={false} alt="FF11連携Navi" style={{marginTop:-20}} />
         </Header>
         <Content style={contentStyle}>
