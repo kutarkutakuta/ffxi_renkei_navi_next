@@ -1,16 +1,22 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { Button, Layout, Space } from "antd";
+import { Button, Layout, Space, Image } from "antd";
 const { Footer, Content, Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
   textAlign: 'center',
   color: '#fff',
   height: 50,
+  width: '100%',
+  position: "fixed",
+  top: 0,
+  left: 0,
+  zIndex: 1,
 };
 
 const contentStyle: React.CSSProperties = {
   textAlign: "left",
   padding:"10px",
+  marginTop: 50,
   minHeight: 500,
   color: "#fff",
 };
@@ -46,17 +52,16 @@ const MyLayout = ({ children }: Props) => {
   }, []);
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }} size={[0, 48]}>
-      <Layout  style={{ minHeight: "100vh", overflow: "auto" }}>
+    <Layout  style={{ minHeight: "100vh", overflow: "auto" }}>
         <Header style={headerStyle}>
-            FF11連携Navi
+        <Image height={50} src="images/renkei_navi_title2.png" 
+        preview={false} alt="FF11連携Navi" style={{marginTop:-20}} />
         </Header>
         <Content style={contentStyle}>
         {children}
         </Content>
         <Footer style={footerStyle}>Footer</Footer>
       </Layout>
-    </Space>
   );
 };
 

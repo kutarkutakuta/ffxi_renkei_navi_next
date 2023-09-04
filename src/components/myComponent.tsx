@@ -1,11 +1,20 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Affix, Button, Table } from "antd";
+import { Affix, Button, Col, Row, Space, Table } from "antd";
+import { UserAddOutlined, ToolOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableItem } from "./Draggable";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
+
+const headerStyle: React.CSSProperties = {
+  position: "absolute",
+  top:10,
+  width: "calc(100% - 20px)",
+  marginRight:20,
+  zIndex: 1,
+};
 
 interface DataType {
   key: React.Key;
@@ -16,16 +25,16 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: "Name",
+    dataIndex: "name",
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
+    title: "Age",
+    dataIndex: "age",
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: "Address",
+    dataIndex: "address",
   },
 ];
 
@@ -40,7 +49,6 @@ for (let i = 0; i < 46; i++) {
 }
 
 const MyComponent = (props: { message: string }) => {
-
   /*  */
   const items = ["1", "2", "3", "4", "5"];
   const contents = items.map((item) => ({
@@ -77,7 +85,7 @@ const MyComponent = (props: { message: string }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -89,8 +97,8 @@ const MyComponent = (props: { message: string }) => {
       Table.SELECTION_INVERT,
       Table.SELECTION_NONE,
       {
-        key: 'odd',
-        text: 'Select Odd Row',
+        key: "odd",
+        text: "Select Odd Row",
         onSelect: (changeableRowKeys) => {
           let newSelectedRowKeys = [];
           newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
@@ -103,8 +111,8 @@ const MyComponent = (props: { message: string }) => {
         },
       },
       {
-        key: 'even',
-        text: 'Select Even Row',
+        key: "even",
+        text: "Select Even Row",
         onSelect: (changeableRowKeys) => {
           let newSelectedRowKeys = [];
           newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
@@ -119,29 +127,59 @@ const MyComponent = (props: { message: string }) => {
     ],
   };
 
+  /**/
+  const [isVisible, setIsVisible] = useState(true);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
-    <div>
+    <>
+      {/* 検索メニュー */}
       <div>
-        <Button>＋メンバーを追加</Button>
-        <Button>検索オプション</Button>
-        <DndContext onDragEnd={handleDragEnd}>
-          <SortableContext items={state}>
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-              {/* スタイル調整用 */}
-              {state.map((item) => (
-                <SortableItem key={item.id} id={item.id}>
-                  <div>{item.content}</div>
-                </SortableItem>
-              ))}
-            </div>
-          </SortableContext>
-        </DndContext>
+        <Affix offsetTop={10} style={headerStyle}>
+          <Row>
+            <Col flex="none">
+              <Button icon={<UserAddOutlined />}  />
+            </Col>
+            <Col flex="auto">
+              <Row justify="end">
+                <Col>
+                  <Space>
+                    <Button type="text" icon={<QuestionCircleOutlined />}></Button>
+                    <Button icon={<ToolOutlined />}  />
+                  </Space>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Affix>
+        <div style={{ display: isVisible ? "block" : "none" }}>
+          <DndContext onDragEnd={handleDragEnd}>
+            <SortableContext items={state}>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {/* スタイル調整用 */}
+                {state.map((item) => (
+                  <SortableItem key={item.id} id={item.id}>
+                    <div>{item.content}</div>
+                  </SortableItem>
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        </div>
       </div>
+      {/* 一覧 */}
       <div>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} 
-        pagination={{position: ["topLeft"]}} />
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+          pagination={{ position: ["topLeft"], pageSize: 50 }}
+        />
       </div>
-    </div>
+    </>
   );
 };
 
