@@ -17,7 +17,7 @@ import {
 } from "antd";
 import {
   UserAddOutlined,
-  ToolOutlined,
+  SettingOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 
@@ -112,18 +112,21 @@ class KeyboardSensor extends LibKeyboardSensor {
 }
 
 const MyComponent = (props: { message: string }) => {
-    // useSensor と useSensors を使って上書きした Sensor を DndContext に紐付ける
-    const mouseSensor = useSensor(MouseSensor);
-    const keyboardSensor = useSensor(KeyboardSensor);
-    const sensors = useSensors(mouseSensor, keyboardSensor);
+  // useSensor と useSensors を使って上書きした Sensor を DndContext に紐付ける
+  const mouseSensor = useSensor(MouseSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+  const sensors = useSensors(mouseSensor, keyboardSensor);
 
   // 連携メンバー
   const [members, setMember] = useState<{ id: string; content: string }[]>([]);
   const addMember = () => {
-    setMember([...members, {
-          id: (members.length + 1).toString(),
-          content: "nowFormated",
-        }]);
+    setMember([
+      ...members,
+      {
+        id: (members.length + 1).toString(),
+        content: "unknown",
+      },
+    ]);
   };
   const handleDragEnd = useCallback(
     (event: { active: any; over: any }) => {
@@ -227,7 +230,7 @@ const MyComponent = (props: { message: string }) => {
                       icon={<QuestionCircleOutlined />}
                       onClick={showHelp}
                     ></Button>
-                    <Button icon={<ToolOutlined />} onClick={showSetting} />
+                    <Button icon={<SettingOutlined />} onClick={showSetting} />
                   </Space>
                 </Col>
               </Row>
@@ -240,9 +243,11 @@ const MyComponent = (props: { message: string }) => {
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {/* スタイル調整用 */}
                 {members.map((item) => (
-                  <SortableItem key={item.id} id={item.id}>
-                    <div>{item.content}</div>
-                  </SortableItem>
+                  <SortableItem
+                    key={item.id}
+                    id={item.id}
+                    content={item.content}
+                  ></SortableItem>
                 ))}
               </div>
             </SortableContext>
@@ -260,8 +265,13 @@ const MyComponent = (props: { message: string }) => {
       </div>
       {/* 検索設定 */}
       <Drawer
-        title={<><ToolOutlined />検索設定</>}
-        placement={"left"}
+        title={
+          <>
+            <SettingOutlined />
+            検索設定
+          </>
+        }
+        placement={"right"}
         width={380}
         open={openSetting}
         onClose={onClose}
@@ -309,14 +319,17 @@ const MyComponent = (props: { message: string }) => {
       </Drawer>
       {/* ヘルプ（使い方） */}
       <Drawer
-        title={<><QuestionCircleOutlined />ヘルプ（使い方）</>}
-        placement={"left"}
+        title={
+          <>
+            <QuestionCircleOutlined />
+            ヘルプ（使い方）
+          </>
+        }
+        placement={"right"}
         width={380}
         open={openHelp}
         onClose={onClose}
-      >
-        
-      </Drawer>
+      ></Drawer>
     </>
   );
 };
