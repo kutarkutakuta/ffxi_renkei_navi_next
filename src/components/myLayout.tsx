@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { Button, Layout, Space, Image } from "antd";
+import Link from "next/link";
 const { Footer, Content, Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
@@ -25,7 +26,7 @@ const footerStyle: React.CSSProperties = {
   textAlign: "center",
   color: "#fff",
   position: "sticky",
-  bottom: 0,
+  height: 50,
 };
 
 type Props = { children: ReactNode };
@@ -60,7 +61,9 @@ const MyLayout = ({ children }: Props) => {
         <Content style={contentStyle}>
         {children}
         </Content>
-        <Footer style={footerStyle}>Footer</Footer>
+        <Footer style={footerStyle}>
+          <Link href={"privacy.html"}>Privacy Policy</Link>
+        </Footer>
       </Layout>
   );
 };

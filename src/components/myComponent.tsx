@@ -1,7 +1,23 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Affix, Button, Col, Row, Space, Table } from "antd";
-import { UserAddOutlined, ToolOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import {
+  Affix,
+  Button,
+  Col,
+  Row,
+  Space,
+  Table,
+  Tooltip,
+  Drawer,
+  Radio,
+  Divider,
+  Checkbox,
+} from "antd";
+import {
+  UserAddOutlined,
+  ToolOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableItem } from "./Draggable";
@@ -10,9 +26,9 @@ import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
-  top:10,
+  top: 10,
   width: "calc(100% - 20px)",
-  marginRight:20,
+  marginRight: 20,
   zIndex: 1,
 };
 
@@ -134,6 +150,21 @@ const MyComponent = (props: { message: string }) => {
     setIsVisible(!isVisible);
   };
 
+  /** */
+  const [openSetting, setOpenSetting] = useState(false);
+  const [openHelp, setOpenHelp] = useState(false);
+  const showSetting = () => {
+    setOpenSetting(true);
+  };
+  const showHelp = () => {
+    setOpenHelp(true);
+  };
+  const onClose = () => {
+    setOpenSetting(false);
+    setOpenHelp(false);
+  };
+
+
   return (
     <>
       {/* 検索メニュー */}
@@ -141,14 +172,18 @@ const MyComponent = (props: { message: string }) => {
         <Affix offsetTop={10} style={headerStyle}>
           <Row>
             <Col flex="none">
-              <Button icon={<UserAddOutlined />}  />
+              <Button icon={<UserAddOutlined />} />
             </Col>
             <Col flex="auto">
               <Row justify="end">
                 <Col>
                   <Space>
-                    <Button type="text" icon={<QuestionCircleOutlined />}></Button>
-                    <Button icon={<ToolOutlined />}  />
+                    <Button
+                      type="text"
+                      icon={<QuestionCircleOutlined />}
+                      onClick={showHelp}
+                    ></Button>
+                    <Button icon={<ToolOutlined />} onClick={showSetting} />
                   </Space>
                 </Col>
               </Row>
@@ -179,6 +214,65 @@ const MyComponent = (props: { message: string }) => {
           pagination={{ position: ["topLeft"], pageSize: 50 }}
         />
       </div>
+      {/* 検索設定 */}
+      <Drawer
+        title={<><ToolOutlined />検索設定</>}
+        placement={"left"}
+        width={380}
+        open={openSetting}
+        onClose={onClose}
+      >
+        <Divider plain orientation="left">
+          表示順
+        </Divider>
+        <p>
+          <Radio.Group>
+            <Radio value={1}>合計値が強い順</Radio>
+            <Radio value={2}>〆技が強い順</Radio>
+          </Radio.Group>
+        </p>
+        <Divider plain orientation="left">
+          表示オプション
+        </Divider>
+        <Space>
+          <Space.Compact direction="vertical">
+            <Checkbox>WS名称を略称で表示する</Checkbox>
+            <Checkbox>強さを表示する</Checkbox>
+          </Space.Compact>
+        </Space>
+        <Divider plain orientation="left">
+          検索オプション
+        </Divider>
+        <Space>
+          <Space.Compact direction="vertical">
+            <Checkbox>範囲技を含める</Checkbox>
+            <Checkbox>強さに連携ダメージ分も含める</Checkbox>
+          </Space.Compact>
+        </Space>
+        <Divider plain orientation="left">
+          〆の連携属性
+        </Divider>
+        <Space>
+          <Space.Compact>
+            <Checkbox>闇</Checkbox>
+            <Checkbox>光</Checkbox>
+            <Checkbox>湾曲</Checkbox>
+            <Checkbox>分解</Checkbox>
+            <Checkbox>重力</Checkbox>
+            <Checkbox>核熱</Checkbox>
+          </Space.Compact>
+        </Space>
+      </Drawer>
+      {/* ヘルプ（使い方） */}
+      <Drawer
+        title={<><QuestionCircleOutlined />ヘルプ（使い方）</>}
+        placement={"left"}
+        width={380}
+        open={openHelp}
+        onClose={onClose}
+      >
+        
+      </Drawer>
     </>
   );
 };
