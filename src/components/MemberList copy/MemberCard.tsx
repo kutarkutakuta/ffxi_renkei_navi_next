@@ -24,7 +24,6 @@ import {
 } from "@ant-design/icons";
 import  { Member } from "@/stores/members";
 import useSupabaseState from "@/stores/jobs";
-import { Job } from "@/types/job";
 
 interface MemberCardProps {
   id: number;
@@ -91,6 +90,41 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
     color: "#32393e",
   };
 
+  // Drawer
+  const [openMemberSetting, setOpenMemberSetting] = useState(false);
+
+  const showMemberSetting = () => {
+    setOpenMemberSetting(true);
+  };
+  const onClose = () => {
+    setOpenMemberSetting(false);
+  };
+
+  //
+  const [value, setValue] = useState(["0-0-0"]);
+
+  const onChange = (newValue: string[]) => {
+    console.log("onChange ", value);
+    setValue(newValue);
+  };
+
+  const tProps = {
+    treeData,
+    value,
+    onChange,
+    treeCheckable: true,
+    showCheckedStrategy: SHOW_PARENT,
+    placeholder: "武器",
+    style: {
+      width: "100%",
+    },
+  };
+
+  const { jobs, loading, error, fetchData } = useSupabaseState();
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
@@ -99,7 +133,7 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
           <Button
             data-dndkit-disabled-dnd-flag="true"
             icon={<ToolOutlined />}
-            onClick={()=>onSetting(member)}
+            onClick={showMemberSetting}
             type="text"
             shape="circle"
           ></Button>
@@ -124,6 +158,30 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
 
       <div>短剣 / 片手剣</div>
 
+      {/* メンバ設定 */}
+      <Drawer
+        title={
+          <>
+            <ToolOutlined />
+            メンバ設定
+          </>
+        }
+        placement={"left"}
+        width={380}
+        style={{ backgroundColor: "rgba(19, 22, 41, 0.8)" }}
+        open={openMemberSetting}
+        onClose={onClose}
+        data-dndkit-disabled-dnd-flag="true"
+      >
+        <Space direction="vertical">
+          <Segmented options={["PC", "マトン", "フェイス"]} />
+          <Select placeholder="ジョブ" style={{ width: 120 }} 
+            options={jobs.map(m=>({value: m.name, label: m.name}))}
+          />
+          <TreeSelect {...tProps} />
+          <TreeSelect {...tProps} />
+        </Space>
+      </Drawer>
     </div>
   );
 }

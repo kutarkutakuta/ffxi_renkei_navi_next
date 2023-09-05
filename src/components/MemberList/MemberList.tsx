@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { MouseEvent, KeyboardEvent } from "react";
 
 import {
@@ -12,6 +12,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard";
 import useMembersStore, { Member } from "@/stores/members";
+import { MemberSetting } from "./MemberSetting";
 
 type ChildComponentProps = {
   clickCount: number;
@@ -71,6 +72,9 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   
   const { members, addMember, updateMember, removeMember, sortMember } = useMembersStore();
 
+  
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+
   // 親のイベントを検知してメンバーを追加
   useEffect(() => {
     if (clickCount > 0) {
@@ -79,13 +83,19 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   }, [clickCount]);
 
   const handleSetting = (member: Member) => {
-    updateMember(member.id , member);
+    setSelectedMember(member);
+  };
+  const handleSettingClose = () => {
+    setSelectedMember(null);
   };
   const handleCopy = (member: Member) => {
     addMember(member);
   };
   const handleRemove = (index: number) => {
     removeMember(index);
+  };
+  const handleUpdate = (member: Member) => {
+    updateMember(member.id , member);
   };
 
   const handleDragEnd = useCallback(
@@ -128,6 +138,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
           </div>
         </SortableContext>
       </DndContext>
+      <MemberSetting member={selectedMember!} onUpdate={handleUpdate} onClose={handleSettingClose}></MemberSetting>
     </>
   );
 }

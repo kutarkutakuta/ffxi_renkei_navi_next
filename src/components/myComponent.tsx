@@ -22,6 +22,7 @@ import {
 
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
 import { MemberCardContainer } from "./MemberList/MemberList";
+import { MemberSetting } from "./MemberList/MemberSetting";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
@@ -130,6 +131,8 @@ const MyComponent = (props: { message: string }) => {
   const handleButtonClick = () => {
     setButtonClick(clickCount + 1);
   };
+
+  //
 
   return (
     <>
