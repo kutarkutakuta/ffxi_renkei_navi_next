@@ -22,6 +22,7 @@ import {
   UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import useMembersStore from "@/stores/members";
 
 interface SortableItemProps {
   id: string;
@@ -68,7 +69,7 @@ const treeData = [
   },
 ];
 
-export function SortableItem({ id, content }: SortableItemProps) {
+export function MemberCard({ id, content }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
   const style = {

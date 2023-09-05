@@ -17,9 +17,11 @@
     "antd": "^5.8.6",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "eslint-plugin-react-hooks": "^5.0.0-canary-9b4f847d9-20230901",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "zustand": "^4.4.1"
   }
 }

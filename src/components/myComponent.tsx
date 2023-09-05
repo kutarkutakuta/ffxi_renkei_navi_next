@@ -1,6 +1,5 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { MouseEvent, KeyboardEvent } from "react";
 
 import {
   Affix,
@@ -21,17 +20,8 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 
-import {
-  DndContext,
-  MouseSensor as LibMouseSensor,
-  KeyboardSensor as LibKeyboardSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-
-import { SortableItem } from "./SortableItem";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
+import { MemberCardContainer } from "./MemberList/MemberList";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
@@ -73,84 +63,7 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
-/** */
-// data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
-function shouldHandleEvent(element: HTMLElement | null) {
-  let cur = element;
-
-  while (cur) {
-    if (cur.dataset && cur.dataset.dndkitDisabledDndFlag) {
-      return false;
-    }
-    cur = cur.parentElement;
-  }
-
-  return true;
-}
-
-// LibMouseSensor を override してドラッグ無効にする
-class MouseSensor extends LibMouseSensor {
-  static activators = [
-    {
-      eventName: "onMouseDown" as const,
-      handler: ({ nativeEvent: event }: MouseEvent): boolean => {
-        return shouldHandleEvent(event.target as HTMLElement);
-      },
-    },
-  ];
-}
-// LibKeyboardSensor を override してドラッグ無効にする
-class KeyboardSensor extends LibKeyboardSensor {
-  static activators = [
-    {
-      eventName: "onKeyDown" as const,
-      handler: ({ nativeEvent: event }: KeyboardEvent<Element>): boolean => {
-        return shouldHandleEvent(event.target as HTMLElement);
-      },
-    },
-  ];
-}
-
 const MyComponent = (props: { message: string }) => {
-  // useSensor と useSensors を使って上書きした Sensor を DndContext に紐付ける
-  const mouseSensor = useSensor(MouseSensor);
-  const keyboardSensor = useSensor(KeyboardSensor);
-  const sensors = useSensors(mouseSensor, keyboardSensor);
-
-  // 連携メンバー
-  const [members, setMember] = useState<{ id: string; content: string }[]>([]);
-  const addMember = () => {
-    setMember([
-      ...members,
-      {
-        id: (members.length + 1).toString(),
-        content: "unknown",
-      },
-    ]);
-  };
-  const handleDragEnd = useCallback(
-    (event: { active: any; over: any }) => {
-      const { active, over } = event;
-      if (over === null) {
-        return;
-      }
-      if (active.id !== over.id) {
-        const oldIndex = members
-          .map((item) => {
-            return item.id;
-          })
-          .indexOf(active.id);
-        const newIndex = members
-          .map((item) => {
-            return item.id;
-          })
-          .indexOf(over.id);
-        const newState = arrayMove(members, oldIndex, newIndex);
-        setMember(newState);
-      }
-    },
-    [members]
-  );
 
   // テーブル一覧
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -212,6 +125,12 @@ const MyComponent = (props: { message: string }) => {
     setOpenHelp(false);
   };
 
+  // メンバカードに渡す用
+  const [clickCount, setButtonClick] = useState(0);
+  const handleButtonClick = () => {
+    setButtonClick(clickCount + 1);
+  };
+
   return (
     <>
       {/* 検索メニュー */}
@@ -219,7 +138,7 @@ const MyComponent = (props: { message: string }) => {
         <Affix offsetTop={10} style={headerStyle}>
           <Row>
             <Col flex="none">
-              <Button icon={<UserAddOutlined />} onClick={addMember} />
+              <Button icon={<UserAddOutlined />} onClick={handleButtonClick} />
             </Col>
             <Col flex="auto">
               <Row justify="end">
@@ -238,20 +157,8 @@ const MyComponent = (props: { message: string }) => {
           </Row>
         </Affix>
         <div>
-          <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-            <SortableContext items={members}>
-              <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {/* スタイル調整用 */}
-                {members.map((item) => (
-                  <SortableItem
-                    key={item.id}
-                    id={item.id}
-                    content={item.content}
-                  ></SortableItem>
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
+          {/* メンバーカードコンテナ */}
+          <MemberCardContainer clickCount={clickCount}></MemberCardContainer>
         </div>
       </div>
       {/* 一覧 */}
