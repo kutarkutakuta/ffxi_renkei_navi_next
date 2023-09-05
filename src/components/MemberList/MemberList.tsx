@@ -1,8 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type { MouseEvent, KeyboardEvent } from "react";
 
 import {
@@ -15,12 +11,13 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard";
+import useMembersStore from "@/stores/members";
 
 type ChildComponentProps = {
   clickCount: number;
 };
 
-
+// #region dnd-kit用の制御
 // data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
 function shouldHandleEvent(element: HTMLElement | null) {
   let cur = element;
@@ -58,6 +55,7 @@ class KeyboardSensor extends LibKeyboardSensor {
     },
   ];
 }
+// #endregion
 
 /**
  * MemberCardContainer
@@ -65,34 +63,23 @@ class KeyboardSensor extends LibKeyboardSensor {
  * @returns
  */
 export function MemberCardContainer({ clickCount }: ChildComponentProps) {
+
   // useSensor と useSensors を使って上書きした Sensor を DndContext に紐付ける
   const mouseSensor = useSensor(MouseSensor);
   const keyboardSensor = useSensor(KeyboardSensor);
   const sensors = useSensors(mouseSensor, keyboardSensor);
-
-  // 連携メンバー
-  const [members, setMember] = useState<{ id: string; content: string }[]>([]);
+  
+  const { members, addMember, removeMember, sortMember } = useMembersStore();
 
   // 親のイベントを検知してメンバーを追加
   useEffect(() => {
     if (clickCount > 0) {
-      setMember((m) => [
-        ...m,
-        {
-          id: (m.length + 1).toString(),
-          content: "unknown",
-        },
-      ]);
+      addMember();
     }
   }, [clickCount]);
 
-  const handleRemove = (index: string) => {
-    // item.id と渡ってきた index が合致している時にアイテムを削除する
-    setMember((m) => {
-      m = m.filter(item=>item.id !== index);
-      m.forEach((m,i)=>m.id = (i+1).toString());
-      return m;
-    });
+  const handleRemove = (index: number) => {
+    removeMember(index);
   };
 
   const handleDragEnd = useCallback(
@@ -112,9 +99,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
             return item.id;
           })
           .indexOf(over.id);
-        const newState = arrayMove(members, oldIndex, newIndex);
-        newState.forEach((m,i)=>m.id = (i+1).toString());
-        setMember(newState);
+        sortMember(oldIndex, newIndex);
       }
     },
     [members]
@@ -128,7 +113,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
               <MemberCard
                 key={item.id}
                 id={item.id}
-                content={item.content}
+                member={item}
                 onRemove={handleRemove}
               ></MemberCard>
             ))}

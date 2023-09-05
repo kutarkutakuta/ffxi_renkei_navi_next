@@ -25,9 +25,9 @@ import {
 import useMembersStore from "@/stores/members";
 
 interface SortableItemProps {
-  id: string;
-  content: any;
-  onRemove: (index: string)=>void;
+  id: number;
+  member: any;
+  onRemove: (id: number)=>void;
 }
 
 /* */
@@ -70,7 +70,7 @@ const treeData = [
   },
 ];
 
-export function MemberCard({ id, content, onRemove }: SortableItemProps) {
+export function MemberCard({ id, member, onRemove }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {
@@ -88,9 +88,9 @@ export function MemberCard({ id, content, onRemove }: SortableItemProps) {
   };
 
   //
-  const handleRemove = (index:string) => {
+  const handleRemove = (id:number) => {
     // イベントを発生させる
-    onRemove(index);
+    onRemove(id);
   };
 
   // Drawer
@@ -140,7 +140,7 @@ export function MemberCard({ id, content, onRemove }: SortableItemProps) {
           <Row justify="end">
             <Col>
               <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />}></Button>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>handleRemove("1")}/>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>handleRemove(id)}/>
             </Col>
           </Row>
         </Col>
@@ -151,7 +151,7 @@ export function MemberCard({ id, content, onRemove }: SortableItemProps) {
       </span>
 
       <div style={{ fontWeight: "bold" }}>
-        {id}.{content}
+        {id}.{member.job}
       </div>
 
       <div>短剣 / 片手剣</div>
