@@ -22,11 +22,13 @@ import {
   UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
-import useMembersStore from "@/stores/members";
+import  { Member } from "@/stores/members";
 
-interface SortableItemProps {
+interface MemberCardProps {
   id: number;
-  member: any;
+  member: Member;
+  onSetting: (member: Member)=>void;
+  onCopy: (member: Member)=>void;
   onRemove: (id: number)=>void;
 }
 
@@ -70,7 +72,7 @@ const treeData = [
   },
 ];
 
-export function MemberCard({ id, member, onRemove }: SortableItemProps) {
+export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {
@@ -85,12 +87,6 @@ export function MemberCard({ id, member, onRemove }: SortableItemProps) {
     border: "1px solid black",
     backgroundColor: "#8ea2ad",
     color: "#32393e",
-  };
-
-  //
-  const handleRemove = (id:number) => {
-    // イベントを発生させる
-    onRemove(id);
   };
 
   // Drawer
@@ -139,8 +135,8 @@ export function MemberCard({ id, member, onRemove }: SortableItemProps) {
         <Col flex="auto">
           <Row justify="end">
             <Col>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />}></Button>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>handleRemove(id)}/>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />} onClick={()=> onCopy(member)}></Button>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>onRemove(id)}/>
             </Col>
           </Row>
         </Col>
@@ -151,7 +147,7 @@ export function MemberCard({ id, member, onRemove }: SortableItemProps) {
       </span>
 
       <div style={{ fontWeight: "bold" }}>
-        {id}.{member.job}
+        {id}.{member.Job}
       </div>
 
       <div>短剣 / 片手剣</div>

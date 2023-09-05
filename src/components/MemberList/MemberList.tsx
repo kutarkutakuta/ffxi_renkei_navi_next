@@ -11,7 +11,7 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard";
-import useMembersStore from "@/stores/members";
+import useMembersStore, { Member } from "@/stores/members";
 
 type ChildComponentProps = {
   clickCount: number;
@@ -69,7 +69,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   const keyboardSensor = useSensor(KeyboardSensor);
   const sensors = useSensors(mouseSensor, keyboardSensor);
   
-  const { members, addMember, removeMember, sortMember } = useMembersStore();
+  const { members, addMember, updateMember, removeMember, sortMember } = useMembersStore();
 
   // 親のイベントを検知してメンバーを追加
   useEffect(() => {
@@ -78,6 +78,12 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
     }
   }, [clickCount]);
 
+  const handleSetting = (member: Member) => {
+    updateMember(member.id , member);
+  };
+  const handleCopy = (member: Member) => {
+    addMember(member);
+  };
   const handleRemove = (index: number) => {
     removeMember(index);
   };
@@ -114,6 +120,8 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
                 key={item.id}
                 id={item.id}
                 member={item}
+                onSetting={handleSetting}
+                onCopy={handleCopy}
                 onRemove={handleRemove}
               ></MemberCard>
             ))}
