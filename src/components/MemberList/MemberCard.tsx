@@ -27,6 +27,7 @@ import useMembersStore from "@/stores/members";
 interface SortableItemProps {
   id: string;
   content: any;
+  onRemove: (index: string)=>void;
 }
 
 /* */
@@ -69,9 +70,9 @@ const treeData = [
   },
 ];
 
-export function MemberCard({ id, content }: SortableItemProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+export function MemberCard({ id, content, onRemove }: SortableItemProps) {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -84,6 +85,12 @@ export function MemberCard({ id, content }: SortableItemProps) {
     border: "1px solid black",
     backgroundColor: "#8ea2ad",
     color: "#32393e",
+  };
+
+  //
+  const handleRemove = (index:string) => {
+    // イベントを発生させる
+    onRemove(index);
   };
 
   // Drawer
@@ -132,8 +139,8 @@ export function MemberCard({ id, content }: SortableItemProps) {
         <Col flex="auto">
           <Row justify="end">
             <Col>
-              <Button type="text" icon={<UsergroupAddOutlined />}></Button>
-              <Button type="text" icon={<CloseOutlined />} />
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />}></Button>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>handleRemove("1")}/>
             </Col>
           </Row>
         </Col>

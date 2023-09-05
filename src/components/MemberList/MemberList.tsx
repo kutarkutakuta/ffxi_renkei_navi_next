@@ -1,21 +1,63 @@
-import {
-  DndContext,
-  KeyboardSensor,
-  MouseSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import React, {
   useCallback,
   useEffect,
   useState,
 } from "react";
+import type { MouseEvent, KeyboardEvent } from "react";
+
+import {
+  DndContext,
+  MouseSensor as LibMouseSensor,
+  KeyboardSensor as LibKeyboardSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+
 import { MemberCard } from "./MemberCard";
 
 type ChildComponentProps = {
   clickCount: number;
 };
+
+
+// data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
+function shouldHandleEvent(element: HTMLElement | null) {
+  let cur = element;
+
+  while (cur) {
+    if (cur.dataset && cur.dataset.dndkitDisabledDndFlag) {
+      return false;
+    }
+    cur = cur.parentElement;
+  }
+
+  return true;
+}
+
+// LibMouseSensor を override してドラッグ無効にする
+class MouseSensor extends LibMouseSensor {
+  static activators = [
+    {
+      eventName: "onMouseDown" as const,
+      handler: ({ nativeEvent: event }: MouseEvent): boolean => {
+        return shouldHandleEvent(event.target as HTMLElement);
+      },
+    },
+  ];
+}
+
+// LibKeyboardSensor を override してドラッグ無効にする
+class KeyboardSensor extends LibKeyboardSensor {
+  static activators = [
+    {
+      eventName: "onKeyDown" as const,
+      handler: ({ nativeEvent: event }: KeyboardEvent<Element>): boolean => {
+        return shouldHandleEvent(event.target as HTMLElement);
+      },
+    },
+  ];
+}
 
 /**
  * MemberCardContainer
@@ -31,6 +73,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   // 連携メンバー
   const [members, setMember] = useState<{ id: string; content: string }[]>([]);
 
+  // 親のイベントを検知してメンバーを追加
   useEffect(() => {
     if (clickCount > 0) {
       setMember((m) => [
@@ -42,6 +85,15 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
       ]);
     }
   }, [clickCount]);
+
+  const handleRemove = (index: string) => {
+    // item.id と渡ってきた index が合致している時にアイテムを削除する
+    setMember((m) => {
+      m = m.filter(item=>item.id !== index);
+      m.forEach((m,i)=>m.id = (i+1).toString());
+      return m;
+    });
+  };
 
   const handleDragEnd = useCallback(
     (event: { active: any; over: any }) => {
@@ -61,6 +113,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
           })
           .indexOf(over.id);
         const newState = arrayMove(members, oldIndex, newIndex);
+        newState.forEach((m,i)=>m.id = (i+1).toString());
         setMember(newState);
       }
     },
@@ -76,6 +129,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
                 key={item.id}
                 id={item.id}
                 content={item.content}
+                onRemove={handleRemove}
               ></MemberCard>
             ))}
           </div>
