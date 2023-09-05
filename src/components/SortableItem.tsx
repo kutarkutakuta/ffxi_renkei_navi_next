@@ -81,7 +81,8 @@ export function SortableItem({ id, content }: SortableItemProps) {
     width: "125px",
     height: "100px",
     border: "1px solid black",
-    backgroundColor: "#164c7e",
+    backgroundColor: "#8ea2ad",
+    color: "#32393e",
   };
 
   // Drawer
@@ -117,7 +118,7 @@ export function SortableItem({ id, content }: SortableItemProps) {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Row style={{ backgroundColor: "#111d2c" }}>
+      <Row style={{ backgroundColor: "#32393e" }}>
         <Col flex="none">
           <Button
             data-dndkit-disabled-dnd-flag="true"
