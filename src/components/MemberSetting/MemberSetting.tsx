@@ -17,8 +17,8 @@ import {
 import {
   ToolOutlined,
 } from "@ant-design/icons";
-import  { Member } from "@/stores/members";
-import useSupabaseState from "@/stores/jobs";
+import  { Member } from "@/stores/useMembersStore";
+import useMasterStore from "@/stores/useMasterStore";
 
 interface MemberSettingProps {
   member: Member | undefined;
@@ -104,12 +104,8 @@ export function MemberSetting({ member, onUpdate, onClose }: MemberSettingProps)
     },
   };
 
-  // ジョブ取得
-  const { jobs, loading, error, fetchData } = useSupabaseState();
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
+  const { jobs } = useMasterStore();
+  
   return (
     <div>
       <Drawer
@@ -138,3 +134,7 @@ export function MemberSetting({ member, onUpdate, onClose }: MemberSettingProps)
     </div>
   );
 }
+function MasterStore(): { jobs: any; } {
+  throw new Error("Function not implemented.");
+}
+

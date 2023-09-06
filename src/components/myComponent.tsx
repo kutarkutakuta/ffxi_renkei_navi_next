@@ -23,6 +23,7 @@ import {
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
 import { MemberCardContainer } from "./MemberList/MemberList";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
+import useMasterStore from "@/stores/useMasterStore";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
@@ -66,6 +67,13 @@ for (let i = 0; i < 46; i++) {
 
 const MyComponent = (props: { message: string }) => {
 
+    // マスター取得
+    const { fetchData } = useMasterStore();
+    useEffect(() => {
+      fetchData();
+    }, [fetchData]);
+
+    
   // テーブル一覧
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
@@ -245,3 +253,7 @@ const MyComponent = (props: { message: string }) => {
 };
 
 export default MyComponent;
+function MasterStore(): { jobs: any; fetchData: any; } {
+  throw new Error("Function not implemented.");
+}
+

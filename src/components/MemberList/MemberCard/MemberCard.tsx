@@ -22,9 +22,9 @@ import {
   UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
-import  { Member } from "@/stores/members";
-import useSupabaseState from "@/stores/jobs";
-import { Job } from "@/types/job";
+import  { Member } from "@/stores/useMembersStore";
+import useSupabaseState from "@/stores/jobStore";
+import { Job } from "@/types/Master/job";
 
 interface MemberCardProps {
   id: number;

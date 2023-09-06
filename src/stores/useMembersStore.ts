@@ -1,5 +1,5 @@
 import { create, useStore } from "zustand";
-import { Wepon } from "../types/wepon";
+import { Wepon } from "../types/Master/wepon";
 import { arrayMove } from "@dnd-kit/sortable";
 
 export interface Member {
