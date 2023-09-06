@@ -22,7 +22,7 @@ import {
 
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
 import { MemberCardContainer } from "./MemberList/MemberList";
-import { MemberSetting } from "./MemberSetting/MemberSetting";
+import { MemberSetting } from "./MemberList/MemberSetting/MemberSetting";
 import useMasterStore from "@/stores/useMasterStore";
 
 const headerStyle: React.CSSProperties = {

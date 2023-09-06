@@ -12,7 +12,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/useMembersStore";
-import { MemberSetting } from "../MemberSetting/MemberSetting";
+import { MemberSetting } from "./MemberSetting/MemberSetting";
 
 type ChildComponentProps = {
   clickCount: number;
