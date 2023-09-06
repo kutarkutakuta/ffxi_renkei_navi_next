@@ -14,16 +14,15 @@ import styles from './MemberCard.module.css'
 import  { Member } from "@/stores/useMembersStore";
 
 interface MemberCardProps {
-  id: number;
   member: Member;
   onSetting: (member: Member)=>void;
   onCopy: (member: Member)=>void;
-  onRemove: (id: number)=>void;
+  onRemove: (member: Member)=>void;
 }
 
-export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCardProps) {
+export function MemberCard({ member, onSetting, onCopy, onRemove }: MemberCardProps) {
   
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: member.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -32,6 +31,7 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
     margin: 4,
     padding: 2,
     borderRadius: 4,
+    cursor: "grab",
   };
 
   return (
@@ -51,7 +51,7 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
           <Row justify="end">
             <Col>
               <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />} onClick={()=> onCopy(member)}></Button>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>onRemove(id)}/>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>onRemove(member)}/>
             </Col>
           </Row>
         </Col>
@@ -63,7 +63,7 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
       </span>
 
       <div style={{ fontWeight: "bold" }}>
-        {id}.{member.Job}
+        {member.Job}
       </div>
       <div>短剣 / 片手剣</div>
 

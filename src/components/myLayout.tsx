@@ -12,6 +12,7 @@ const headerStyle: React.CSSProperties = {
   top: 0,
   left: 0,
   zIndex: 1,
+  backgroundColor:"#233F6E"
 };
 
 const contentStyle: React.CSSProperties = {

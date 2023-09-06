@@ -72,7 +72,6 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   
   const { members, addMember, updateMember, removeMember, sortMember } = useMembersStore();
 
-  
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   // 親のイベントを検知してメンバーを追加
@@ -91,11 +90,11 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   const handleCopy = (member: Member) => {
     addMember(member);
   };
-  const handleRemove = (index: number) => {
-    removeMember(index);
+  const handleRemove = (member: Member) => {
+    removeMember(member);
   };
   const handleUpdate = (member: Member) => {
-    updateMember(member.id , member);
+    updateMember(member);
   };
 
   const handleDragEnd = useCallback(
@@ -127,7 +126,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members.map((item) => (
               <MemberCard
-                id={item.id}
+                key={item.id}
                 member={item}
                 onSetting={handleSetting}
                 onCopy={handleCopy}
