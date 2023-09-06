@@ -17,9 +17,10 @@ import {
 import { ToolOutlined } from "@ant-design/icons";
 import useMembersStore, { Member } from "@/stores/useMembersStore";
 import useMasterStore from "@/stores/useMasterStore";
+import { useMemberSetting } from "./useMemberSetting";
 
 interface MemberSettingProps {
-  member: Member | undefined;
+  member: Member;
   onUpdate: (member: Member) => void;
   onClose: () => void;
 }
@@ -81,14 +82,17 @@ const treeData = [
   },
 ];
 
-export function MemberSetting({
-  member,
-  onUpdate,
-  onClose,
-}: MemberSettingProps) {
+export function MemberSetting({member, onUpdate, onClose}: MemberSettingProps) {
+  
+  // マスタ取得
+  const { jobs, wepons, weponTypes, wSTypes } = useMasterStore();
+  // フォーム値保存用
+  const { formData, initialFormData, handleChange } = useMemberSetting();
+
   // 親のイベントを検知してオープン
   useEffect(() => {
     if (member) {
+      initialFormData(member);
       setOpenMemberSetting(true);
     }
   }, [member]);
@@ -101,13 +105,24 @@ export function MemberSetting({
     onClose();
   };
 
-  // マスタ取得
-  const { jobs } = useMasterStore();
-  const { members, updateMember } = useMembersStore();
+const getWeponOption  = wepons.filter(n=>n.group=="武器種")
+  .map(n=>{
+    return {
+      title: n.name,
+      value: n.name,
+      key: n.name,
+      children:weponTypes.filter(m=>m.group=="武器種")
+      .map(m=>{
+        return {
+          title: `${n.name}(${m.name})`,
+          value: `${n.name}-${m.name}`,
+          key: `${n.name}-${m.name}`,
+        }
+      })
+    }
+  });
 
-  // ダミーデータ
-  const [weponValue, setWeponValue] = useState<string[]>([]);
-
+  // TreeSelectの共通設定
   const tProps = {
     allowClear: true,
     showSearch: false,
@@ -117,25 +132,6 @@ export function MemberSetting({
     style: {
       width: "100%",
     },
-  };
-
-  /**
-   * ジョブ変更時
-   * @param newValue
-   */
-  const onChangeJob = (newValue: string) => {
-    member!.Job = newValue;
-    updateMember(member!.id, member!);
-  };
-
-  /**
-   * 武器変更時
-   * @param newValue
-   */
-  const onChangeWepon = (newValue: string[]) => {
-    setWeponValue(newValue);
-    member?.Wepons.push();
-    onUpdate(member!);
   };
 
   return (
@@ -160,19 +156,21 @@ export function MemberSetting({
             placeholder="ジョブ"
             style={{ width: 120 }}
             options={jobs.map((m) => ({ value: m.name, label: m.name }))}
-            onChange={onChangeJob}
+            value={formData.Job}
+            onChange={(value)=>handleChange("Job", value, member)}
           />
           <TreeSelect
             {...tProps}
             placeholder="武器"
-            treeData={treeData}
-            value={weponValue}
-            onChange={onChangeWepon}
+            treeData={getWeponOption}
+            value={formData.Wepons}
+            onChange={(value)=>handleChange("Wepons", value, member)}
           />
           <TreeSelect {...tProps} placeholder="震天動地" />
           <TreeSelect {...tProps} placeholder="契約の履行" />
           <TreeSelect {...tProps} placeholder="しじをさせろ" />
           <TreeSelect {...tProps} placeholder="青魔法" />
+          <Button onClick={closeHandler}>☓ Close</Button>
         </Space>
       </Drawer>
     </div>

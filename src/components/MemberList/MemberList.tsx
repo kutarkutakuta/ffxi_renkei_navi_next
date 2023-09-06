@@ -70,7 +70,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   const keyboardSensor = useSensor(KeyboardSensor);
   const sensors = useSensors(mouseSensor, keyboardSensor);
   
-  const { members, addMember, updateMember, removeMember, sortMember } = useMembersStore();
+  const { members, addMember, updateMember, sortMember } = useMembersStore();
 
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
@@ -86,12 +86,6 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   };
   const handleSettingClose = () => {
     setSelectedMember(null);
-  };
-  const handleCopy = (member: Member) => {
-    addMember(member);
-  };
-  const handleRemove = (member: Member) => {
-    removeMember(member);
   };
   const handleUpdate = (member: Member) => {
     updateMember(member);
@@ -129,8 +123,6 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
                 key={item.id}
                 member={item}
                 onSetting={handleSetting}
-                onCopy={handleCopy}
-                onRemove={handleRemove}
               ></MemberCard>
             ))}
           </div>

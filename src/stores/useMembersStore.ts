@@ -39,12 +39,7 @@ const useMembersStore = create<MemberState>((set) => ({
     }),
   updateMember: (updateMember) =>
     set((state) => {
-      const m = state.members
-      m.forEach(n=>{
-        if(n.id == updateMember.id){
-          n = updateMember;
-        }
-      });
+      const m = state.members.map(n=>n.id === updateMember.id ? updateMember :n);
       return { members: m};
     }),
   sortMember: (oldIndex, newIndex) =>

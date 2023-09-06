@@ -11,16 +11,14 @@ import {
   CloseOutlined,
 } from "@ant-design/icons";
 import styles from './MemberCard.module.css'
-import  { Member } from "@/stores/useMembersStore";
+import  useMembersStore, { Member } from "@/stores/useMembersStore";
 
 interface MemberCardProps {
   member: Member;
   onSetting: (member: Member)=>void;
-  onCopy: (member: Member)=>void;
-  onRemove: (member: Member)=>void;
 }
 
-export function MemberCard({ member, onSetting, onCopy, onRemove }: MemberCardProps) {
+export function MemberCard({ member, onSetting }: MemberCardProps) {
   
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: member.id });
 
@@ -32,6 +30,15 @@ export function MemberCard({ member, onSetting, onCopy, onRemove }: MemberCardPr
     padding: 2,
     borderRadius: 4,
     cursor: "grab",
+  };
+
+  const { members, addMember, removeMember } = useMembersStore();
+  
+  const handleCopy = (member: Member) => {
+    addMember(member);
+  };
+  const handleRemove = (member: Member) => {
+    removeMember(member);
   };
 
   return (
@@ -50,22 +57,25 @@ export function MemberCard({ member, onSetting, onCopy, onRemove }: MemberCardPr
         <Col flex="auto">
           <Row justify="end">
             <Col>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />} onClick={()=> onCopy(member)}></Button>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>onRemove(member)}/>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />} onClick={()=> handleCopy(member)}></Button>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>handleRemove(member)}/>
             </Col>
           </Row>
         </Col>
       </Row>
 
       {/* 矢印 */}
-      <span style={{ position: "relative" }}>
-        <span style={{ position: "absolute", top: 12, left: 115 }}>▶</span>
+      {members[members.length-1] != member &&
+        <span style={{ position: "relative" }}>
+        <span style={{ position: "absolute", top: 10, left: 140, color:"#ddd" }}>▶</span>
       </span>
+      }
+      
 
       <div style={{ fontWeight: "bold" }}>
         {member.Job}
       </div>
-      <div>短剣 / 片手剣</div>
+      <div>{member.Wepons.map(n=>n.name).join(" / ")}</div>
 
     </div>
   );
