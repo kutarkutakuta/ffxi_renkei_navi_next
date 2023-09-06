@@ -10,6 +10,7 @@ import {
   UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import styles from './MemberCard.module.css'
 import  { Member } from "@/stores/useMembersStore";
 
 interface MemberCardProps {
@@ -21,6 +22,7 @@ interface MemberCardProps {
 }
 
 export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCardProps) {
+  
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {
@@ -30,17 +32,12 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
     margin: 4,
     padding: 2,
     borderRadius: 4,
-    width: "125px",
-    height: "100px",
-    border: "1px solid black",
-    backgroundColor: "#8ea2ad",
-    color: "#32393e",
   };
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Row style={{ backgroundColor: "#32393e" }}>
+    <div ref={setNodeRef} className = {styles.memberCard} style={style} {...attributes} {...listeners}>
+      <Row className = {styles.header}>
         <Col flex="none">
           <Button
             data-dndkit-disabled-dnd-flag="true"
@@ -60,6 +57,7 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
         </Col>
       </Row>
 
+      {/* 矢印 */}
       <span style={{ position: "relative" }}>
         <span style={{ position: "absolute", top: 12, left: 115 }}>▶</span>
       </span>
@@ -67,7 +65,6 @@ export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCa
       <div style={{ fontWeight: "bold" }}>
         {id}.{member.Job}
       </div>
-
       <div>短剣 / 片手剣</div>
 
     </div>
