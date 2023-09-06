@@ -1,30 +1,16 @@
-import React, { ReactElement, useEffect, useState } from "react";
-
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
   Button,
-  Checkbox,
-  Menu,
-  Dropdown,
-  Drawer,
-  Space,
   Row,
   Col,
-  Segmented,
-  Radio,
-  Select,
-  TreeSelect,
 } from "antd";
 import {
-  SolutionOutlined,
   ToolOutlined,
   UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
 import  { Member } from "@/stores/useMembersStore";
-import useSupabaseState from "@/stores/jobStore";
-import { Job } from "@/types/Master/job";
 
 interface MemberCardProps {
   id: number;
@@ -33,46 +19,6 @@ interface MemberCardProps {
   onCopy: (member: Member)=>void;
   onRemove: (id: number)=>void;
 }
-
-/* */
-const { SHOW_PARENT } = TreeSelect;
-
-const treeData = [
-  {
-    title: "Node1",
-    value: "0-0",
-    key: "0-0",
-    children: [
-      {
-        title: "Child Node1",
-        value: "0-0-0",
-        key: "0-0-0",
-      },
-    ],
-  },
-  {
-    title: "Node2",
-    value: "0-1",
-    key: "0-1",
-    children: [
-      {
-        title: "Child Node3",
-        value: "0-1-0",
-        key: "0-1-0",
-      },
-      {
-        title: "Child Node4",
-        value: "0-1-1",
-        key: "0-1-1",
-      },
-      {
-        title: "Child Node5",
-        value: "0-1-2",
-        key: "0-1-2",
-      },
-    ],
-  },
-];
 
 export function MemberCard({ id, member, onSetting, onCopy, onRemove }: MemberCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });

@@ -39,12 +39,13 @@ const useMembersStore = create<MemberState>((set) => ({
     }),
   updateMember: (id, updateMember) =>
     set((state) => {
-      state.members[id] = updateMember;
+      state.members[id-1] = updateMember;
       return { members: state.members };
     }),
   sortMember: (oldIndex, newIndex) =>
     set((state) => {
       const m = arrayMove(state.members, oldIndex, newIndex);
+      // TODO:なんかおかしい
       m.forEach((m, i) => (m.id = i + 1));
       return { members: m };
     }),

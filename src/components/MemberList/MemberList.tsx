@@ -127,7 +127,6 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members.map((item) => (
               <MemberCard
-                key={item.id}
                 id={item.id}
                 member={item}
                 onSetting={handleSetting}
