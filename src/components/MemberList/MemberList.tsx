@@ -10,9 +10,9 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
-import { MemberCard } from "./MemberCard";
+import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/members";
-import { MemberSetting } from "./MemberSetting";
+import { MemberSetting } from "../MemberSetting/MemberSetting";
 
 type ChildComponentProps = {
   clickCount: number;
