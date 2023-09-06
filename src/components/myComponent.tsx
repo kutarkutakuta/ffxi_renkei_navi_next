@@ -22,7 +22,7 @@ import {
 
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
 import { MemberCardContainer } from "./MemberList/MemberList";
-import { MemberSetting } from "./MemberList/MemberSetting";
+import { MemberSetting } from "./MemberSetting/MemberSetting";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
