@@ -12,13 +12,13 @@ import {
 } from "@ant-design/icons";
 import styles from './MemberCard.module.scss'
 import  useMembersStore, { Member } from "@/stores/useMemberStore";
+import useMenuStore from "@/stores/useMenuStore";
 
 interface MemberCardProps {
   member: Member;
-  onSetting: (member: Member)=>void;
 }
 
-export function MemberCard({ member, onSetting }: MemberCardProps) {
+export function MemberCard({ member }: MemberCardProps) {
   
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: member.id });
 
@@ -32,6 +32,8 @@ export function MemberCard({ member, onSetting }: MemberCardProps) {
     cursor: "grab",
   };
 
+  // メニュー制御用フック
+  const { openMemberSetting } = useMenuStore();
   const { members, addMember, removeMember } = useMembersStore();
   
   const handleCopy = (member: Member) => {
@@ -49,7 +51,7 @@ export function MemberCard({ member, onSetting }: MemberCardProps) {
           <Button
             data-dndkit-disabled-dnd-flag="true"
             icon={<ToolOutlined />}
-            onClick={()=>onSetting(member)}
+            onClick={()=>openMemberSetting(member)}
             type="text"
             shape="circle"
           ></Button>

@@ -74,15 +74,6 @@ export function MemberList() {
 
   const { members, sortMember } = useMembersStore();
 
-  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
-
-  const handleSetting = (member: Member) => {
-    setSelectedMember(member);
-  };
-  const handleSettingClose = () => {
-    setSelectedMember(null);
-  };
-
   const handleDragEnd = useCallback(
     (event: { active: any; over: any }) => {
       const { active, over } = event;
@@ -116,16 +107,12 @@ export function MemberList() {
               <MemberCard
                 key={item.id}
                 member={item}
-                onSetting={handleSetting}
               ></MemberCard>
             ))}
           </div>
         </SortableContext>
       </DndContext>
-      <MemberSetting
-        member={selectedMember!}
-        onClose={handleSettingClose}
-      ></MemberSetting>
+      <MemberSetting></MemberSetting>
     </>
   );
 }

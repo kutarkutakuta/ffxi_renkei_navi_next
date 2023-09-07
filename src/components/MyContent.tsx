@@ -13,16 +13,16 @@ import {
   Checkbox,
 } from "antd";
 import {
-  UserAddOutlined,
   SettingOutlined,
-  QuestionCircleOutlined,
 } from "@ant-design/icons";
 
 import { MemberList } from "./MemberList/MemberList";
 import useMasterStore from "@/stores/useMasterStore";
 import { ChainTable } from "./ChainTable/ChainTable";
-import styles from './myComponent.module.scss'; // CSSモジュールをインポート
 import useMemberStore from "@/stores/useMemberStore";
+
+import styles from './MyContent.module.scss';
+import useMenuStore from "@/stores/useMenuStore";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
@@ -33,35 +33,23 @@ const headerStyle: React.CSSProperties = {
 };
 
 /**
- * MyComponent
+ * MyContent
  * @param props
  * @returns
  */
-const MyComponent = () => {
+const MyContent = () => {
+  
+  // メニュー制御用フック
+  const { isSearchSetting, closeSearchSetting } = useMenuStore();
+  
   // マスター取得
   const { fetchData } = useMasterStore();
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  // Drawer
-  const [openSetting, setOpenSetting] = useState(false);
-  const [openHelp, setOpenHelp] = useState(false);
-  const showSetting = () => {
-    setOpenSetting(true);
-  };
-  const showHelp = () => {
-    setOpenHelp(true);
-  };
-  const onClose = () => {
-    setOpenSetting(false);
-    setOpenHelp(false);
-  };
-
-  //
-  const { members, addMember } = useMemberStore();
-
   // スクロールで隠れるやつ
+  const { members } = useMemberStore();
   const [isHidden, setIsHidden] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState<number | null>(null);
 
@@ -99,27 +87,6 @@ const MyComponent = () => {
     <>
       {/* 検索メニュー */}
       <div>
-        <Affix offsetTop={10} style={headerStyle}>
-          <Row>
-            <Col flex="none">
-              <Button icon={<UserAddOutlined />} onClick={() => addMember()} />
-            </Col>
-            <Col flex="auto">
-              <Row justify="end">
-                <Col>
-                  <Space>
-                    <Button
-                      type="text"
-                      icon={<QuestionCircleOutlined />}
-                      onClick={showHelp}
-                    ></Button>
-                    <Button icon={<SettingOutlined />} onClick={showSetting} />
-                  </Space>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Affix>
         <div id="navbar" className={`${styles.navbar} ${isHidden ? styles.hidden : ''}`}>
           {/* メンバーカードコンテナ */}
           <MemberList></MemberList>
@@ -139,8 +106,8 @@ const MyComponent = () => {
         }
         placement={"right"}
         width={380}
-        open={openSetting}
-        onClose={onClose}
+        open={isSearchSetting}
+        onClose={closeSearchSetting}
       >
         <Divider plain orientation="left">
           ■ 表示順
@@ -181,21 +148,9 @@ const MyComponent = () => {
           </Space.Compact>
         </Space>
       </Drawer>
-      {/* ヘルプ（使い方） */}
-      <Drawer
-        title={
-          <>
-            <QuestionCircleOutlined />
-            <span style={{ paddingLeft: 4 }}>ヘルプ（使い方）</span>
-          </>
-        }
-        placement={"right"}
-        width={380}
-        open={openHelp}
-        onClose={onClose}
-      ></Drawer>
+
     </>
   );
 };
 
-export default MyComponent;
+export default MyContent;

@@ -1,6 +1,7 @@
 import { create, useStore } from "zustand";
 import { Wepon } from "../types/Master/wepon";
 import { arrayMove } from "@dnd-kit/sortable";
+import useMenuStore from "./useMenuStore";
 
 export interface Member {
   id :number,
@@ -19,7 +20,8 @@ interface MemberState {
 
 const useMemberStore = create<MemberState>((set) => ({
   members: [],
-  addMember: (copyMember) =>
+  addMember: (copyMember) => {
+    // ステート更新
     set((state) => ({
       members: [
         ...state.members,
@@ -30,7 +32,8 @@ const useMemberStore = create<MemberState>((set) => ({
           WSFilters: copyMember ? JSON.parse(JSON.stringify(copyMember.WSFilters)) : [],
         },
       ],
-    })),
+    }));
+  },
   removeMember: (removeMember) =>
     set((state) => {
       const m = state.members.filter(n=>n.id !== removeMember.id);
