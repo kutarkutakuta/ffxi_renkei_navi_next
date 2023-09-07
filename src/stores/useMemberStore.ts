@@ -17,7 +17,7 @@ interface MemberState {
   sortMember: (odlIndex: number, newIndex: number) => void;
 }
 
-const useMembersStore = create<MemberState>((set) => ({
+const useMemberStore = create<MemberState>((set) => ({
   members: [],
   addMember: (copyMember) =>
     set((state) => ({
@@ -50,4 +50,4 @@ const useMembersStore = create<MemberState>((set) => ({
     }),
 }));
 
-export default useMembersStore;
+export default useMemberStore;

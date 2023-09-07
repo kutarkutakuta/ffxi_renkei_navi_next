@@ -11,7 +11,7 @@ import {
   CloseOutlined,
 } from "@ant-design/icons";
 import styles from './MemberCard.module.css'
-import  useMembersStore, { Member } from "@/stores/useMembersStore";
+import  useMembersStore, { Member } from "@/stores/useMemberStore";
 
 interface MemberCardProps {
   member: Member;

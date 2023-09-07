@@ -15,7 +15,7 @@ import {
   TreeSelect,
 } from "antd";
 import { ToolOutlined } from "@ant-design/icons";
-import useMembersStore, { Member } from "@/stores/useMembersStore";
+import useMembersStore, { Member } from "@/stores/useMemberStore";
 import useMasterStore from "@/stores/useMasterStore";
 import { useMemberSetting } from "./useMemberSetting";
 

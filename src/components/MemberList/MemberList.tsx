@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard/MemberCard";
-import useMembersStore, { Member } from "@/stores/useMembersStore";
+import useMembersStore, { Member } from "@/stores/useMemberStore";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
 
 // #region dnd-kit用の制御
