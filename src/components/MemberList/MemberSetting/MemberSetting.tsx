@@ -19,6 +19,8 @@ import useMasterStore from "@/stores/useMasterStore";
 import { useMemberSetting } from "./useMemberSetting";
 import useMenuStore from "@/stores/useMenuStore";
 
+import styles from './MemberSetting.module.scss'
+
 export function MemberSetting() {
   // マスタ取得
   const { jobs, wepons, weponTypes, wSTypes } = useMasterStore();
@@ -77,7 +79,7 @@ export function MemberSetting() {
         }
         placement={"left"}
         width={380}
-        style={{ backgroundColor: "#00497a", opacity: 0.8 }}
+        className={styles.drawer}
         open={isMemberSetting}
         onClose={closeMemberSetting}
         data-dndkit-disabled-dnd-flag="true"

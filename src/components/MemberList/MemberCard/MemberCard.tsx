@@ -10,7 +10,7 @@ import {
   UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
-import styles from './MemberCard.module.scss'
+import styles from './MemberCard.module.scss';
 import  useMembersStore, { Member } from "@/stores/useMemberStore";
 import useMenuStore from "@/stores/useMenuStore";
 

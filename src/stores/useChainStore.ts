@@ -4,6 +4,9 @@ import { Chain } from "@/types/chain";
 import useMemberStore, { Member } from "./useMemberStore";
 import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 
+/**
+ * 連携検索用パラメータ
+ */
 export interface ChainParam {
   sortType: string;
   noRange: boolean;
@@ -15,14 +18,36 @@ export interface ChainParam {
   outfilters: Array<{ key: string; value: string[] }>;
 }
 
+/**
+ * 表示設定用パラメータ
+ */
+export interface ViewParam {
+  viewOmit: boolean;
+  viewPower: boolean;
+}
+
+/**
+ * 連携検索用State
+ */
 type ChainState = {
   chainParam: ChainParam;
+  viewParam: ViewParam;
   chains: Chain[];
   loading: boolean;
   error: Error | null;
+  setChainParam: (chainParam: ChainParam)=> Promise<void>;
+  setViewParam: (viewParam: ViewParam)=> Promise<void>;
+  /**
+   * 連携検索データフェッチ
+   * @param members 
+   * @returns 
+   */
   fetchData: (members: Member[]) => Promise<void>;
 };
 
+/**
+ * 連携検索用Hook
+ */
 const useChainStore = create<ChainState>((set) => ({
   chainParam: {
     sortType: "0",
@@ -34,9 +59,15 @@ const useChainStore = create<ChainState>((set) => ({
     filters:[],
     outfilters:[],
   },
+  viewParam:{
+    viewOmit:false,
+    viewPower:false,
+  },
   chains: [],
   loading: false,
   error: null,
+  setChainParam: async (chainParam: ChainParam) => set({ chainParam }),
+  setViewParam: async (viewParam: ViewParam) => set({ viewParam }),
   fetchData: async (members: Member[]) => {
     
     const { chainParam } = useChainStore.getState();
@@ -86,17 +117,17 @@ const useChainStore = create<ChainState>((set) => ({
       var query = supabase.rpc(rpcName, params, { count: 'exact', head: false })
           .range(chainParam.pageSize * (chainParam.pageIndex - 1), chainParam.pageSize * chainParam.pageIndex - 1);
 
-      // if(filters){
-      //   filters.forEach(f=>{
-      //     if(f.value.length > 0) query = query.in(f.key, f.value);
-      //   })
-      // }
+      if(chainParam.filters){
+        chainParam.filters.forEach(f=>{
+          if(f.value.length > 0) query = query.in(f.key, f.value);
+        })
+      }
 
-      // if(outfilters){
-      //   outfilters.forEach(f=>{
-      //     if(f.value.length > 0) query = query.not(f.key, 'in', '("' + f.value.join('","') + '")');
-      //   })
-      // }
+      if(chainParam.outfilters){
+        chainParam.outfilters.forEach(f=>{
+          if(f.value.length > 0) query = query.not(f.key, 'in', '("' + f.value.join('","') + '")');
+        })
+      }
 
       if(chainParam.lastChains.length > 0) query = query.in(lastChainKey, chainParam.lastChains);
 

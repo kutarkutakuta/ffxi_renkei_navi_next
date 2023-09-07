@@ -14,6 +14,9 @@ interface MenuState {
   closeHelp: () => void;
 }
 
+/**
+ * メニュー制御用Hook
+ */
 const useMenuStore = create<MenuState>((set) => ({
   isMemberSetting: false,
   openMember: null,

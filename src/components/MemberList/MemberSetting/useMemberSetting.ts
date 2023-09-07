@@ -33,7 +33,7 @@ export function useMemberSetting() {
    * @param member 
    */
   const initialFormData = (member: Member) =>{
-    formData.Job = member.Job;
+    formData.Job = member.Job!;
 
     // 武器を復元
     let formWepons: {label: string, value: string}[] = [];

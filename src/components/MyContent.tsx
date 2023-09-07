@@ -1,20 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
-import {
-  Affix,
-  Button,
-  Col,
-  Row,
-  Space,
-  Drawer,
-  Radio,
-  Divider,
-  Checkbox,
-} from "antd";
-import {
-  SettingOutlined,
-} from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
 
 import { MemberList } from "./MemberList/MemberList";
 import useMasterStore from "@/stores/useMasterStore";
@@ -22,15 +7,7 @@ import { ChainTable } from "./ChainTable/ChainTable";
 import useMemberStore from "@/stores/useMemberStore";
 
 import styles from './MyContent.module.scss';
-import useMenuStore from "@/stores/useMenuStore";
-
-const headerStyle: React.CSSProperties = {
-  position: "absolute",
-  top: 10,
-  width: "calc(100% - 20px)",
-  marginRight: 20,
-  zIndex: 1,
-};
+import { SearchSetting } from "./SearchSetting/SearchSetting";
 
 /**
  * MyContent
@@ -38,10 +15,7 @@ const headerStyle: React.CSSProperties = {
  * @returns
  */
 const MyContent = () => {
-  
-  // メニュー制御用フック
-  const { isSearchSetting, closeSearchSetting } = useMenuStore();
-  
+
   // マスター取得
   const { fetchData } = useMasterStore();
   useEffect(() => {
@@ -73,7 +47,7 @@ const MyContent = () => {
   }, []);
   
   const calculateNavbarHeight = () => {
-    const navbarElement = document.getElementById('navbar');
+    const navbarElement = document.getElementById('member_list');
     if (navbarElement) {
       setNavbarHeight(navbarElement.clientHeight);
     }
@@ -85,70 +59,17 @@ const MyContent = () => {
 
   return (
     <>
-      {/* 検索メニュー */}
-      <div>
-        <div id="navbar" className={`${styles.navbar} ${isHidden ? styles.hidden : ''}`}>
+      {/* メンバーリスト */}
+      <div id="member_list" className={`${styles.navbar} ${isHidden ? styles.hidden : ''}`}>
           {/* メンバーカードコンテナ */}
           <MemberList></MemberList>
         </div>
-      </div>
       {/* 一覧 */}
       <div style={{ marginTop:  navbarHeight ? `${navbarHeight}px` : '0' }}>
         <ChainTable />
       </div>
       {/* 検索設定 */}
-      <Drawer
-        title={
-          <>
-            <SettingOutlined />
-            <span style={{ paddingLeft: 4 }}>検索設定</span>
-          </>
-        }
-        placement={"right"}
-        width={380}
-        open={isSearchSetting}
-        onClose={closeSearchSetting}
-      >
-        <Divider plain orientation="left">
-          ■ 表示順
-        </Divider>
-        <Radio.Group>
-          <Radio value={1}>合計値が強い順</Radio>
-          <Radio value={2}>〆技が強い順</Radio>
-        </Radio.Group>
-        <Divider plain orientation="left">
-          ■ 表示オプション
-        </Divider>
-        <Space>
-          <Space.Compact direction="vertical">
-            <Checkbox>WS名称を略称で表示する</Checkbox>
-            <Checkbox>強さを表示する</Checkbox>
-          </Space.Compact>
-        </Space>
-        <Divider plain orientation="left">
-          ■ 検索オプション
-        </Divider>
-        <Space>
-          <Space.Compact direction="vertical">
-            <Checkbox>範囲技を含める</Checkbox>
-            <Checkbox>強さに連携ダメージ分も含める</Checkbox>
-          </Space.Compact>
-        </Space>
-        <Divider plain orientation="left">
-          ■ 〆の連携属性
-        </Divider>
-        <Space>
-          <Space.Compact>
-            <Checkbox>闇</Checkbox>
-            <Checkbox>光</Checkbox>
-            <Checkbox>湾曲</Checkbox>
-            <Checkbox>分解</Checkbox>
-            <Checkbox>重力</Checkbox>
-            <Checkbox>核熱</Checkbox>
-          </Space.Compact>
-        </Space>
-      </Drawer>
-
+      <SearchSetting></SearchSetting>
     </>
   );
 };

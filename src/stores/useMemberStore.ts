@@ -5,7 +5,7 @@ import useMenuStore from "./useMenuStore";
 
 export interface Member {
   id :number,
-  Job: string;
+  Job: string | null;
   Wepons: Wepon[];
   WSFilters: string[];
 }
@@ -27,7 +27,7 @@ const useMemberStore = create<MemberState>((set) => ({
         ...state.members,
         {
           id: state.members.length + 1,
-          Job: copyMember ? copyMember.Job : "unknown",
+          Job: copyMember ? copyMember.Job : null,
           Wepons: copyMember ? JSON.parse(JSON.stringify(copyMember.Wepons)) : [],
           WSFilters: copyMember ? JSON.parse(JSON.stringify(copyMember.WSFilters)) : [],
         },
