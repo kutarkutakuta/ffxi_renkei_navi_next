@@ -185,8 +185,8 @@ const MyComponent = (props: { message: string }) => {
       <Drawer
         title={
           <>
-            <SettingOutlined />
-            検索設定
+            <SettingOutlined /> 
+            <span style={{paddingLeft: 4}}>検索設定</span>
           </>
         }
         placement={"right"}
@@ -195,16 +195,14 @@ const MyComponent = (props: { message: string }) => {
         onClose={onClose}
       >
         <Divider plain orientation="left">
-          表示順
+          ■ 表示順
         </Divider>
-        <p>
           <Radio.Group>
             <Radio value={1}>合計値が強い順</Radio>
             <Radio value={2}>〆技が強い順</Radio>
           </Radio.Group>
-        </p>
         <Divider plain orientation="left">
-          表示オプション
+        ■ 表示オプション
         </Divider>
         <Space>
           <Space.Compact direction="vertical">
@@ -213,7 +211,7 @@ const MyComponent = (props: { message: string }) => {
           </Space.Compact>
         </Space>
         <Divider plain orientation="left">
-          検索オプション
+        ■ 検索オプション
         </Divider>
         <Space>
           <Space.Compact direction="vertical">
@@ -222,7 +220,7 @@ const MyComponent = (props: { message: string }) => {
           </Space.Compact>
         </Space>
         <Divider plain orientation="left">
-          〆の連携属性
+        ■ 〆の連携属性
         </Divider>
         <Space>
           <Space.Compact>
@@ -240,7 +238,7 @@ const MyComponent = (props: { message: string }) => {
         title={
           <>
             <QuestionCircleOutlined />
-            ヘルプ（使い方）
+            <span style={{paddingLeft: 4}}>ヘルプ（使い方）</span>
           </>
         }
         placement={"right"}

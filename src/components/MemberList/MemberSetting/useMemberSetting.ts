@@ -9,7 +9,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
  */
 interface FormData {
   Job: string;
-  Wepons: string[];
+  Wepons:  {label: string, value: string}[];
 }
 
 /**
@@ -36,16 +36,16 @@ export function useMemberSetting() {
     formData.Job = member.Job;
 
     // 武器を復元
-    let formWepons: string[] = [];
+    let formWepons: {label: string, value: string}[] = [];
     member.Wepons.forEach(m => {
         if(m.group == "武器種"){
             if(m.weponTypes && m.weponTypes.length > 0){
                 m.weponTypes.forEach(n=>{
-                    formWepons.push(`${m.name}-${n}`);
+                    formWepons.push({label:`${m.name}(${n})`, value:`${m.name}-${n}`});
                 });
             }
             else{
-                formWepons.push(m.name);
+                formWepons.push({label:m.name, value:m.name});
             }
         }
     });

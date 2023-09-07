@@ -139,7 +139,7 @@ const getWeponOption  = wepons.filter(n=>n.group=="武器種")
         title={
           <>
             <ToolOutlined />
-            メンバ設定
+            <span style={{paddingLeft: 4}}>メンバ設定</span>
           </>
         }
         placement={"left"}
