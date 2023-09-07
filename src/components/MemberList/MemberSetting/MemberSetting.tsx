@@ -144,7 +144,7 @@ const getWeponOption  = wepons.filter(n=>n.group=="武器種")
         }
         placement={"left"}
         width={380}
-        style={{ backgroundColor: "rgba(19, 22, 41, 0.8)" }}
+        style={{ backgroundColor: "#00497a", opacity:0.8 }}
         open={openMemberSetting}
         onClose={closeHandler}
         data-dndkit-disabled-dnd-flag="true"

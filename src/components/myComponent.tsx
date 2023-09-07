@@ -20,8 +20,9 @@ import {
 
 import { MemberList } from "./MemberList/MemberList";
 import useMasterStore from "@/stores/useMasterStore";
-import useMembersStore from "@/stores/useMemberStore";
 import { ChainTable } from "./ChainTable/ChainTable";
+import styles from './myComponent.module.scss'; // CSSモジュールをインポート
+import useMemberStore from "@/stores/useMemberStore";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
@@ -58,7 +59,41 @@ const MyComponent = () => {
   };
 
   //
-  const { addMember } = useMembersStore();
+  const { members, addMember } = useMemberStore();
+
+  // スクロールで隠れるやつ
+  const [isHidden, setIsHidden] = useState(false);
+  const [navbarHeight, setNavbarHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    let currentScrollY = 0;
+    const handleScroll = () => {
+      if (window.scrollY > currentScrollY ) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      currentScrollY = window.scrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', calculateNavbarHeight);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', calculateNavbarHeight);
+    };
+  }, []);
+  
+  const calculateNavbarHeight = () => {
+    const navbarElement = document.getElementById('navbar');
+    if (navbarElement) {
+      setNavbarHeight(navbarElement.clientHeight);
+    }
+  };
+
+  useEffect(() => {
+    calculateNavbarHeight();
+  }, [members]);
 
   return (
     <>
@@ -85,13 +120,13 @@ const MyComponent = () => {
             </Col>
           </Row>
         </Affix>
-        <div>
+        <div id="navbar" className={`${styles.navbar} ${isHidden ? styles.hidden : ''}`}>
           {/* メンバーカードコンテナ */}
           <MemberList></MemberList>
         </div>
       </div>
       {/* 一覧 */}
-      <div>
+      <div style={{ marginTop:  navbarHeight ? `${navbarHeight}px` : '0' }}>
         <ChainTable />
       </div>
       {/* 検索設定 */}

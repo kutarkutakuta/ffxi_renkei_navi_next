@@ -110,7 +110,7 @@ export function MemberList() {
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={members} strategy={rectSortingStrategy}>
           <div
-            style={{ display: "flex", flexWrap: "wrap", touchAction: "none" }}
+            style={{ display: "flex", flexWrap: "wrap", touchAction: "none", paddingLeft:"5px" }}
           >
             {members.map((item) => (
               <MemberCard

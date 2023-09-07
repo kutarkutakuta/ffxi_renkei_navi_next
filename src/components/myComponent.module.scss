@@ -1,0 +1,15 @@
+/* styles.css */
+.navbar {
+    position: fixed;
+    top: 50;
+    left: 0;
+    right: 0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1; /* 最初は表示 */
+    z-index: 1;
+  }
+  
+  .navbar.hidden {
+    opacity: 0; /* スクロール時に非表示に */
+  }
