@@ -1,6 +1,6 @@
 // useCustomForm.ts
 import useMasterStore from "@/stores/useMasterStore";
-import useMembersStore, { Member } from "@/stores/useMembersStore";
+import useMemberStore, { Member } from "@/stores/useMemberStore";
 import { Wepon } from "@/types/Master/wepon";
 import { useState, ChangeEvent, FormEvent } from "react";
 
@@ -19,7 +19,7 @@ interface FormData {
 export function useMemberSetting() {
 
   // メンバ操作用フック
-  const { members, updateMember } = useMembersStore();
+  const { members, updateMember } = useMemberStore();
   // マスタ取得用フック
   const { wepons, jobWepons } = useMasterStore();
   // フォーム値保存用フック
