@@ -1,15 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { MouseEvent, KeyboardEvent } from "react";
+import type { KeyboardEvent, PointerEvent } from "react";
 
 import {
   DndContext,
-  MouseSensor as LibMouseSensor,
+  PointerSensor as LibPointerSensor,
   KeyboardSensor as LibKeyboardSensor,
   useSensor,
   useSensors,
-  PointerSensor,
 } from "@dnd-kit/core";
-import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/useMembersStore";
@@ -30,12 +34,11 @@ function shouldHandleEvent(element: HTMLElement | null) {
   return true;
 }
 
-// LibMouseSensor を override してドラッグ無効にする
-class MouseSensor extends LibMouseSensor {
+class PointerSensor extends LibPointerSensor {
   static activators = [
     {
-      eventName: "onMouseDown" as const,
-      handler: ({ nativeEvent: event }: MouseEvent): boolean => {
+      eventName: "onPointerDown" as const,
+      handler: ({ nativeEvent: event }: PointerEvent): boolean => {
         return shouldHandleEvent(event.target as HTMLElement);
       },
     },
@@ -61,14 +64,14 @@ class KeyboardSensor extends LibKeyboardSensor {
  * @returns
  */
 export function MemberList() {
-
   // useSensor と useSensors を使って上書きした Sensor を DndContext に紐付ける
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    }));
-  
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   const { members, sortMember } = useMembersStore();
 
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
@@ -106,7 +109,9 @@ export function MemberList() {
     <>
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={members} strategy={rectSortingStrategy}>
-          <div style={{ display: "flex", flexWrap: "wrap",touchAction: "none" }}>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", touchAction: "none" }}
+          >
             {members.map((item) => (
               <MemberCard
                 key={item.id}
@@ -117,7 +122,10 @@ export function MemberList() {
           </div>
         </SortableContext>
       </DndContext>
-      <MemberSetting member={selectedMember!} onClose={handleSettingClose}></MemberSetting>
+      <MemberSetting
+        member={selectedMember!}
+        onClose={handleSettingClose}
+      ></MemberSetting>
     </>
   );
 }
