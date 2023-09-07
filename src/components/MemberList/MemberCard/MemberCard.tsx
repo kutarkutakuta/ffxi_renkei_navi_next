@@ -28,7 +28,7 @@ export function MemberCard({ member, onSetting }: MemberCardProps) {
     // スタイル調整用
     margin: 4,
     padding: 2,
-    borderRadius: 4,
+    borderRadius: 5,
     cursor: "grab",
   };
 
@@ -72,10 +72,12 @@ export function MemberCard({ member, onSetting }: MemberCardProps) {
       }
       
 
-      <div style={{ fontWeight: "bold" }}>
+      <div className={styles.job}>
         {member.Job}
       </div>
-      <div>{member.Wepons.map(n=>n.name).join(" / ")}</div>
+      <div className={styles.wepons}>
+        {member.Wepons.map(n=>n.name).join(" / ")}
+      </div>
 
     </div>
   );

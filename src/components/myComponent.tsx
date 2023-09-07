@@ -21,9 +21,9 @@ import {
 } from "@ant-design/icons";
 
 import { ColumnsType, TableRowSelection } from "antd/es/table/interface";
-import { MemberCardContainer } from "./MemberList/MemberList";
-import { MemberSetting } from "./MemberList/MemberSetting/MemberSetting";
+import { MemberList } from "./MemberList/MemberList";
 import useMasterStore from "@/stores/useMasterStore";
+import useMembersStore from "@/stores/useMembersStore";
 
 const headerStyle: React.CSSProperties = {
   position: "absolute",
@@ -65,6 +65,11 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
+/**
+ * MyComponent
+ * @param props 
+ * @returns 
+ */
 const MyComponent = (props: { message: string }) => {
 
     // マスター取得
@@ -134,13 +139,8 @@ const MyComponent = (props: { message: string }) => {
     setOpenHelp(false);
   };
 
-  // メンバカードに渡す用
-  const [clickCount, setButtonClick] = useState(0);
-  const handleButtonClick = () => {
-    setButtonClick(clickCount + 1);
-  };
-
   //
+  const { addMember} = useMembersStore();
 
   return (
     <>
@@ -149,7 +149,7 @@ const MyComponent = (props: { message: string }) => {
         <Affix offsetTop={10} style={headerStyle}>
           <Row>
             <Col flex="none">
-              <Button icon={<UserAddOutlined />} onClick={handleButtonClick} />
+              <Button icon={<UserAddOutlined />} onClick={()=>addMember()} />
             </Col>
             <Col flex="auto">
               <Row justify="end">
@@ -169,7 +169,7 @@ const MyComponent = (props: { message: string }) => {
         </Affix>
         <div>
           {/* メンバーカードコンテナ */}
-          <MemberCardContainer clickCount={clickCount}></MemberCardContainer>
+          <MemberList></MemberList>
         </div>
       </div>
       {/* 一覧 */}

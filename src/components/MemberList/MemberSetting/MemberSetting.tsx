@@ -21,7 +21,6 @@ import { useMemberSetting } from "./useMemberSetting";
 
 interface MemberSettingProps {
   member: Member;
-  onUpdate: (member: Member) => void;
   onClose: () => void;
 }
 
@@ -82,7 +81,7 @@ const treeData = [
   },
 ];
 
-export function MemberSetting({member, onUpdate, onClose}: MemberSettingProps) {
+export function MemberSetting({member, onClose}: MemberSettingProps) {
   
   // マスタ取得
   const { jobs, wepons, weponTypes, wSTypes } = useMasterStore();

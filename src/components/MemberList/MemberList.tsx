@@ -7,16 +7,13 @@ import {
   KeyboardSensor as LibKeyboardSensor,
   useSensor,
   useSensors,
+  PointerSensor,
 } from "@dnd-kit/core";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/useMembersStore";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
-
-type ChildComponentProps = {
-  clickCount: number;
-};
 
 // #region dnd-kit用の制御
 // data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
@@ -59,36 +56,28 @@ class KeyboardSensor extends LibKeyboardSensor {
 // #endregion
 
 /**
- * MemberCardContainer
+ * MemberList
  * @param _props
  * @returns
  */
-export function MemberCardContainer({ clickCount }: ChildComponentProps) {
+export function MemberList() {
 
   // useSensor と useSensors を使って上書きした Sensor を DndContext に紐付ける
-  const mouseSensor = useSensor(MouseSensor);
-  const keyboardSensor = useSensor(KeyboardSensor);
-  const sensors = useSensors(mouseSensor, keyboardSensor);
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    }));
   
-  const { members, addMember, updateMember, sortMember } = useMembersStore();
+  const { members, sortMember } = useMembersStore();
 
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
-
-  // 親のイベントを検知してメンバーを追加
-  useEffect(() => {
-    if (clickCount > 0) {
-      addMember();
-    }
-  }, [clickCount]);
 
   const handleSetting = (member: Member) => {
     setSelectedMember(member);
   };
   const handleSettingClose = () => {
     setSelectedMember(null);
-  };
-  const handleUpdate = (member: Member) => {
-    updateMember(member);
   };
 
   const handleDragEnd = useCallback(
@@ -116,8 +105,8 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
   return (
     <>
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-        <SortableContext items={members}>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <SortableContext items={members} strategy={rectSortingStrategy}>
+          <div style={{ display: "flex", flexWrap: "wrap",touchAction: "none" }}>
             {members.map((item) => (
               <MemberCard
                 key={item.id}
@@ -128,7 +117,7 @@ export function MemberCardContainer({ clickCount }: ChildComponentProps) {
           </div>
         </SortableContext>
       </DndContext>
-      <MemberSetting member={selectedMember!} onUpdate={handleUpdate} onClose={handleSettingClose}></MemberSetting>
+      <MemberSetting member={selectedMember!} onClose={handleSettingClose}></MemberSetting>
     </>
   );
 }
