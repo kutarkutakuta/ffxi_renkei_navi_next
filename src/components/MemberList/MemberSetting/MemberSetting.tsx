@@ -23,18 +23,16 @@ import styles from './MemberSetting.module.scss'
 
 export function MemberSetting() {
   // マスタ取得
-  const { jobs, wepons, weponTypes, wSTypes } = useMasterStore();
+  const { jobs, wepons, weponTypes } = useMasterStore();
   // フォーム値保存用
   const { formData, initialFormData, handleChange } = useMemberSetting();
 
   // メニュー制御用フック
-  const { isMemberSetting, openMember, closeMemberSetting } = useMenuStore();
+  const { openMember, closeMemberSetting } = useMenuStore();
 
   // 親のイベントを検知してオープン
   useEffect(() => {
-    if (openMember) {
-      initialFormData(openMember);
-    }
+    initialFormData(openMember);
   }, [openMember]);
 
   const getWeponOption = wepons
@@ -80,7 +78,7 @@ export function MemberSetting() {
         placement={"left"}
         width={380}
         className={styles.drawer}
-        open={isMemberSetting}
+        open={openMember != null}
         onClose={closeMemberSetting}
         data-dndkit-disabled-dnd-flag="true"
       >

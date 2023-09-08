@@ -32,26 +32,33 @@ export function useMemberSetting() {
    * フォーム値初期化
    * @param member 
    */
-  const initialFormData = (member: Member) =>{
-    formData.Job = member.Job!;
+  const initialFormData = (member: Member | null) =>{
 
-    // 武器を復元
-    let formWepons: {label: string, value: string}[] = [];
-    member.Wepons.forEach(m => {
-        if(m.group == "武器種"){
-            if(m.weponTypes && m.weponTypes.length > 0){
-                m.weponTypes.forEach(n=>{
-                    formWepons.push({label:`${m.name}(${n})`, value:`${m.name}-${n}`});
-                });
-            }
-            else{
-                formWepons.push({label:m.name, value:m.name});
-            }
-        }
-    });
-    formData.Wepons = formWepons;
+    const newformData: FormData= {
+      Job: "",
+      Wepons: [],
+    }
 
-    setFormData(formData);
+    if(member){
+      newformData.Job = member.Job!;
+      // 武器を復元
+      let formWepons: {label: string, value: string}[] = [];
+      member.Wepons.forEach(m => {
+          if(m.group == "武器種"){
+              if(m.weponTypes && m.weponTypes.length > 0){
+                  m.weponTypes.forEach(n=>{
+                      formWepons.push({label:`${m.name}(${n})`, value:`${m.name}-${n}`});
+                  });
+              }
+              else{
+                  formWepons.push({label:m.name, value:m.name});
+              }
+          }
+      });
+      newformData.Wepons = formWepons;
+    }
+    
+    setFormData(newformData);
   }
 
   /**
