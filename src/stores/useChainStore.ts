@@ -35,6 +35,7 @@ type ChainState = {
   chains: Chain[];
   loading: boolean;
   error: Error | null;
+  total: number;
   setChainParam: (chainParam: ChainParam)=> Promise<void>;
   setViewParam: (viewParam: ViewParam)=> Promise<void>;
   /**
@@ -66,6 +67,7 @@ const useChainStore = create<ChainState>((set) => ({
   chains: [],
   loading: false,
   error: null,
+  total: 0,
   setChainParam: async (chainParam: ChainParam) => set({ chainParam }),
   setViewParam: async (viewParam: ViewParam) => set({ viewParam }),
   fetchData: async (members: Member[]) => {
@@ -181,10 +183,10 @@ const useChainStore = create<ChainState>((set) => ({
     if(memberCount > 1){
       const queryData = await fn();
       // return [queryData.data as Chain[], queryData.count!];
-      set({ chains: queryData.data });
+      set({ chains: queryData.data, total: queryData.count! });
     }
     else{
-      set({ chains: [] });
+      set({ chains: [], total:0 });
     }
 
       set({ loading: false });

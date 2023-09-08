@@ -1,6 +1,6 @@
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
-import MyLayout from "../components/myLayout";
+import MyLayout from "../components/MyLayout";
 import { ConfigProvider } from "antd";
 import theme from "./themeConfig";
 
