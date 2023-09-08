@@ -72,7 +72,7 @@ export function MemberSetting() {
         title={
           <>
             <ToolOutlined />
-            <span style={{ paddingLeft: 4 }}>メンバ設定</span>
+            <span style={{ paddingLeft: 4 }}>連携メンバーの設定</span>
           </>
         }
         placement={"left"}
@@ -89,6 +89,7 @@ export function MemberSetting() {
             style={{ width: 120 }}
             options={jobs.map((m) => ({ value: m.name, label: m.name }))}
             value={formData.Job}
+            listHeight={400}
             onChange={(value) => handleChange("Job", value, openMember!)}
           />
           <TreeSelect
@@ -96,6 +97,7 @@ export function MemberSetting() {
             placeholder="武器"
             treeData={getWeponOption}
             value={formData.Wepons}
+            listHeight={400}
             onChange={(value) => handleChange("Wepons", value, openMember!)}
           />
           <TreeSelect {...tProps} placeholder="震天動地" />

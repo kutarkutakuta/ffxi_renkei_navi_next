@@ -46,7 +46,7 @@ export function MyHeader() {
       label: (
         <div>
           <UserAddOutlined />
-          <span style={{ paddingLeft: 4 }}>メンバの追加</span>
+          <span style={{ paddingLeft: 4 }}>連携メンバーの追加</span>
         </div>
       ),
       disabled: members.length >= 5,
