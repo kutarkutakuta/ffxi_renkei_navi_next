@@ -205,7 +205,7 @@ export function ChainTable() {
         pagination={{ 
           position: ["topLeft"], pageSize: 50, current: pageIndex, total:total,
           showSizeChanger: false,
-          showTotal: (total) => `Total ${total} items`,
+          showTotal: (total) => `　Total ${total} items`,
           onChange: onChangePage,
         }}
       />
