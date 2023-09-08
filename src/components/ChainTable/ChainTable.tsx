@@ -1,11 +1,11 @@
+
+import { useEffect } from "react";
+import { Table, Tag } from "antd";
+import { ColumnsType } from "antd/es/table";
 import useChainStore from "@/stores/useChainStore";
 import useMasterStore from "@/stores/useMasterStore";
 import useMemberStore from "@/stores/useMemberStore";
 import { Chain } from "@/types/chain";
-import { Button, Table, Tag } from "antd";
-import { ColumnsType } from "antd/es/table";
-import { useEffect, useState } from "react";
-
 import styles from './ChainTable.module.scss'
 
 export function ChainTable() {
@@ -19,10 +19,6 @@ export function ChainTable() {
   useEffect(() => {
     fetchData(members);
   }, [members]);
-
-  useEffect(() => {
-    // TODO:表示更新
-  }, [viewParam]);
 
   const columns: ColumnsType<Chain> = [
     {
@@ -170,7 +166,7 @@ export function ChainTable() {
     }
     return (
       <>
-        <a className={styles.wsName}>{wsName}</a>
+        <a>{wsName}</a>
         {am && <Tag bordered={false} color="volcano">アフマス</Tag>}
         {wsType && <Tag bordered={false} color="cyan">{wsType}</Tag>}
         {jobs && <Tag bordered={false} color="lime">{jobs}</Tag>}

@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { ConfigProvider, Layout, ThemeConfig ,theme } from "antd";
-const { Header, Footer, Content } = Layout;
 
 import { MyHeader } from "./MyHeader";
 

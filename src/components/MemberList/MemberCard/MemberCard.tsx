@@ -10,6 +10,7 @@ import {
 import styles from "./MemberCard.module.scss";
 import useMembersStore, { Member } from "@/stores/useMemberStore";
 import useMenuStore from "@/stores/useMenuStore";
+import useMasterStore from "@/stores/useMasterStore";
 
 interface MemberCardProps {
   member: Member;
@@ -33,6 +34,8 @@ export function MemberCard({ member }: MemberCardProps) {
   const { openMemberSetting } = useMenuStore();
   // メンバ操作用Hook
   const { members, addMember, removeMember } = useMembersStore();
+  // マスタ取得
+  const { weponTypes } = useMasterStore();
 
   const handleCopy = (member: Member) => {
     addMember(member);
@@ -92,9 +95,19 @@ export function MemberCard({ member }: MemberCardProps) {
         </span>
       )}
 
-      <div className={styles.job}>{member.Job}</div>
+      <div className={styles.job}>{ member.Job}</div>
       <div className={styles.wepons}>
-        {member.Wepons.map((n) => n.name).join(" / ")}
+        {member.Wepons.map((m) => {
+          if(m.name == "フェイス") {
+            return weponTypes.filter(n=> m.weponTypes.includes(n.name)).map(n=> n.short_name).join();
+          }
+          else{
+            let ret = m.name;
+            ret += m.weponTypes.length > 0 ? " [" + weponTypes.filter(n=> m.weponTypes.includes(n.name)).map(n=> n.short_name).join() + "]" : "";
+            ret += m.outWSTypes.length > 0 ? " (" + m.outWSTypes.join() + "除く)" : "";
+            return ret
+          }
+        }).join(" / ")}
       </div>
     </div>
   );
