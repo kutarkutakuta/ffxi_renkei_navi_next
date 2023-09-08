@@ -5,6 +5,8 @@ const { Header, Footer, Content } = Layout;
 
 import { MyHeader } from "./MyHeader";
 
+const { useToken } = theme;
+
 const darkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
@@ -14,13 +16,11 @@ const darkTheme: ThemeConfig = {
 
 const headerStyle: React.CSSProperties = {
   textAlign: "center",
-  color: "#fff",
   width: "100%",
   position: "fixed",
   top: 0,
   left: 0,
   zIndex: 1,
-  backgroundColor: "#191c1d",
   paddingLeft: 15,
   paddingRight: 15,
 };
@@ -29,7 +29,6 @@ const contentStyle: React.CSSProperties = {
   textAlign: "left",
   marginTop: 60,
   padding: 10,
-  color: "#fff",
 };
 
 const footerStyle: React.CSSProperties = {
@@ -40,6 +39,9 @@ const footerStyle: React.CSSProperties = {
 type Props = { children: ReactNode };
 
 const MyLayout = ({ children }: Props) => {
+  
+  const { token } = useToken();
+
   return (
     <ConfigProvider theme={darkTheme}>
       <Layout style={{ minHeight: "100vh", overflow: "auto" }}>
