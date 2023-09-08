@@ -108,4 +108,13 @@ a {
   }
 }
 
+
 .ant-table table { font-size: 12px; }
+/* row data */
+.ant-table-tbody > tr > td {
+  height: 55px;
+}
+/* row tags */
+.ant-tag {
+  font-size: 10px;
+}

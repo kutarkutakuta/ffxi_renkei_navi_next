@@ -8,6 +8,7 @@ import {
 import {
   ToolOutlined,
   UsergroupAddOutlined,
+  CopyOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
 import styles from './MemberCard.module.scss';
@@ -59,7 +60,7 @@ export function MemberCard({ member }: MemberCardProps) {
         <Col flex="auto">
           <Row justify="end">
             <Col>
-              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<UsergroupAddOutlined />} onClick={()=> handleCopy(member)}></Button>
+              <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CopyOutlined />} onClick={()=> handleCopy(member)}></Button>
               <Button data-dndkit-disabled-dnd-flag="true" type="text" icon={<CloseOutlined />} onClick={()=>handleRemove(member)}/>
             </Col>
           </Row>

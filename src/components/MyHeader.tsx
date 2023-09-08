@@ -1,10 +1,21 @@
 import useMenuStore from "@/stores/useMenuStore";
-import { Button, Layout, Image, Row, Col, Space, Drawer } from "antd";
+import {
+  Button,
+  Layout,
+  Image,
+  Row,
+  Col,
+  Space,
+  Drawer,
+  Dropdown,
+  MenuProps,
+} from "antd";
 const { Header } = Layout;
 import {
   UserAddOutlined,
   SettingOutlined,
   QuestionCircleOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import useMemberStore from "@/stores/useMemberStore";
 import { useEffect, useRef, useState } from "react";
@@ -24,19 +35,46 @@ const headerStyle: React.CSSProperties = {
 
 export function MyHeader() {
   // メニュー制御用フック
-  const { isHelp, openHelp, closeHelp, openSearchSetting, openMemberSetting } = useMenuStore();
+  const { isHelp, openHelp, closeHelp, openSearchSetting, openMemberSetting } =
+    useMenuStore();
   const { members, addMember } = useMemberStore();
-  
-  // メンバを監視して一人目だったらメンバー設定を開く
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <div onClick={() => addMember()}>
+          <UserAddOutlined />
+          <span style={{ paddingLeft: 4 }}>メンバの追加</span>
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <div onClick={openSearchSetting}>
+          <SettingOutlined />
+          <span style={{ paddingLeft: 4 }}>検索設定</span>
+        </div>
+      ),
+    },
+  ];
+
+  // メンバを監視して追加が未設定ならメンバー設定を開く
   const prevCountRef = useRef(members.length);
   useEffect(() => {
-     // 変更前の値を取得
-     const prevCount = prevCountRef.current; 
-     // countの値をprevCountRefに更新
-     prevCountRef.current = members.length;
-    if(prevCount == 0 && members.length == 1) openMemberSetting(members[0]);
+    // 変更前の値を取得
+    const prevCount = prevCountRef.current;
+    // countの値をprevCountRefに更新
+    prevCountRef.current = members.length;
+    if (prevCount < members.length) {
+      const addedMenber = members[members.length-1];
+      if(!addedMenber.Job && addedMenber.Wepons.length == 0){
+        openMemberSetting(addedMenber);
+      }
+    }
   }, [members]);
-  
+
   return (
     <>
       <Header style={headerStyle}>
@@ -44,12 +82,14 @@ export function MyHeader() {
           <Col span={4}>
             <Row justify="start">
               <Col>
-                <Button icon={<UserAddOutlined />} onClick={() => addMember()} />
+                <Dropdown menu={{ items }} placement="bottomLeft">
+                  <Button icon={<MenuOutlined />}></Button>
+                </Dropdown>
               </Col>
             </Row>
           </Col>
           <Col span={8}>
-          <Image
+            <Image
               height={30}
               src="images/renkei_navi_title2.png"
               preview={false}
@@ -65,10 +105,6 @@ export function MyHeader() {
                     icon={<QuestionCircleOutlined />}
                     onClick={openHelp}
                   ></Button>
-                  <Button
-                    icon={<SettingOutlined />}
-                    onClick={openSearchSetting}
-                  />
                 </Space>
               </Col>
             </Row>

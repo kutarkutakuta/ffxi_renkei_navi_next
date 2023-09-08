@@ -52,7 +52,7 @@ const useChainStore = create<ChainState>((set) => ({
   chainParam: {
     sortType: "0",
     noRange: false,
-    renkeiDamage: false,
+    renkeiDamage: true,
     lastChains: [],
     pageSize: 50,
     pageIndex: 1,

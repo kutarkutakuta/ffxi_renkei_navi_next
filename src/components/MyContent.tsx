@@ -8,6 +8,7 @@ import useMemberStore from "@/stores/useMemberStore";
 
 import styles from './MyContent.module.scss';
 import { SearchSetting } from "./SearchSetting/SearchSetting";
+import { FloatButton } from "antd";
 
 /**
  * MyContent
@@ -33,7 +34,7 @@ const MyContent = () => {
       if (window.scrollY > currentScrollY ) {
         setIsHidden(true);
       } else {
-        setIsHidden(false);
+        if(window.scrollY <= 50) setIsHidden(false);
       }
       currentScrollY = window.scrollY;
     };
@@ -70,6 +71,7 @@ const MyContent = () => {
       </div>
       {/* 検索設定 */}
       <SearchSetting></SearchSetting>
+      <FloatButton.BackTop />
     </>
   );
 };
