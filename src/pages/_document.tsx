@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleProvider, createCache, extractStyle } from '@ant-design/cssinjs';
-import Document, { Head, Html, Main, NextScript } from 'next/document';
-import type { DocumentContext } from 'next/document';
+import React from "react";
+import { StyleProvider, createCache, extractStyle } from "@ant-design/cssinjs";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import type { DocumentContext } from "next/document";
 
 const MyDocument = () => (
   <Html lang="ja">
@@ -18,11 +18,12 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   const originalRenderPage = ctx.renderPage;
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => (
-        <StyleProvider cache={cache}>
-          <App {...props} />
-        </StyleProvider>
-      ),
+      enhanceApp: (App) => (props) =>
+        (
+          <StyleProvider cache={cache}>
+            <App {...props} />
+          </StyleProvider>
+        ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);

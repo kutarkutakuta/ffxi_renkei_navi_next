@@ -40,6 +40,7 @@ export function MyHeader() {
   // メンバ制御用Hook
   const { members, addMember } = useMemberStore();
 
+  // メニュー項目
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -50,7 +51,7 @@ export function MyHeader() {
         </div>
       ),
       disabled: members.length >= 5,
-      onClick: () => addMember()
+      onClick: () => addMember(),
     },
     {
       key: "2",
@@ -71,8 +72,8 @@ export function MyHeader() {
     // countの値をprevCountRefに更新
     prevCountRef.current = members.length;
     if (prevCount < members.length) {
-      const addedMenber = members[members.length-1];
-      if(!addedMenber.Job && addedMenber.Wepons.length == 0){
+      const addedMenber = members[members.length - 1];
+      if (!addedMenber.Job && addedMenber.Wepons.length == 0) {
         openMemberSetting(addedMenber);
       }
     }
@@ -80,40 +81,38 @@ export function MyHeader() {
 
   return (
     <>
-      <Header style={headerStyle}>
-        <Row justify="space-between">
-          <Col span={4}>
-            <Row justify="start">
-              <Col>
-                <Dropdown menu={{ items }} placement="bottomLeft">
-                  <Button icon={<MenuOutlined />}></Button>
-                </Dropdown>
-              </Col>
-            </Row>
-          </Col>
-          <Col span={8}>
-            <Image
-              height={30}
-              src="images/renkei_navi_title2.png"
-              preview={false}
-              alt="FF11連携Navi"
-            />
-          </Col>
-          <Col span={4}>
-            <Row justify="end">
-              <Col>
-                <Space>
-                  <Button
-                    type="text"
-                    icon={<QuestionCircleOutlined />}
-                    onClick={openHelp}
-                  ></Button>
-                </Space>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Header>
+      <Row justify="space-between">
+        <Col span={4}>
+          <Row justify="start">
+            <Col>
+              <Dropdown menu={{ items }} placement="bottomLeft">
+                <Button icon={<MenuOutlined />}></Button>
+              </Dropdown>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={8}>
+          <Image
+            height={30}
+            src="images/renkei_navi_title2.png"
+            preview={false}
+            alt="FF11連携Navi"
+          />
+        </Col>
+        <Col span={4}>
+          <Row justify="end">
+            <Col>
+              <Space>
+                <Button
+                  type="text"
+                  icon={<QuestionCircleOutlined />}
+                  onClick={openHelp}
+                ></Button>
+              </Space>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
       {/* ヘルプ（使い方） */}
       <Drawer
         title={
