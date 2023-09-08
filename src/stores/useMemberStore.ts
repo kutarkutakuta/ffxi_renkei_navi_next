@@ -18,6 +18,9 @@ interface MemberState {
   sortMember: (odlIndex: number, newIndex: number) => void;
 }
 
+/**
+ * メンバ操作用Hook
+ */
 const useMemberStore = create<MemberState>((set) => ({
   members: [],
   addMember: (copyMember) => {

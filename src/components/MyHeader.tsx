@@ -37,17 +37,20 @@ export function MyHeader() {
   // メニュー制御用フック
   const { isHelp, openHelp, closeHelp, openSearchSetting, openMemberSetting } =
     useMenuStore();
+  // メンバ制御用Hook
   const { members, addMember } = useMemberStore();
 
   const items: MenuProps["items"] = [
     {
       key: "1",
       label: (
-        <div onClick={() => addMember()}>
+        <div>
           <UserAddOutlined />
           <span style={{ paddingLeft: 4 }}>メンバの追加</span>
         </div>
       ),
+      disabled: members.length >= 5,
+      onClick: () => addMember()
     },
     {
       key: "2",

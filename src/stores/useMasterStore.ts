@@ -21,6 +21,9 @@ type MasterState = {
   fetchData: () => Promise<void>;
 };
 
+/**
+ * マスタ取得用Hook
+ */
 const useMasterStore = create<MasterState>((set) => ({
   jobs: [],
   wepons: [],

@@ -13,7 +13,6 @@ import { SettingOutlined } from "@ant-design/icons";
 import styles from "./SearchSetting.module.scss";
 import useChainStore from "@/stores/useChainStore";
 import useMemberStore from "@/stores/useMemberStore";
-import { useEffect } from "react";
 import useMasterStore from "@/stores/useMasterStore";
 
 export function SearchSetting() {
@@ -24,8 +23,7 @@ export function SearchSetting() {
     useChainStore();
   // メンバ操作用Hook
   const { members } = useMemberStore();
-
-  // マスタ取得
+  // マスタ取得Hook
   const { renkeis } = useMasterStore();
 
   const onChangeSortType = (e: RadioChangeEvent) => {
@@ -127,6 +125,7 @@ export function SearchSetting() {
               .filter((m) => m.level == 3)
               .map((m) => (
                 <Checkbox
+                  key ={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
                   style={{
                     borderBottomWidth: 4,
@@ -144,6 +143,7 @@ export function SearchSetting() {
               .filter((m) => m.level == 2)
               .map((m) => (
                 <Checkbox
+                key ={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
                   style={{
                     borderBottomWidth: 4,
@@ -161,6 +161,7 @@ export function SearchSetting() {
               .filter((m) => m.level == 1)
               .map((m) => (
                 <Checkbox
+                key ={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
