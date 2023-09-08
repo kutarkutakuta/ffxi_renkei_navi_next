@@ -186,7 +186,8 @@ export function ChainTable() {
     const ret = renkeis.find((n) => n.name == renkei);
     if (ret && ret.color) {
       return {
-        style: { background: ret.color, color: "#222", opacity: 0.7 },
+        className: "renkei",
+        style: { background: ret.color },
       };
     }
   };

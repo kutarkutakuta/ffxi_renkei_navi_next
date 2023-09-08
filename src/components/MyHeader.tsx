@@ -18,20 +18,8 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 import useMemberStore from "@/stores/useMemberStore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-const headerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  width: "100%",
-  position: "fixed",
-  top: 0,
-  left: 0,
-  zIndex: 1,
-  backgroundColor: "#191c1d",
-  paddingLeft: 15,
-  paddingRight: 15,
-};
 
 export function MyHeader() {
   // メニュー制御用フック
