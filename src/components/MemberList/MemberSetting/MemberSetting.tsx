@@ -104,7 +104,7 @@ export function MemberSetting() {
           <TreeSelect {...tProps} placeholder="契約の履行" />
           <TreeSelect {...tProps} placeholder="しじをさせろ" />
           <TreeSelect {...tProps} placeholder="青魔法" />
-          <Button onClick={closeMemberSetting}>☓ Close</Button>
+          {/* <Button onClick={closeMemberSetting}>☓ Close</Button> */}
         </Space>
       </Drawer>
     </div>
