@@ -6,7 +6,8 @@ import { MyHeader } from "./MyHeader";
 
 const contentStyle: React.CSSProperties = {
   textAlign: "left",
-  marginTop: 70,
+  marginTop: 60,
+  padding:10,
   color: "#fff",
 };
 

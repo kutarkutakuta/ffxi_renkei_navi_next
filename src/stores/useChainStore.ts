@@ -12,8 +12,6 @@ export interface ChainParam {
   noRange: boolean;
   renkeiDamage: boolean;
   lastChains: string[];
-  pageSize: number;
-  pageIndex: number;
   filters: Array<{ key: string; value: string[] }>;
   outfilters: Array<{ key: string; value: string[] }>;
 }
@@ -36,6 +34,8 @@ type ChainState = {
   loading: boolean;
   error: Error | null;
   total: number;
+  pageSize: number;
+  pageIndex: number;
   setChainParam: (chainParam: ChainParam)=> Promise<void>;
   setViewParam: (viewParam: ViewParam)=> Promise<void>;
   /**
@@ -43,7 +43,7 @@ type ChainState = {
    * @param members 
    * @returns 
    */
-  fetchData: (members: Member[]) => Promise<void>;
+  fetchData: (members: Member[], pageIndex?: number) => Promise<void>;
 };
 
 /**
@@ -55,8 +55,6 @@ const useChainStore = create<ChainState>((set) => ({
     noRange: false,
     renkeiDamage: true,
     lastChains: [],
-    pageSize: 50,
-    pageIndex: 1,
     filters:[],
     outfilters:[],
   },
@@ -68,11 +66,13 @@ const useChainStore = create<ChainState>((set) => ({
   loading: false,
   error: null,
   total: 0,
+  pageSize: 50,
+  pageIndex: 1,
   setChainParam: async (chainParam: ChainParam) => set({ chainParam }),
   setViewParam: async (viewParam: ViewParam) => set({ viewParam }),
-  fetchData: async (members: Member[]) => {
+  fetchData: async (members: Member[], pageIndex:number = 1) => {
     
-    const { chainParam } = useChainStore.getState();
+    const { chainParam, pageSize } = useChainStore.getState();
     set({ loading: true, error: null });
     try {
 
@@ -117,7 +117,7 @@ const useChainStore = create<ChainState>((set) => ({
       }
 
       var query = supabase.rpc(rpcName, params, { count: 'exact', head: false })
-          .range(chainParam.pageSize * (chainParam.pageIndex - 1), chainParam.pageSize * chainParam.pageIndex - 1);
+          .range(pageSize * (pageIndex - 1), pageSize * pageIndex - 1);
 
       if(chainParam.filters){
         chainParam.filters.forEach(f=>{
@@ -183,10 +183,10 @@ const useChainStore = create<ChainState>((set) => ({
     if(memberCount > 1){
       const queryData = await fn();
       // return [queryData.data as Chain[], queryData.count!];
-      set({ chains: queryData.data, total: queryData.count! });
+      set({ chains: queryData.data, total: queryData.count!, pageIndex: pageIndex });
     }
     else{
-      set({ chains: [], total:0 });
+      set({ chains: [], total:0, pageIndex: 1 });
     }
 
       set({ loading: false });

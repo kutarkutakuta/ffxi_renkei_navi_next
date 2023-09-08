@@ -15,7 +15,7 @@ export function ChainTable() {
   // マスタ取得用フック
   const { renkeis } = useMasterStore();
 
-  const { chains, viewParam, chainParam, loading, error, total, fetchData, setChainParam } = useChainStore();
+  const { chains, viewParam, loading, error, total,pageIndex, fetchData, setChainParam } = useChainStore();
   useEffect(() => {
     fetchData(members);
   }, [members]);
@@ -191,11 +191,8 @@ export function ChainTable() {
     }
   };
 
-  const onChangePage = (pageIndex: number, pageSize: number) => {
-    chainParam.pageIndex = pageIndex;
-    chainParam.pageSize = pageSize;
-    setChainParam(chainParam);
-    fetchData(members);
+  const onChangePage = (pageIndex: number) => {
+    fetchData(members, pageIndex);
   };
 
   return (
@@ -209,7 +206,7 @@ export function ChainTable() {
         dataSource={chains}
         loading={loading}
         pagination={{ 
-          position: ["topLeft"], pageSize: 50, current: chainParam.pageIndex, total:total,
+          position: ["topLeft"], pageSize: 50, current: pageIndex, total:total,
           showSizeChanger: false,
           showTotal: (total) => `Total ${total} items`,
           onChange: onChangePage,
