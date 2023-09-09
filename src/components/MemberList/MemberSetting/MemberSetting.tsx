@@ -64,13 +64,13 @@ export function MemberSetting() {
       };
     });
 
-    const getWeponTypeOption = (group: string) => weponTypes
+    const getWeponTypeOption = (weponName: string, group: string) => weponTypes
       .filter((m) => m.group.startsWith(group))
       .map((m) => {
         return {
           title: `${m.name}`,
-          value: `${m.name}`,
-          key: `${m.name}`,
+          value: `${weponName}-${m.name}`,
+          key: `${weponName}-${m.name}`,
         };
     });
 
@@ -125,17 +125,17 @@ export function MemberSetting() {
           <TreeSelect {...tProps} placeholder="アビ/魔法"
             treeData={getAviOption()}
             value={formData.Abi}
-            onChange={(value) => handleChange("アビ等", value, openMember!)}
+            onChange={(value) => handleChange("アビ魔法", value, openMember!)}
           />
             
           <TreeSelect {...tProps} placeholder="マトン"
-            treeData={getWeponTypeOption("フレーム")}
+            treeData={getWeponTypeOption("マトン", "フレーム")}
             value={formData.Maton}
             onChange={(value) => handleChange("マトン", value, openMember!)} 
           />
 
           <TreeSelect {...tProps} placeholder="フェイス"
-            treeData={getWeponTypeOption("フェイス")} 
+            treeData={getWeponTypeOption("フェイス","フェイス")} 
             value={formData.Faith}
             onChange={(value) => handleChange("フェイス", value, openMember!)} 
           />
