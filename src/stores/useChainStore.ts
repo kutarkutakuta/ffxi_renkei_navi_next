@@ -13,7 +13,7 @@ export interface ChainParam {
   noRange: boolean;
   renkeiDamage: boolean;
   lastChains: string[];
-  // filters: Record<string, FilterValue | null>;
+  chainFilters: Record<string, FilterValue | null>;
   // outfilters: Array<{ key: string; value: string[] }>;
 }
 
@@ -56,8 +56,7 @@ const useChainStore = create<ChainState>((set) => ({
     noRange: false,
     renkeiDamage: true,
     lastChains: [],
-    filters:{},
-    outfilters:[],
+    chainFilters:{},
   },
   viewParam:{
     viewOmit:false,
@@ -120,10 +119,17 @@ const useChainStore = create<ChainState>((set) => ({
       var query = supabase.rpc(rpcName, params, { count: 'exact', head: false })
           .range(pageSize * (pageIndex - 1), pageSize * pageIndex - 1);
 
+      // メンバに設定されたWSフィルタをセット
       members.forEach((m,i) =>{
         if(m.WSFilters.length > 0)
         query = query.in(`name${i+1}`, m.WSFilters);
       });
+      
+      // 検索パラメータに設定された連携属性フィルタをセット
+      for(const key in chainParam.chainFilters){
+        const value = chainParam.chainFilters[key] as [];
+        if(value && value.length > 0) query = query.in(key, value);
+      }
 
       if(chainParam.lastChains.length > 0) query = query.in(lastChainKey, chainParam.lastChains);
 

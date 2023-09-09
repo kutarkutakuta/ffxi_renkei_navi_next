@@ -21,8 +21,8 @@ export function ChainTable() {
   // 連携検索用Hook
   const {
     chains,
-    chainParam,
     viewParam,
+    chainParam,
     loading,
     error,
     total,
@@ -31,8 +31,21 @@ export function ChainTable() {
     setChainParam,
   } = useChainStore();
 
-  // 列フィルタ
-  const [columnFilters ,setColumnFilters] = useState<ColumnFilter[][]>([[], [], [], [], []]);
+  // WS列フィルタ
+  const [wsFilters, setColumnFilters] = useState<ColumnFilter[][]>([
+    [],
+    [],
+    [],
+    [],
+    [],
+  ]);
+  // 連携列フィルタ
+  const [chainFilters, setChainFilters] = useState<ColumnFilter[][]>([
+    [],
+    [],
+    [],
+    [],
+  ]);
 
   // メンバに変化があればフェッチし直し
   useEffect(() => {
@@ -55,8 +68,8 @@ export function ChainTable() {
       dataIndex: "name1",
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 1),
-      filters: columnFilters[0],
-      filteredValue : members.length > 0 ? members[0].WSFilters : null,
+      filters: wsFilters[0],
+      filteredValue: members.length > 0 ? members[0].WSFilters : null,
     },
     {
       dataIndex: "power1",
@@ -69,8 +82,8 @@ export function ChainTable() {
       dataIndex: "name2",
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 2),
-      filters: columnFilters[1],
-      filteredValue : members.length > 1 ? members[1].WSFilters : null,
+      filters: wsFilters[1],
+      filteredValue: members.length > 1 ? members[1].WSFilters : null,
     },
     {
       dataIndex: "power2",
@@ -83,14 +96,16 @@ export function ChainTable() {
       width: 30,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_first!),
+      filters: chainFilters[0],
+      filteredValue: chainParam.chainFilters["chain_first"],
     },
     {
       title: "WS3",
       dataIndex: "name3",
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 3),
-      filters: columnFilters[2],
-      filteredValue : members.length > 2 ? members[2].WSFilters : null,
+      filters: wsFilters[2],
+      filteredValue: members.length > 2 ? members[2].WSFilters : null,
     },
     {
       dataIndex: "power3",
@@ -103,14 +118,16 @@ export function ChainTable() {
       width: 30,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_second!),
+      filters: chainFilters[1],
+      filteredValue: chainParam.chainFilters["chain_second"],
     },
     {
       title: "WS4",
       dataIndex: "name4",
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 4),
-      filters: columnFilters[3],
-      filteredValue : members.length > 3 ? members[3].WSFilters : null,
+      filters: wsFilters[3],
+      filteredValue: members.length > 3 ? members[3].WSFilters : null,
     },
     {
       dataIndex: "power4",
@@ -123,14 +140,16 @@ export function ChainTable() {
       width: 30,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_third!),
+      filters: chainFilters[2],
+      filteredValue: chainParam.chainFilters["chain_third"],
     },
     {
       title: "WS5",
       dataIndex: "name5",
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 5),
-      filters: columnFilters[4],
-      filteredValue : members.length > 4 ? members[4].WSFilters : null,
+      filters: wsFilters[4],
+      filteredValue: members.length > 4 ? members[4].WSFilters : null,
     },
     {
       dataIndex: "power5",
@@ -143,6 +162,8 @@ export function ChainTable() {
       width: 30,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_fourth!),
+      filters: chainFilters[3],
+      filteredValue: chainParam.chainFilters["chain_fourth"],
     },
     {
       title: "計",
@@ -165,9 +186,9 @@ export function ChainTable() {
   /**
    * WSのElement取得
    * 既定の列定義で使用
-   * @param data 
-   * @param wsNumber 
-   * @returns 
+   * @param data
+   * @param wsNumber
+   * @returns
    */
   const getWSElement = (data: Chain, wsNumber: number): JSX.Element => {
     let wsName = "";
@@ -246,7 +267,7 @@ export function ChainTable() {
   /**
    * 列フィルタ構築
    */
-  const buildColumnFilter = ()=>{
+  const buildColumnFilter = () => {
     for (let i = 0; i < members.length; i++) {
       let wsList = weponSkills.filter(
         (ws) =>
@@ -265,21 +286,42 @@ export function ChainTable() {
           }) > -1
       );
 
-      // 重複を削除して列フィルタにセット
-      columnFilters[i] = wsList
-      .filter((ws, idx, array) => array.findIndex(m=>m.name == ws.name) === idx)
-      .sort((a,b)=> b.id - a.id)
-      .map(ws => {
-        return { text: ws.name, value: ws.name };
-      })
-      setColumnFilters(columnFilters);
+      // 重複を削除してWS列フィルタにセット
+      wsFilters[i] = wsList
+        .filter(
+          (ws, idx, array) => array.findIndex((m) => m.name == ws.name) === idx
+        )
+        .sort((a, b) => b.id - a.id)
+        .map((ws) => {
+          return { text: ws.name, value: ws.name };
+        });
+      setColumnFilters(wsFilters);
 
+      // 連携列にフィルタセット
+      chainFilters[i] = renkeis.map((m) => ({ text: m.name, value: m.name }));
+      setChainFilters(chainFilters);
+
+      // メンバが減って非表示になった連携属性フィルタはクリア
+      if(members.length < 5 && chainParam.chainFilters["chain_fourth"]){
+        delete chainParam.chainFilters["chain_fourth"];
+      }
+      if(members.length < 4 && chainParam.chainFilters["chain_third"]){
+        delete chainParam.chainFilters["chain_third"];
+      }
+      if(members.length < 3 && chainParam.chainFilters["chain_second"]){
+        delete chainParam.chainFilters["chain_second"];
+      }
+      if(members.length < 2 && chainParam.chainFilters["chain_first"]){
+        delete chainParam.chainFilters["chain_first"];
+      }
+
+      setChainParam(chainParam);
     }
-  }
+  };
 
   /**
    * ページ遷移時のイベントハンドラ
-   * @param pageIndex 
+   * @param pageIndex
    */
   const handleChangePage = (pageIndex: number) => {
     fetchData(members, pageIndex);
@@ -287,25 +329,43 @@ export function ChainTable() {
 
   /**
    * フィルタ変更時のイベントハンドラ
-   * @param filters 
+   * @param filters
    */
   const handleChangeFilter = (filters: Record<string, FilterValue | null>) => {
     // TODO:updateFiltersでメンバー変わるのにuseEffectで検知されないのでfetchDataを呼んでいる
     // 配列内を変更しても変更とみなれない？
     updateFilters(filters);
+
+    // 連携属性
+    const filteredRecord = Object.keys(filters).filter(key => key.startsWith("chain"))
+    .reduce((obj: Record<string, FilterValue | null>, key: string) => {
+      obj[key] = filters[key];
+      return obj;
+    }, {});
+    chainParam.chainFilters = filteredRecord;
+    setChainParam(chainParam);
+
     fetchData(members);
     buildColumnFilter();
   };
 
   return (
-    <div style={{width: filterdColumns.length > 0 ? filterdColumns.map(m=>m.width as number).reduce((a,b) => a + b) : "100%" }}>
+    <div
+      style={{
+        width:
+          filterdColumns.length > 0
+            ? filterdColumns
+                .map((m) => m.width as number)
+                .reduce((a, b) => a + b)
+            : "100%",
+      }}
+    >
       <Table
         size="small"
         bordered
         tableLayout="fixed"
         rowKey="id"
         columns={filterdColumns}
-        
         dataSource={chains}
         loading={loading}
         pagination={{
@@ -316,9 +376,10 @@ export function ChainTable() {
           showSizeChanger: false,
           showTotal: (total) => `　Total ${total} items`,
         }}
-        onChange={(pagination,filters,_soter,extra) =>{
-          if(extra.action == "filter") handleChangeFilter(filters);
-          else if(extra.action == "paginate") handleChangePage(pagination.current || 1)
+        onChange={(pagination, filters, _soter, extra) => {
+          if (extra.action == "filter") handleChangeFilter(filters);
+          else if (extra.action == "paginate")
+            handleChangePage(pagination.current || 1);
         }}
       />
     </div>
