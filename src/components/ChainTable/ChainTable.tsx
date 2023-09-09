@@ -298,7 +298,7 @@ export function ChainTable() {
   };
 
   return (
-    <div style={{width: filterdColumns.map(m=>m.width as number).reduce((a,b) => a + b) }}>
+    <div style={{width: filterdColumns.length > 0 ? filterdColumns.map(m=>m.width as number).reduce((a,b) => a + b) : "100%" }}>
       <Table
         size="small"
         bordered
