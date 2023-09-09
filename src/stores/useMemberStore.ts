@@ -1,7 +1,6 @@
-import { create, useStore } from "zustand";
+import { create } from "zustand";
 import { Wepon } from "../types/Master/wepon";
 import { arrayMove } from "@dnd-kit/sortable";
-import useMenuStore from "./useMenuStore";
 import { FilterValue } from "antd/es/table/interface";
 
 export interface Member {
@@ -64,9 +63,12 @@ const useMemberStore = create<MemberState>((set) => ({
       // フィルタ選択値を保持
       for (const key in filters) {
         const value = filters[key]!;
+        const idx = Number.parseInt(key.replace("name", "")) - 1;
         if (value && value.length > 0) {
-          const idx = Number.parseInt(key.replace("name", "")) - 1;
           state.members[idx].WSFilters = value as [];
+        }
+        else{
+          state.members[idx].WSFilters = [];
         }
       }
       return { members: state.members };

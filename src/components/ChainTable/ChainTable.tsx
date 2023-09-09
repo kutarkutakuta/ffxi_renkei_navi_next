@@ -268,9 +268,10 @@ export function ChainTable() {
       // 重複を削除して列フィルタにセット
       columnFilters[i] = wsList
       .filter((ws, idx, array) => array.findIndex(m=>m.name == ws.name) === idx)
+      .sort((a,b)=> b.id - a.id)
       .map(ws => {
         return { text: ws.name, value: ws.name };
-      });
+      })
       setColumnFilters(columnFilters);
 
     }
@@ -289,27 +290,11 @@ export function ChainTable() {
    * @param filters 
    */
   const handleChangeFilter = (filters: Record<string, FilterValue | null>) => {
-
+    // TODO:updateFiltersでメンバー変わるのにuseEffectで検知されないのでfetchDataを呼んでいる
+    // 配列内を変更しても変更とみなれない？
     updateFilters(filters);
     fetchData(members);
     buildColumnFilter();
-
-    // // フィルタを指定してフェッチ
-    // chainParam.filters = filters;
-    // setChainParam(chainParam);
-    // // fetchData(members);
-
-    // // フィルタ選択値を保持
-    // for (const key in chainParam.filters) {
-    //   const value = chainParam.filters[key]!;
-    //   if(value && value.length > 0) {
-    //     const idx = Number.parseInt(key.replace("name","")) - 1;
-    //     members[idx].WSFilters = value as [];
-    //   }
-    // }
-
-    // setFilterdValues(filteredValues);
-    
   };
 
   return (
