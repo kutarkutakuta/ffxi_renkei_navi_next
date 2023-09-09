@@ -13,8 +13,8 @@ export interface ChainParam {
   noRange: boolean;
   renkeiDamage: boolean;
   lastChains: string[];
-  filters: Record<string, FilterValue | null>;
-  outfilters: Array<{ key: string; value: string[] }>;
+  // filters: Record<string, FilterValue | null>;
+  // outfilters: Array<{ key: string; value: string[] }>;
 }
 
 /**
@@ -120,18 +120,10 @@ const useChainStore = create<ChainState>((set) => ({
       var query = supabase.rpc(rpcName, params, { count: 'exact', head: false })
           .range(pageSize * (pageIndex - 1), pageSize * pageIndex - 1);
 
-      if(chainParam.filters){
-        for (const key in chainParam.filters) {
-          const value = chainParam.filters[key]!;
-          if(value && value.length > 0) query = query.in(key, value);
-        }
-      }
-
-      if(chainParam.outfilters){
-        chainParam.outfilters.forEach(f=>{
-          if(f.value.length > 0) query = query.not(f.key, 'in', '("' + f.value.join('","') + '")');
-        })
-      }
+      members.forEach((m,i) =>{
+        if(m.WSFilters.length > 0)
+        query = query.in(`name${i+1}`, m.WSFilters);
+      });
 
       if(chainParam.lastChains.length > 0) query = query.in(lastChainKey, chainParam.lastChains);
 

@@ -15,7 +15,7 @@ interface ColumnFilter {
 
 export function ChainTable() {
   // メンバ操作用Hook
-  const { members } = useMemberStore();
+  const { members, updateFilters } = useMemberStore();
   // マスタ取得用Hook
   const { renkeis, weponSkills } = useMasterStore();
   // 連携検索用Hook
@@ -33,15 +33,9 @@ export function ChainTable() {
 
   // 列フィルタ
   const [columnFilters ,setColumnFilters] = useState<ColumnFilter[][]>([[], [], [], [], []]);
-  const [filteredValues, setFilterdValues] = useState<string[][]>([[], [], [], [], []]);
 
   // メンバに変化があればフェッチし直し
   useEffect(() => {
-    // フィルタリセット
-    chainParam.filters = {};
-    setChainParam(chainParam);
-
-    // TODO:setChainParamのタイミング大丈夫か？
     fetchData(members);
     buildColumnFilter();
   }, [members]);
@@ -62,7 +56,7 @@ export function ChainTable() {
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 1),
       filters: columnFilters[0],
-      filteredValue : filteredValues[0],
+      filteredValue : members.length > 0 ? members[0].WSFilters : null,
     },
     {
       dataIndex: "power1",
@@ -76,7 +70,7 @@ export function ChainTable() {
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 2),
       filters: columnFilters[1],
-      filteredValue : filteredValues[1],
+      filteredValue : members.length > 1 ? members[1].WSFilters : null,
     },
     {
       dataIndex: "power2",
@@ -96,7 +90,7 @@ export function ChainTable() {
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 3),
       filters: columnFilters[2],
-      filteredValue : filteredValues[2],
+      filteredValue : members.length > 2 ? members[2].WSFilters : null,
     },
     {
       dataIndex: "power3",
@@ -116,7 +110,7 @@ export function ChainTable() {
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 4),
       filters: columnFilters[3],
-      filteredValue : filteredValues[3],
+      filteredValue : members.length > 3 ? members[3].WSFilters : null,
     },
     {
       dataIndex: "power4",
@@ -136,7 +130,7 @@ export function ChainTable() {
       width: viewParam.viewOmit ? 80 : 140,
       render: (_value: any, data: Chain) => getWSElement(data, 5),
       filters: columnFilters[4],
-      filteredValue : filteredValues[4],
+      filteredValue : members.length > 4 ? members[4].WSFilters : null,
     },
     {
       dataIndex: "power5",
@@ -279,8 +273,6 @@ export function ChainTable() {
       });
       setColumnFilters(columnFilters);
 
-      // フィルタ選択値をリセット
-      setFilterdValues([[],[],[],[],[]]);
     }
   }
 
@@ -297,20 +289,26 @@ export function ChainTable() {
    * @param filters 
    */
   const handleChangeFilter = (filters: Record<string, FilterValue | null>) => {
-    // フィルタを指定してフェッチ
-    chainParam.filters = filters;
-    setChainParam(chainParam);
-    fetchData(members);
 
-    // フィルタ選択値を保持
-    for (const key in chainParam.filters) {
-      const value = chainParam.filters[key]!;
-      if(value && value.length > 0) {
-        const idx = Number.parseInt(key.replace("name","")) - 1;
-        filteredValues[idx] = value as [];
-      }
-    }
-    setFilterdValues(filteredValues);
+    updateFilters(filters);
+    fetchData(members);
+    buildColumnFilter();
+
+    // // フィルタを指定してフェッチ
+    // chainParam.filters = filters;
+    // setChainParam(chainParam);
+    // // fetchData(members);
+
+    // // フィルタ選択値を保持
+    // for (const key in chainParam.filters) {
+    //   const value = chainParam.filters[key]!;
+    //   if(value && value.length > 0) {
+    //     const idx = Number.parseInt(key.replace("name","")) - 1;
+    //     members[idx].WSFilters = value as [];
+    //   }
+    // }
+
+    // setFilterdValues(filteredValues);
     
   };
 
