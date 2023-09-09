@@ -60,7 +60,7 @@ export function ChainTable() {
     },
     {
       dataIndex: "power1",
-      width: 35,
+      width: 40,
       align: "right",
       className: styles.power,
     },
@@ -74,7 +74,7 @@ export function ChainTable() {
     },
     {
       dataIndex: "power2",
-      width: 35,
+      width: 40,
       align: "right",
       className: styles.power,
     },
@@ -94,7 +94,7 @@ export function ChainTable() {
     },
     {
       dataIndex: "power3",
-      width: 35,
+      width: 40,
       align: "right",
       className: styles.power,
     },
@@ -114,7 +114,7 @@ export function ChainTable() {
     },
     {
       dataIndex: "power4",
-      width: 35,
+      width: 40,
       align: "right",
       className: styles.power,
     },
@@ -134,7 +134,7 @@ export function ChainTable() {
     },
     {
       dataIndex: "power5",
-      width: 35,
+      width: 40,
       align: "right",
       className: styles.power,
     },
@@ -298,13 +298,14 @@ export function ChainTable() {
   };
 
   return (
-    <>
+    <div style={{width: filterdColumns.map(m=>m.width as number).reduce((a,b) => a + b) }}>
       <Table
         size="small"
         bordered
         tableLayout="fixed"
         rowKey="id"
         columns={filterdColumns}
+        
         dataSource={chains}
         loading={loading}
         pagination={{
@@ -320,6 +321,6 @@ export function ChainTable() {
           else if(extra.action == "paginate") handleChangePage(pagination.current || 1)
         }}
       />
-    </>
+    </div>
   );
 }
