@@ -1,13 +1,13 @@
 import { Inter } from 'next/font/google'
 import MyComponent from '@/components/MyContent'
-import MyLayout from '@/components/MyLayout'
+import BaseLayout from '@/components/BaseLayout'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <MyLayout>
+    <BaseLayout>
       <MyComponent></MyComponent>
-    </MyLayout>
+    </BaseLayout>
   )
 }

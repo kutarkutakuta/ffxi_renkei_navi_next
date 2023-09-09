@@ -4,8 +4,6 @@ import { ConfigProvider, Layout, ThemeConfig ,theme } from "antd";
 
 import { MyHeader } from "./MyHeader";
 
-const { useToken } = theme;
-
 const darkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
@@ -16,10 +14,8 @@ const darkTheme: ThemeConfig = {
 
 type Props = { children: ReactNode };
 
-const MyLayout = ({ children }: Props) => {
+const BaseLayout = ({ children }: Props) => {
   
-  const { token } = useToken();
-
   return (
     <ConfigProvider theme={darkTheme}>
       <Layout style={{ minHeight: "100vh", overflow: "auto" }}>
@@ -35,4 +31,4 @@ const MyLayout = ({ children }: Props) => {
   );
 };
 
-export default MyLayout;
+export default BaseLayout;
