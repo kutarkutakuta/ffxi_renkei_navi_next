@@ -3,6 +3,7 @@ import supabase from "../lib/supabase";
 import { Chain } from "@/types/chain";
 import useMemberStore, { Member } from "./useMemberStore";
 import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
+import { FilterValue } from "antd/es/table/interface";
 
 /**
  * 連携検索用パラメータ
@@ -12,7 +13,7 @@ export interface ChainParam {
   noRange: boolean;
   renkeiDamage: boolean;
   lastChains: string[];
-  filters: Array<{ key: string; value: string[] }>;
+  filters: Record<string, FilterValue | null>;
   outfilters: Array<{ key: string; value: string[] }>;
 }
 
@@ -55,7 +56,7 @@ const useChainStore = create<ChainState>((set) => ({
     noRange: false,
     renkeiDamage: true,
     lastChains: [],
-    filters:[],
+    filters:{},
     outfilters:[],
   },
   viewParam:{
@@ -120,9 +121,10 @@ const useChainStore = create<ChainState>((set) => ({
           .range(pageSize * (pageIndex - 1), pageSize * pageIndex - 1);
 
       if(chainParam.filters){
-        chainParam.filters.forEach(f=>{
-          if(f.value.length > 0) query = query.in(f.key, f.value);
-        })
+        for (const key in chainParam.filters) {
+          const value = chainParam.filters[key]!;
+          if(value && value.length > 0) query = query.in(key, value);
+        }
       }
 
       if(chainParam.outfilters){
