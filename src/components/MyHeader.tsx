@@ -79,7 +79,7 @@ export function MyHeader() {
         <Col span={8}>
           <Image
             height={30}
-            src="images/renkei_navi_title1.png"
+            src="assets/images/logo.png"
             preview={false}
             alt="FF11連携Navi"
           />
