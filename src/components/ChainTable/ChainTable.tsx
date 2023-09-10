@@ -183,6 +183,11 @@ export function ChainTable() {
     .filter((_, idx) => idx <= 2 + (members.length - 1) * 3 || idx == 15)
     .filter((m) => viewParam.viewPower || m.className !== styles.power);
 
+  const getWikiURL = (param: string) => {
+    return "http://wiki.ffo.jp/search.cgi?CCC=%E6%84%9B&Command=Search&qf=" +
+    param + "&order=match&ffotype=title&type=title"
+  }
+  
   /**
    * WSのElement取得
    * 既定の列定義で使用
@@ -195,41 +200,49 @@ export function ChainTable() {
     let am = false;
     let wsType = "";
     let jobs = "";
+    let wikiURL = "";
+
     switch (wsNumber) {
       case 1:
         wsName = viewParam.viewOmit ? data.short_name1! : data.name1!;
         am = data.am1!;
         wsType = data.ws_type1!;
         jobs = data.jobs1!;
+        wikiURL = getWikiURL( data.name1!);
         break;
       case 2:
         wsName = viewParam.viewOmit ? data.short_name2! : data.name2!;
         am = data.am2!;
         wsType = data.ws_type2!;
         jobs = data.jobs2!;
+        wikiURL = getWikiURL( data.name2!);
         break;
       case 3:
         wsName = viewParam.viewOmit ? data.short_name3! : data.name3!;
         am = data.am3!;
         wsType = data.ws_type3!;
         jobs = data.jobs3!;
+        wikiURL = getWikiURL( data.name3!);
         break;
       case 4:
         wsName = viewParam.viewOmit ? data.short_name4! : data.name4!;
         am = data.am4!;
         wsType = data.ws_type4!;
         jobs = data.jobs4!;
+        wikiURL = getWikiURL( data.name4!);
         break;
       case 5:
         wsName = viewParam.viewOmit ? data.short_name5! : data.name5!;
         am = data.am5!;
         wsType = data.ws_type5!;
         jobs = data.jobs5!;
+        wikiURL = getWikiURL( data.name5!);
         break;
     }
     return (
       <>
-        <a>{wsName}</a>
+        <a href={wikiURL} target="_blank">
+          {wsName}</a>
         {am && (
           <Tag bordered={false} color="volcano">
             アフマス
