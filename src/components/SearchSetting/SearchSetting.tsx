@@ -75,9 +75,8 @@ export function SearchSetting() {
             <span style={{ paddingLeft: 4 }}>検索設定</span>
           </>
         }
-        placement={"right"}
+        placement={"left"}
         width={330}
-        className={styles.drawer}
         open={isSearchSetting}
         onClose={closeSearchSetting}
       >

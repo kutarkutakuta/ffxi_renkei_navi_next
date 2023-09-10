@@ -1,16 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  Drawer,
-  Space,
-  Segmented,
-  Select,
-  TreeSelect,
-} from "antd";
+import { Drawer, Space, Segmented, Select, TreeSelect } from "antd";
 import { ToolOutlined } from "@ant-design/icons";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
 import { useMemberSetting } from "./useMemberSetting";
-import styles from './MemberSetting.module.scss'
 
 export function MemberSetting() {
   // マスタ取得
@@ -26,45 +19,48 @@ export function MemberSetting() {
     initialFormData(openMember);
   }, [openMember]);
 
-  const getWeponOption = () => wepons
-    .filter((n) => n.group == "武器種")
-    .map((n) => {
-      return {
-        title: n.name,
-        value: n.name,
-        key: n.name,
-        children: weponTypes
-          .filter((m) => m.group == n.group)
-          .map((m) => {
-            return {
-              title: `${n.name}(${m.name})`,
-              value: `${n.name}-${m.name}`,
-              key: `${n.name}-${m.name}`,
-            };
-          }),
-      };
-    });
+  const getWeponOption = () =>
+    wepons
+      .filter((n) => n.group == "武器種")
+      .map((n) => {
+        return {
+          title: n.name,
+          value: n.name,
+          key: n.name,
+          children: weponTypes
+            .filter((m) => m.group == n.group)
+            .map((m) => {
+              return {
+                title: `${n.name}(${m.name})`,
+                value: `${n.name}-${m.name}`,
+                key: `${n.name}-${m.name}`,
+              };
+            }),
+        };
+      });
 
-    const getAviOption = () => wepons
-    .filter((n) => ["属性", "召喚獣", "種族", "青魔法"].includes(n.group))
-    .map((n) => {
-      return {
-        title: n.name,
-        value: n.name,
-        key: n.name,
-        children: weponTypes
-          .filter((m) => m.group.startsWith(n.group))
-          .map((m) => {
-            return {
-              title: `${n.name}(${m.name})`,
-              value: `${n.name}-${m.name}`,
-              key: `${n.name}-${m.name}`,
-            };
-          }),
-      };
-    });
+  const getAviOption = () =>
+    wepons
+      .filter((n) => ["属性", "召喚獣", "種族", "青魔法"].includes(n.group))
+      .map((n) => {
+        return {
+          title: n.name,
+          value: n.name,
+          key: n.name,
+          children: weponTypes
+            .filter((m) => m.group.startsWith(n.group))
+            .map((m) => {
+              return {
+                title: `${n.name}(${m.name})`,
+                value: `${n.name}-${m.name}`,
+                key: `${n.name}-${m.name}`,
+              };
+            }),
+        };
+      });
 
-    const getWeponTypeOption = (weponName: string, group: string) => weponTypes
+  const getWeponTypeOption = (weponName: string, group: string) =>
+    weponTypes
       .filter((m) => m.group.startsWith(group))
       .map((m) => {
         return {
@@ -72,7 +68,7 @@ export function MemberSetting() {
           value: `${weponName}-${m.name}`,
           key: `${weponName}-${m.name}`,
         };
-    });
+      });
 
   // TreeSelectの共通設定
   const tProps = {
@@ -87,62 +83,65 @@ export function MemberSetting() {
   };
 
   return (
-    <div>
-      <Drawer
-        title={
-          <>
-            <ToolOutlined />
-            <span style={{ paddingLeft: 4 }}>連携メンバーの設定</span>
-          </>
-        }
-        placement={"left"}
-        width={380}
-        className={styles.drawer}
-        open={openMember != null}
-        onClose={closeMemberSetting}
-        data-dndkit-disabled-dnd-flag="true"
-      >
-        <Space direction="vertical" style={{ width: "100%" }}>
-          <Select
-            showSearch
-            placeholder="ジョブ"
-            style={{ width: 120 }}
-            options={jobs.map((m) => ({ value: m.name, label: m.name }))}
-            value={formData.Job}
-            listHeight={400}
-            onChange={(value) => handleChange("Job", value, openMember!)}
-          />
+    <Drawer
+      title={
+        <>
+          <ToolOutlined />
+          <span style={{ paddingLeft: 4 }}>連携メンバーの設定</span>
+        </>
+      }
+      placement={"left"}
+      width={380}
+      open={openMember != null}
+      onClose={closeMemberSetting}
+      data-dndkit-disabled-dnd-flag="true"
+    >
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <Select
+          showSearch
+          placeholder="ジョブ"
+          style={{ width: 120 }}
+          options={jobs.map((m) => ({ value: m.name, label: m.name }))}
+          value={formData.Job}
+          listHeight={400}
+          onChange={(value) => handleChange("Job", value, openMember!)}
+        />
 
-          <TreeSelect
-            {...tProps}
-            placeholder="武器"
-            treeData={getWeponOption()}
-            value={formData.Wepons}
-            listHeight={400}
-            onChange={(value) => handleChange("武器種", value, openMember!)}
-          />
+        <TreeSelect
+          {...tProps}
+          placeholder="武器"
+          treeData={getWeponOption()}
+          value={formData.Wepons}
+          listHeight={400}
+          onChange={(value) => handleChange("武器種", value, openMember!)}
+        />
 
-          <TreeSelect {...tProps} placeholder="アビ/魔法"
-            treeData={getAviOption()}
-            value={formData.Abi}
-            onChange={(value) => handleChange("アビ魔法", value, openMember!)}
-          />
-            
-          <TreeSelect {...tProps} placeholder="マトン"
-            treeData={getWeponTypeOption("マトン", "フレーム")}
-            value={formData.Maton}
-            onChange={(value) => handleChange("マトン", value, openMember!)} 
-          />
+        <TreeSelect
+          {...tProps}
+          placeholder="アビ/魔法"
+          treeData={getAviOption()}
+          value={formData.Abi}
+          onChange={(value) => handleChange("アビ魔法", value, openMember!)}
+        />
 
-          <TreeSelect {...tProps} placeholder="フェイス"
-            treeData={getWeponTypeOption("フェイス","フェイス")} 
-            value={formData.Faith}
-            onChange={(value) => handleChange("フェイス", value, openMember!)} 
-          />
+        <TreeSelect
+          {...tProps}
+          placeholder="マトン"
+          treeData={getWeponTypeOption("マトン", "フレーム")}
+          value={formData.Maton}
+          onChange={(value) => handleChange("マトン", value, openMember!)}
+        />
 
-          {/* <Button onClick={closeMemberSetting}>☓ Close</Button> */}
-        </Space>
-      </Drawer>
-    </div>
+        <TreeSelect
+          {...tProps}
+          placeholder="フェイス"
+          treeData={getWeponTypeOption("フェイス", "フェイス")}
+          value={formData.Faith}
+          onChange={(value) => handleChange("フェイス", value, openMember!)}
+        />
+
+        {/* <Button onClick={closeMemberSetting}>☓ Close</Button> */}
+      </Space>
+    </Drawer>
   );
 }

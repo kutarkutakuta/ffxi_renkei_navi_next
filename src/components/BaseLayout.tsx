@@ -18,7 +18,7 @@ const BaseLayout = ({ children }: Props) => {
   
   return (
     <ConfigProvider theme={darkTheme}>
-      <Layout style={{ minHeight: "100vh", overflow: "auto" }}>
+      <Layout style={{ minHeight: "100vh", overflow: "auto"}}>
         <header>
           <MyHeader />
         </header>

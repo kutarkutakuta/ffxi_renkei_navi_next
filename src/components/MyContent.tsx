@@ -8,6 +8,7 @@ import useMemberStore from "@/stores/useMemberStore";
 import styles from './MyContent.module.scss';
 import { SearchSetting } from "./SearchSetting/SearchSetting";
 import { FloatButton } from "antd";
+import { Help } from "./Help/Help";
 
 /**
  * MyContent
@@ -70,6 +71,9 @@ const MyContent = () => {
       </div>
       {/* 検索設定 */}
       <SearchSetting></SearchSetting>
+      {/* ヘルプ */}
+      <Help></Help>
+      {/* BackTop */}
       <FloatButton.BackTop />
     </>
   );

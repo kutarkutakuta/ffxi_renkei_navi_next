@@ -184,6 +184,7 @@ const useChainStore = create<ChainState>((set) => ({
       const queryData = await fn();
       // return [queryData.data as Chain[], queryData.count!];
       set({ chains: queryData.data, total: queryData.count!, pageIndex: pageIndex });
+      console.debug(`検索結果件数:${queryData.count!}`);
     }
     else{
       set({ chains: [], total:0, pageIndex: 1 });

@@ -1,16 +1,13 @@
 import useMenuStore from "@/stores/useMenuStore";
 import {
   Button,
-  Layout,
   Image,
   Row,
   Col,
   Space,
-  Drawer,
   Dropdown,
   MenuProps,
 } from "antd";
-const { Header } = Layout;
 import {
   UserAddOutlined,
   SettingOutlined,
@@ -69,7 +66,7 @@ export function MyHeader() {
 
   return (
     <>
-      <Row justify="space-between">
+      <Row justify="space-between"  style={{paddingTop:2}}>
         <Col span={4}>
           <Row justify="start">
             <Col>
@@ -101,19 +98,6 @@ export function MyHeader() {
           </Row>
         </Col>
       </Row>
-      {/* ヘルプ（使い方） */}
-      <Drawer
-        title={
-          <>
-            <QuestionCircleOutlined />
-            <span style={{ paddingLeft: 4 }}>ヘルプ（使い方）</span>
-          </>
-        }
-        placement={"right"}
-        width={380}
-        open={isHelp}
-        onClose={closeHelp}
-      ></Drawer>
     </>
   );
 }

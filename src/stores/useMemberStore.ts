@@ -63,7 +63,7 @@ const useMemberStore = create<MemberState>((set) => ({
       // フィルタ選択値を保持
       for (const key in filters) {
         const value = filters[key]!;
-        const idx = key.search("name") ? Number.parseInt(key.replace("name", "")) - 1 : -1;
+        const idx = key.startsWith("name") ? Number.parseInt(key.replace("name", "")) - 1 : -1;
         if(idx > -1){
           if (value && value.length > 0) {
             state.members[idx].WSFilters = value as [];
