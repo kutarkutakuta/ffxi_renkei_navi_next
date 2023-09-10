@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Drawer, Space, Segmented, Select, TreeSelect } from "antd";
+import { Drawer, Space, Segmented, Select, TreeSelect, } from "antd";
 import { ToolOutlined } from "@ant-design/icons";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
@@ -75,7 +75,7 @@ export function MemberSetting() {
     allowClear: true,
     showSearch: true,
     treeCheckable: true,
-    showCheckedStrategy: TreeSelect.SHOW_CHILD,
+    showCheckedStrategy: TreeSelect.SHOW_ALL,
     treeCheckStrictly: true,
     style: {
       width: "100%",

@@ -80,12 +80,28 @@ export function SearchSetting() {
         open={isSearchSetting}
         onClose={closeSearchSetting}
       >
-        <div className={styles.caption}>表示順</div>
+        <div className={styles.caption}>検索オプション</div>
         <Radio.Group value={chainParam.sortType} onChange={onChangeSortType}>
           <Radio value="0">合計値が強い順</Radio>
           <Radio value="1">〆技が強い順</Radio>
         </Radio.Group>
-        <Divider/>
+        <br />
+        <br />
+        <Space>
+          <Space.Compact direction="vertical">
+            <Checkbox checked={chainParam.noRange} onChange={onChangeNorange}>
+              範囲技を除外する
+            </Checkbox>
+            <Checkbox
+              checked={chainParam.renkeiDamage}
+              onChange={onChangeRenkeiDamage}
+            >
+              強さに連携ダメージ分も含める
+            </Checkbox>
+          </Space.Compact>
+        </Space>
+
+        <Divider />
         <div className={styles.caption}>表示オプション</div>
         <Space>
           <Space.Compact direction="vertical">
@@ -100,23 +116,7 @@ export function SearchSetting() {
             </Checkbox>
           </Space.Compact>
         </Space>
-        <Divider/>
-        <div className={styles.caption}>検索オプション</div>
-        <Space>
-          <Space.Compact direction="vertical">
-            <Checkbox checked={chainParam.noRange} onChange={onChangeNorange}>
-              範囲技を除外する
-            </Checkbox>
-            <Checkbox
-              checked={chainParam.renkeiDamage}
-              onChange={onChangeRenkeiDamage}
-            >
-              強さに連携ダメージ分も含める
-            </Checkbox>
-          </Space.Compact>
-        </Space>
-        
-        <Divider/>
+        <Divider />
         <div className={styles.caption}>〆の連携属性</div>
         <Space direction="vertical" size="small" style={{ display: "flex" }}>
           <Space wrap>
@@ -124,7 +124,7 @@ export function SearchSetting() {
               .filter((m) => m.level == 3)
               .map((m) => (
                 <Checkbox
-                  key ={m.name}
+                  key={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
                   style={{
                     borderBottomWidth: 4,
@@ -142,7 +142,7 @@ export function SearchSetting() {
               .filter((m) => m.level == 2)
               .map((m) => (
                 <Checkbox
-                key ={m.name}
+                  key={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
                   style={{
                     borderBottomWidth: 4,
@@ -160,7 +160,7 @@ export function SearchSetting() {
               .filter((m) => m.level == 1)
               .map((m) => (
                 <Checkbox
-                key ={m.name}
+                  key={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >

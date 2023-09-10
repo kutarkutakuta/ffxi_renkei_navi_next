@@ -9,6 +9,7 @@ import styles from './MyContent.module.scss';
 import { SearchSetting } from "./SearchSetting/SearchSetting";
 import { FloatButton } from "antd";
 import { Help } from "./Help/Help";
+import useChainStore from "@/stores/useChainStore";
 
 /**
  * MyContent
@@ -19,9 +20,16 @@ const MyContent = () => {
 
   // マスター取得
   const { fetchData } = useMasterStore();
+  const { viewParam ,setViewParam } = useChainStore();
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    // モバイル用設定
+    if (window.innerWidth <= 768) {
+      viewParam.viewOmit = true;
+      viewParam.viewPower = false;
+      setViewParam(viewParam);
+    }
+  }, []);
 
   // スクロールで隠れるやつ
   const { members } = useMemberStore();
