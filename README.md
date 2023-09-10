@@ -13,10 +13,8 @@
 　・「マトン」「フェイス」  
 
 ## URL
-https://item-navi.onrender.com/
+https://item-renkei-navi-next.onrender.com/
 
-## Google Play Store
-https://play.google.com/store/apps/details?id=com.onrender.item_navi.twa
 
 ## 使用技術
 - 使用言語: HTML, CSS, SASS, TypeScript
