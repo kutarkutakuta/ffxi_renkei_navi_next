@@ -38,37 +38,53 @@ const useMasterStore = create<MasterState>((set) => ({
     set({ loading: true, error: null });
     try {
       // jobs
-      const { data: jobs, error: jobsError } = await supabase.from("jobs").select("*");
+      const { data: jobs, error: jobsError } = await supabase
+        .from("jobs")
+        .select("*");
       if (jobsError) throw jobsError;
       set({ jobs });
 
       // wepons
-      const { data: wepons, error: weponsError } = await supabase.from("wepons").select("*");
+      const { data: wepons, error: weponsError } = await supabase
+        .from("wepons")
+        .select("*");
       if (weponsError) throw weponsError;
       set({ wepons });
 
       // jobWepons
-      const { data: jobWepons, error: jobWeponsError } = await supabase.from("job_wepons").select("*");
+      const { data: jobWepons, error: jobWeponsError } = await supabase
+        .from("job_wepons")
+        .select("*");
       if (jobWeponsError) throw jobWeponsError;
       set({ jobWepons });
 
       // renkeis
-      const { data: renkeis, error: renkeisError } = await supabase.from("renkeis").select("*");
+      const { data: renkeis, error: renkeisError } = await supabase
+        .from("renkeis")
+        .select("*")
+        .order("id", { ascending: false });
       if (renkeisError) throw renkeisError;
       set({ renkeis });
 
       // wSTypes
-      const { data: wSTypes, error: wSTypesError } = await supabase.from("ws_types").select("*");
+      const { data: wSTypes, error: wSTypesError } = await supabase
+        .from("ws_types")
+        .select("*");
       if (wSTypesError) throw wSTypesError;
       set({ wSTypes });
 
       // weponTypes
-      const { data: weponTypes, error: weponTypesError } = await supabase.from("wepon_types").select("*");
+      const { data: weponTypes, error: weponTypesError } = await supabase
+        .from("wepon_types")
+        .select("*");
       if (weponTypesError) throw weponTypesError;
       set({ weponTypes });
 
       // weponSkills
-      const { data: weponSkills, error: weponSkillsError } = await supabase.from("wepon_skills").select("*");
+      const { data: weponSkills, error: weponSkillsError } = await supabase
+        .from("wepon_skills")
+        .select("*")
+        .order("id", { ascending: false });
       if (weponSkillsError) throw weponSkillsError;
       set({ weponSkills });
 
