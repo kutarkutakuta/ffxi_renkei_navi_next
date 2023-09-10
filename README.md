@@ -1,38 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FF11連携Navi
+ファイナルファンタジーXI(FF11)の連携をナビゲートするWebアプリケーションです。  
+＜特徴＞  
+1.直感的な操作  
+　・連携メンバーをカード形式で扱うので追加コピー削除が簡単です。  
+　・ドラッグ＆ドロップで順番の入れ替えが簡単です。  
+2.探しやすさ  
+　・WSの強さを検索結果の順番に反映しているので強い組み合わせが見つけやすいです。  
+　・ジョブ/武器/WSタイプといった様々なフィルタ指定が可能です。  
+3.多種多様なフィルタ  
+　「ジョブ」「武器」の他に以下の項目で絞り込み検索が可能です。  
+　・「震天動地」「履行」「しじをさせろ」「青魔法」  
+　・「マトン」「フェイス」  
 
-## Getting Started
+## URL
+https://item-navi.onrender.com/
 
-First, run the development server:
+## Google Play Store
+https://play.google.com/store/apps/details?id=com.onrender.item_navi.twa
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 使用技術
+- 使用言語: HTML, CSS, SASS, TypeScript
+- フレームワーク: Next.js 13.4.19 (React 18.2.0), Ant Design 5.9.0
+- データベース: PostgreSQL 14.1
+- プラットフォーム: [supabase](https://supabase.com/), [render](https://render.com/)
+- その他ツール: Github, Visual Studio Code
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 仕様
+- システム構成
+![image](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/6da44342-22cd-41f7-a9bc-be4299fbd81d)
+- ER図
+![FF11装備Navi_ER図](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/6d11c99d-c98f-455a-923b-04e771c4a7fc)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 主な機能
+### 1. 連携メンバーの追加
+連携するメンバーを追加します。  
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 2. 連携メンバーの設定
+連携するメンバーのジョブや武器等を設定します。  
+具体的には以下の項目を設定できます。  
+#### 「ジョブ」
+22種のジョブを1つ選択します。  
+選択するとメインの「武器」を自動選択します。  
+また、そのジョブが使用できないWSが検索に引っかからないようになります。  
+#### 「武器」
+使用する武器を選択します（複数可）。  
+武器種をさらに限定することで使用できないWSが検索に引っかからないようになり、検索順番に使用している強さにボーナスが乗るようになります（武器固有WSを使用した連携が上位に来やすい）。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 作成に至る経緯と感想
+### 技術者として
+Angularで作成したWebアプリケーションをNext.jsで学習を兼ねて書き直しました。  
+React Hooksはサクサク書けて良いですね。Angularに比べて構成の自由度が高いのが最初戸惑いましたが、フックを覚えたらそれが素敵なメリットに思えました。  
+また、supabaseのお陰でバックエンドを再開発する必要もなく、過去の資産をそのまま利用しています。  
+フロントだけ差し替えたいときはsupabaseは本当に良いです。  
+レスポンシブデザインを意識して最初からスマホで使いやすいUI設計にしました。  
+色合いテーマは最近流行りのダークモードにしています。  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### ゲームユーザーとして
+FF11の連携は本当に複雑で、PTメンバーで最適な連携を探すのに時間がかかってしまうのが苦労の種でした。  
+既に成熟したゲームなので、連携を検索するサイトもたくさん存在しており今更感もあるのですが、
+咄嗟に連携順番を変えたり武器を持ち替えたりといった場合にどうしても時間がかかってしまうので、
+そういったケースにも対応できるようにしました。
 
-To learn more about Next.js, take a look at the following resources:
+そして、なによりも長年FF11を遊んできたユーザーとして、何か貢献出来たら良いなという思いが強くありました。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+[Kutakutar@FF11](https://twitter.com/kutakutar_ff11)
