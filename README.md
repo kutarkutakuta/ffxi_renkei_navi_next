@@ -28,7 +28,7 @@ https://renkei-navi-next.onrender.com/
 - システム構成
 ![システム構成図 drawio](https://github.com/kutarkutakuta/ffxi_renkei_navi_next/assets/122729867/b2295078-cc78-4f44-9f09-4ab7542cf909)
 - ER図
-![image](https://github.com/kutarkutakuta/ffxi_renkei_navi_next/assets/122729867/8b5cd4da-1295-4924-87ff-eaca0e646369)
+![image](https://github.com/kutarkutakuta/ffxi_renkei_navi_next/assets/122729867/9fa6d19e-ee02-4eec-aa96-8692442b42db)
 
 ## 主な機能
 ### 1. 連携メンバーの追加
@@ -49,10 +49,10 @@ https://renkei-navi-next.onrender.com/
 ### 技術者として
 Angularで作成したWebアプリケーションをNext.jsで学習を兼ねて書き直しました。  
 React Hooksはサクサク書けて良いですね。Angularに比べて構成の自由度が高いのが最初戸惑いましたが、フックを覚えたらそれが素敵なメリットに思えました。  
-また、supabaseのお陰でバックエンドを再開発する必要もなく、過去の資産をそのまま利用しています。  
+また、バックエンドはsupabaseのお陰で再開発する必要がなく、過去の資産をそのまま利用しています。
 フロントだけ差し替えたいときはsupabaseは本当に良いです。  
-レスポンシブデザインを意識して最初からスマホで使いやすいUI設計にしました。  
-色合いテーマは最近流行りのダークモードにしています。  
+今回は最初からスマホで使いやすいデザインを意識しました。
+色合いテーマは流行りのダークモードにしています。  
 
 
 ### ゲームユーザーとして
