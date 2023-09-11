@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Tag } from "antd";
+import { Table, Tag, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
 import useChainStore from "@/stores/useChainStore";
 import useMasterStore from "@/stores/useMasterStore";
@@ -254,9 +254,11 @@ export function ChainTable() {
           </Tag>
         )}
         {jobs && (
-          <Tag bordered={false} color="lime">
-            {jobs}
-          </Tag>
+          <Tooltip title="サポートジョブが必要です" color="gold" placement="topLeft">
+            <Tag bordered={false} color="lime">
+              {jobs}
+            </Tag>
+          </Tooltip>
         )}
       </>
     );
