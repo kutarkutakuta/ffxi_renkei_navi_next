@@ -1,8 +1,8 @@
 {
-  "name": "連携Navi",
+  "name": "FF11連携Navi",
   "short_name": "連携Navi",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#2d2d2d",
+  "background_color": "#333",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
