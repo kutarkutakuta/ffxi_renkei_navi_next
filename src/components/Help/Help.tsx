@@ -6,7 +6,7 @@ import {
   SettingOutlined,
   MenuOutlined,
   ToolOutlined,
-  CopyOutlined,
+  UsergroupAddOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
 import useMenuStore from "@/stores/useMenuStore";
@@ -38,7 +38,7 @@ export function Help() {
         ：連携メンバーを設定するパネルを表示します。
       </p>
       <p>
-        <CopyOutlined />
+        <UsergroupAddOutlined />
         ：連携メンバーを末尾にコピーします。
       </p>
       <p>

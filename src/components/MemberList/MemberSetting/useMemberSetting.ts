@@ -168,7 +168,10 @@ export function useMemberSetting() {
             if (idx_weponTypes < 0) {
               memberWepons[idx_wepon].weponTypes.push(arr_tmp[1]);
             }
-            memberWepons[idx_wepon].weponTypes.push(arr_tmp[1]);
+          }
+          else{
+            // weponTypeを持たないものがあれば親がチェックされたのでweponTypeをクリア
+            memberWepons[idx_wepon].weponTypes = [];
           }
         });
         member.Wepons = memberWepons;

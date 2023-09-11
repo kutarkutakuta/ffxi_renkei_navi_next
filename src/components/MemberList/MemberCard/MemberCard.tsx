@@ -69,7 +69,7 @@ export function MemberCard({ member }: MemberCardProps) {
               <Button
                 data-dndkit-disabled-dnd-flag="true"
                 type="text"
-                icon={<CopyOutlined />}
+                icon={<UsergroupAddOutlined />}
                 onClick={() => handleCopy(member)}
                 disabled ={members.length >= 5}
               ></Button>

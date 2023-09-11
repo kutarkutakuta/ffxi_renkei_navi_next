@@ -75,7 +75,7 @@ export function MemberSetting() {
     allowClear: true,
     showSearch: true,
     treeCheckable: true,
-    showCheckedStrategy: TreeSelect.SHOW_ALL,
+    showCheckedStrategy: TreeSelect.SHOW_PARENT,
     treeCheckStrictly: true,
     style: {
       width: "100%",
