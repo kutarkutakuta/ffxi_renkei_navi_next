@@ -21,15 +21,29 @@ const useMenuStore = create<MenuState>((set) => ({
   isSearchSetting: false,
   isHelp: false,
   openMemberSetting: (member: Member) => {
+    document.querySelector("html")!.style.overflow = "hidden";
     set({ openMember: member });
   },
-  openSearchSetting: () => set({ isSearchSetting: true }),
-  openHelp: () => set({ isHelp: true }),
-  closeMemberSetting: () => {
-    set({ openMember: null})
+  openSearchSetting: () => {
+    document.querySelector("html")!.style.overflow = "hidden";
+    set({ isSearchSetting: true });
   },
-  closeSearchSetting: () => set({ isSearchSetting: false }),
-  closeHelp: () => set({ isHelp: false }),
+  openHelp: () => {
+    document.querySelector("html")!.style.overflow = "hidden";
+    set({ isHelp: true });
+  },
+  closeMemberSetting: () => {
+    document.querySelector("html")!.style.overflow = "";
+    set({ openMember: null });
+  },
+  closeSearchSetting: () => {
+    document.querySelector("html")!.style.overflow = "";
+    set({ isSearchSetting: false });
+  },
+  closeHelp: () => {
+    document.querySelector("html")!.style.overflow = "";
+    set({ isHelp: false });
+  },
 }));
 
 export default useMenuStore;
