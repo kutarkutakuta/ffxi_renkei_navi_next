@@ -14,7 +14,7 @@
 　・「マトン」「フェイス」  
 
 ## URL
-https://item-renkei-navi-next.onrender.com/
+https://renkei-navi-next.onrender.com/
 
 
 ## 使用技術
