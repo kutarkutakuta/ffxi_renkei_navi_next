@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.herokuapp.kutakutar.twa",
+      "sha256_cert_fingerprints":
+        ["65:18:0D:96:9F:01:85:EF:0B:75:22:1B:50:22:25:2C:3E:51:83:1D:B0:7B:4D:16:22:2F:7D:DA:3F:E9:6A:67"]
+    }
+  }
+]
