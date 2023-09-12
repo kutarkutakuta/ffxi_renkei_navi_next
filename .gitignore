@@ -41,3 +41,25 @@ next-env.d.ts
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+
+
+# TWAで作成されるファイル
+.gradle
+/app/build
+/app/src/main
+/app/build.gradle
+/gradle
+android.keystore
+app-release-bundle.aab
+app-release-signed.apk
+app-release-signed.apk.idsig
+app-release-unsigned-aligned.apk
+build.gradle
+gradle.properties
+gradlew
+gradlew.bat
+local.properties
+manifest-checksum.txt
+settings.gradle
+store_icon.png
+twa-manifest.json
