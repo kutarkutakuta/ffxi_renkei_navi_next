@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Drawer, Space, Segmented, Select, TreeSelect, } from "antd";
+import { Drawer, Space, Divider, Button, Select, TreeSelect } from "antd";
 import { ToolOutlined } from "@ant-design/icons";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
@@ -86,7 +86,6 @@ export function MemberSetting() {
     <Drawer
       title={
         <>
-          <ToolOutlined />
           <span style={{ paddingLeft: 4 }}>連携メンバーの設定</span>
         </>
       }
@@ -142,6 +141,10 @@ export function MemberSetting() {
 
         {/* <Button onClick={closeMemberSetting}>☓ Close</Button> */}
       </Space>
+      <Divider />
+      <Button onClick={() => closeMemberSetting()} style={{ width: "100%" }}>
+        Close
+      </Button>
     </Drawer>
   );
 }

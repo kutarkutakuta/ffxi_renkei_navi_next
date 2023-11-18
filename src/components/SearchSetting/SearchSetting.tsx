@@ -6,6 +6,7 @@ import {
   Radio,
   RadioChangeEvent,
   Space,
+  Button,
 } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { SettingOutlined } from "@ant-design/icons";
@@ -71,7 +72,6 @@ export function SearchSetting() {
       <Drawer
         title={
           <>
-            <SettingOutlined />
             <span style={{ paddingLeft: 4 }}>検索設定</span>
           </>
         }
@@ -168,6 +168,13 @@ export function SearchSetting() {
                 </Checkbox>
               ))}
           </Space>
+          <Divider />
+          <Button
+            onClick={() => closeSearchSetting()}
+            style={{ width: "100%" }}
+          >
+            Close
+          </Button>
         </Space>
       </Drawer>
     </>
