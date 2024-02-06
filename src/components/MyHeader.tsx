@@ -5,49 +5,20 @@ import {
   Row,
   Col,
   Space,
-  Dropdown,
-  MenuProps,
 } from "antd";
 import {
-  UserAddOutlined,
   SettingOutlined,
-  QuestionCircleOutlined,
-  MenuOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import useMemberStore from "@/stores/useMemberStore";
 import { useEffect, useRef } from "react";
 
-
 export function MyHeader() {
   // メニュー制御用フック
-  const { isHelp, openHelp, closeHelp, openSearchSetting, openMemberSetting } =
+  const { openSearchSetting, openMemberSetting } =
     useMenuStore();
   // メンバ制御用Hook
   const { members, addMember } = useMemberStore();
-
-  // メニュー項目
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <div>
-          <UserAddOutlined />
-          <span style={{ paddingLeft: 4 }}>連携メンバーの追加</span>
-        </div>
-      ),
-      disabled: members.length >= 5,
-      onClick: () => addMember(),
-    },
-    {
-      key: "2",
-      label: (
-        <div onClick={openSearchSetting}>
-          <SettingOutlined />
-          <span style={{ paddingLeft: 4 }}>検索設定</span>
-        </div>
-      ),
-    },
-  ];
 
   // メンバを監視して追加が未設定ならメンバー設定を開く
   const prevCountRef = useRef(members.length);
@@ -66,18 +37,20 @@ export function MyHeader() {
 
   return (
     <>
-      <Row justify="space-between"  style={{paddingTop:2}}>
+      <Row justify="space-between" >
         <Col span={4}>
           <Row justify="start">
             <Col>
-              <Dropdown menu={{ items }} placement="bottomLeft">
-                <Button icon={<MenuOutlined />}></Button>
-              </Dropdown>
+            <Button
+                    type="text" size="large"
+                    icon={<PlusCircleOutlined />}
+                    onClick={()=>addMember()}
+                  ></Button>
             </Col>
           </Row>
         </Col>
         <Col span={8}>
-          <Image
+          <Image style={{marginTop:5}}
             height={30}
             src="assets/images/logo.png"
             preview={false}
@@ -89,9 +62,9 @@ export function MyHeader() {
             <Col>
               <Space>
                 <Button
-                  type="text"
-                  icon={<QuestionCircleOutlined />}
-                  onClick={openHelp}
+                  type="text" size="large"
+                  icon={<SettingOutlined />}
+                  onClick={openSearchSetting}
                 ></Button>
               </Space>
             </Col>

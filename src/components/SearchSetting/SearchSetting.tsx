@@ -75,7 +75,7 @@ export function SearchSetting() {
             <span style={{ paddingLeft: 4 }}>検索設定</span>
           </>
         }
-        placement={"left"}
+        placement={"right"}
         width={330}
         open={isSearchSetting}
         onClose={closeSearchSetting}

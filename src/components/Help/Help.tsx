@@ -20,9 +20,7 @@ export function Help() {
   return (
     <Drawer
       title={
-        <>
-          <QuestionCircleOutlined />
-          <span style={{ paddingLeft: 4 }}>ヘルプ（使い方）</span>
+        <><span style={{ paddingLeft: 4 }}>ヘルプ（使い方）</span>
         </>
       }
       placement={"right"}

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { FloatButton } from "antd";import {
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+
+import useMenuStore from "@/stores/useMenuStore";
+import useMasterStore from "@/stores/useMasterStore";
+import useMemberStore from "@/stores/useMemberStore";
+import useChainStore from "@/stores/useChainStore";
 
 import { MemberList } from "./MemberList/MemberList";
-import useMasterStore from "@/stores/useMasterStore";
 import { ChainTable } from "./ChainTable/ChainTable";
-import useMemberStore from "@/stores/useMemberStore";
+import { SearchSetting } from "./SearchSetting/SearchSetting";
+import { Help } from "./Help/Help";
 
 import styles from './MyContent.module.scss';
-import { SearchSetting } from "./SearchSetting/SearchSetting";
-import { FloatButton } from "antd";
-import { Help } from "./Help/Help";
-import useChainStore from "@/stores/useChainStore";
 
 /**
  * MyContent
@@ -18,6 +22,9 @@ import useChainStore from "@/stores/useChainStore";
  */
 const MyContent = () => {
 
+  // メニュー制御用フック
+  const { isHelp, openHelp } = useMenuStore();
+  
   // マスター取得
   const { fetchData } = useMasterStore();
   const { viewParam ,setViewParam } = useChainStore();
@@ -82,7 +89,10 @@ const MyContent = () => {
       {/* ヘルプ */}
       <Help></Help>
       {/* BackTop */}
-      <FloatButton.BackTop />
+      <FloatButton.Group shape="circle" style={{ right: 24 }}>
+        <FloatButton icon={<QuestionCircleOutlined />} onClick={openHelp}/>
+        <FloatButton.BackTop visibilityHeight={0} />
+      </FloatButton.Group>
     </>
   );
 };
