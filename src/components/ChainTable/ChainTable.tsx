@@ -248,14 +248,19 @@ export function ChainTable() {
             アフマス
           </Tag>
         )}
-        {wsType && (
+        {wsType && wsType == "範囲" && (
+          <Tag bordered={false} color="yellow">
+            {wsType}
+          </Tag>
+        )}
+        {wsType && wsType != "範囲"  && (
           <Tag bordered={false} color="cyan">
             {wsType}
           </Tag>
         )}
         {jobs && (
           <Tooltip title="サポートジョブが必要です" color="gold" placement="topLeft">
-            <Tag bordered={false} color="lime">
+            <Tag bordered={false} color="lime" style={{marginLeft:-5}}>
               {jobs}
             </Tag>
           </Tooltip>
