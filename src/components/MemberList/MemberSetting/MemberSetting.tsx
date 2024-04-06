@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Drawer, Space, Divider, Button, Select, TreeSelect } from "antd";
+import { Drawer, Space, Divider, Button, Select, TreeSelect, Radio } from "antd";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
 import { useMemberSetting } from "./useMemberSetting";
@@ -95,7 +95,7 @@ export function MemberSetting() {
       data-dndkit-disabled-dnd-flag="true"
     >
       <Space direction="vertical" style={{ width: "100%" }}>
-        <Select
+        {/* <Select
           showSearch
           placeholder="ジョブ"
           style={{ width: 120 }}
@@ -103,7 +103,10 @@ export function MemberSetting() {
           value={formData.Job}
           listHeight={400}
           onChange={(value) => handleChange("Job", value, openMember!)}
-        />
+        /> */}
+        <Radio.Group defaultValue="a" size="small" onChange={(e) => handleChange("Job", e.target.value, openMember!)}>
+          {jobs.map((m) => (<Radio.Button value={m.name}>{m.name}</Radio.Button>))}
+        </Radio.Group>
 
         <TreeSelect
           {...tProps}
