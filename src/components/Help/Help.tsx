@@ -63,9 +63,11 @@ export function Help() {
       </p>
       <p>武器種を指定すると対応するWSの強さにボーナスが乗ります。※1.2倍</p>
       <Divider />
-      <div className={styles.caption}>更新情報やお問い合わせはこちら　<a href="https://twitter.com/kutakutar_ff11" target="_blank">
+      <div className={styles.caption}>更新情報やお問い合わせはこちら<br/>
+      <a href="https://twitter.com/kutakutar_ff11" target="_blank">
         <TwitterOutlined /> kutakutar_ff11
-      </a></div>
+      </a>
+      </div>
       
       <div className={styles.caption}>
       <EyeOutlined />&nbsp;<Link href={"privacy.html"}>Privacy Policy</Link></div>

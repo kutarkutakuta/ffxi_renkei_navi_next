@@ -79,7 +79,7 @@ export function SearchSetting() {
         open={isSearchSetting}
         onClose={closeSearchSetting}
       >
-        <div className={styles.caption}>検索オプション</div>
+        <div className={styles.caption}>■ 検索オプション</div>
         <Radio.Group value={chainParam.sortType} onChange={onChangeSortType}>
           <Radio value="0">合計値が強い順</Radio>
           <Radio value="1">〆技が強い順</Radio>
@@ -101,7 +101,7 @@ export function SearchSetting() {
         </Space>
 
         <Divider />
-        <div className={styles.caption}>表示オプション</div>
+        <div className={styles.caption}>■ 表示オプション</div>
         <Space>
           <Space.Compact direction="vertical">
             <Checkbox checked={viewParam.viewOmit} onChange={onChangeViewOmit}>
@@ -116,7 +116,7 @@ export function SearchSetting() {
           </Space.Compact>
         </Space>
         <Divider />
-        <div className={styles.caption}>〆の連携属性</div>
+        <div className={styles.caption}>■ 〆の連携属性</div>
         <Space direction="vertical" size="small" style={{ display: "flex" }}>
           <Space wrap>
             {renkeis
