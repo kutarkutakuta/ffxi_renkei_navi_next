@@ -1,7 +1,16 @@
 import React, { useEffect } from "react";
-import { Drawer, Space, Divider, Button, Select, TreeSelect, Radio } from "antd";
+import {
+  Drawer,
+  Space,
+  Divider,
+  Button,
+  Select,
+  TreeSelect,
+  Radio,
+} from "antd";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
+import useMembersStore from "@/stores/useMemberStore";
 import { useMemberSetting } from "./useMemberSetting";
 
 export function MemberSetting() {
@@ -9,9 +18,10 @@ export function MemberSetting() {
   const { jobs, wepons, weponTypes } = useMasterStore();
   // フォーム値保存用
   const { formData, initialFormData, handleChange } = useMemberSetting();
-
   // メニュー制御用フック
   const { openMember, closeMemberSetting } = useMenuStore();
+  // メンバ操作用Hook
+  const { removeMember } = useMembersStore();
 
   // 親のイベントを検知してオープン
   useEffect(() => {
@@ -91,7 +101,19 @@ export function MemberSetting() {
       placement={"right"}
       width={380}
       open={openMember != null}
-      onClose={closeMemberSetting}
+      onClose={() => {
+        if (
+          formData &&
+          !formData.Job &&
+          formData.Maton.length == 0 &&
+          formData.Faith.length == 0 &&
+          formData.Wepons.length == 0 &&
+          formData.Abi.length == 0
+        ) {
+          removeMember(openMember!);
+        }
+        closeMemberSetting();
+      }}
       data-dndkit-disabled-dnd-flag="true"
     >
       <Space direction="vertical" style={{ width: "100%" }}>
@@ -104,9 +126,14 @@ export function MemberSetting() {
           listHeight={400}
           onChange={(value) => handleChange("Job", value, openMember!)}
         /> */}
-        <Radio.Group value={formData.Job} size="small" 
-          onChange={(e) => handleChange("Job", e.target.value, openMember!)}>
-          {jobs.map((m) => (<Radio.Button value={m.name}>{m.name}</Radio.Button>))}
+        <Radio.Group
+          value={formData.Job}
+          size="small"
+          onChange={(e) => handleChange("Job", e.target.value, openMember!)}
+        >
+          {jobs.map((m) => (
+            <Radio.Button value={m.name}>{m.name}</Radio.Button>
+          ))}
         </Radio.Group>
 
         <TreeSelect
@@ -145,7 +172,22 @@ export function MemberSetting() {
         {/* <Button onClick={closeMemberSetting}>☓ Close</Button> */}
       </Space>
       <Divider />
-      <Button onClick={() => closeMemberSetting()} style={{ width: "100%" }}>
+      <Button
+        onClick={() => {
+          if (
+            formData &&
+            !formData.Job &&
+            formData.Maton.length == 0 &&
+            formData.Faith.length == 0 &&
+            formData.Wepons.length == 0 &&
+            formData.Abi.length == 0
+          ) {
+            removeMember(openMember!);
+          }
+          closeMemberSetting();
+        }}
+        style={{ width: "100%" }}
+      >
         Close
       </Button>
     </Drawer>

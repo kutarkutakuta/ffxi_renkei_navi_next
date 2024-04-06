@@ -17,7 +17,7 @@ import {
 import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/useMemberStore";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
 // #region dnd-kit用の制御
@@ -113,6 +113,7 @@ export function MemberList() {
           >
             
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", paddingLeft: 10, paddingRight:10 }}>
+            <Tooltip title="連携メンバーを追加してください" placement="right" open={members.length == 0}>
               <Button
                 type="primary"
                 size="large"
@@ -121,6 +122,7 @@ export function MemberList() {
                 onClick={() => addMember()}
                 disabled ={members.length >= 5}
               ></Button>
+              </Tooltip>
             </div>
             {members.map((item) => (
               <MemberCard key={item.id} member={item}></MemberCard>
