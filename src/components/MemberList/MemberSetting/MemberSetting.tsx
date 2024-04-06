@@ -104,7 +104,8 @@ export function MemberSetting() {
           listHeight={400}
           onChange={(value) => handleChange("Job", value, openMember!)}
         /> */}
-        <Radio.Group defaultValue="a" size="small" onChange={(e) => handleChange("Job", e.target.value, openMember!)}>
+        <Radio.Group value={formData.Job} size="small" 
+          onChange={(e) => handleChange("Job", e.target.value, openMember!)}>
           {jobs.map((m) => (<Radio.Button value={m.name}>{m.name}</Radio.Button>))}
         </Radio.Group>
 
