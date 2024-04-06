@@ -119,6 +119,7 @@ export function MemberList() {
                 shape="circle"
                 icon={<PlusCircleOutlined />}
                 onClick={() => addMember()}
+                disabled ={members.length >= 5}
               ></Button>
             </div>
             {members.map((item) => (
