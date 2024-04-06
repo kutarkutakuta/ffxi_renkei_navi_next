@@ -10,7 +10,6 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  arrayMove,
   rectSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
@@ -18,6 +17,8 @@ import {
 import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/useMemberStore";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
+import { Button } from "antd";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 // #region dnd-kit用の制御
 // data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
@@ -72,7 +73,8 @@ export function MemberList() {
     })
   );
 
-  const { members, sortMember } = useMembersStore();
+  // メンバ制御用Hook
+  const { members, sortMember, addMember } = useMembersStore();
 
   const handleDragEnd = useCallback(
     (event: { active: any; over: any }) => {
@@ -101,17 +103,31 @@ export function MemberList() {
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={members} strategy={rectSortingStrategy}>
           <div
-            style={{ display: "flex", flexWrap: "wrap", touchAction: "none", paddingLeft:"5px" }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              touchAction: "none",
+              paddingLeft: "5px",
+              minHeight:"108px"
+            }}
           >
+            
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", paddingLeft: 10, paddingRight:10 }}>
+              <Button
+                type="primary"
+                size="large"
+                shape="circle"
+                icon={<PlusCircleOutlined />}
+                onClick={() => addMember()}
+              ></Button>
+            </div>
             {members.map((item) => (
-              <MemberCard
-                key={item.id}
-                member={item}
-              ></MemberCard>
+              <MemberCard key={item.id} member={item}></MemberCard>
             ))}
           </div>
         </SortableContext>
       </DndContext>
+
       <MemberSetting></MemberSetting>
     </>
   );

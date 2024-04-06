@@ -2,9 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Button, Row, Col } from "antd";
 import {
-  ToolOutlined,
-  UsergroupAddOutlined,
-  CopyOutlined,
+  EditOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
 import styles from "./MemberCard.module.scss";
@@ -57,22 +55,22 @@ export function MemberCard({ member }: MemberCardProps) {
         <Col flex="none">
           <Button
             data-dndkit-disabled-dnd-flag="true"
-            icon={<ToolOutlined />}
+            icon={<EditOutlined />}
             onClick={() => openMemberSetting(member)}
             type="text"
-            shape="circle"
           ></Button>
+          &nbsp;
+          <Button
+            data-dndkit-disabled-dnd-flag="true"
+            type="text"
+            shape="circle"
+            onClick={() => handleCopy(member)}
+            disabled ={members.length >= 5}
+          >Copy</Button>
         </Col>
         <Col flex="auto">
           <Row justify="end">
             <Col>
-              <Button
-                data-dndkit-disabled-dnd-flag="true"
-                type="text"
-                icon={<UsergroupAddOutlined />}
-                onClick={() => handleCopy(member)}
-                disabled ={members.length >= 5}
-              ></Button>
               <Button
                 data-dndkit-disabled-dnd-flag="true"
                 type="text"

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FloatButton } from "antd";import {
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
+import { FloatButton } from "antd";
 
-import useMenuStore from "@/stores/useMenuStore";
 import useMasterStore from "@/stores/useMasterStore";
 import useMemberStore from "@/stores/useMemberStore";
 import useChainStore from "@/stores/useChainStore";
@@ -22,9 +19,6 @@ import styles from './MyContent.module.scss';
  */
 const MyContent = () => {
 
-  // メニュー制御用フック
-  const { isHelp, openHelp } = useMenuStore();
-  
   // マスター取得
   const { fetchData } = useMasterStore();
   const { viewParam ,setViewParam } = useChainStore();
@@ -81,7 +75,7 @@ const MyContent = () => {
           <MemberList></MemberList>
         </div>
       {/* 一覧 */}
-      <div style={{ marginTop:  navbarHeight ? `${navbarHeight}px` : '0' }}>
+      <div style={{ marginTop:  navbarHeight ? `${navbarHeight}px` : '0', paddingLeft:10, paddingRight:10 }}>
         <ChainTable />
       </div>
       {/* 検索設定 */}
@@ -90,8 +84,7 @@ const MyContent = () => {
       <Help></Help>
       {/* BackTop */}
       <FloatButton.Group shape="circle" style={{ right: 24 }}>
-        <FloatButton icon={<QuestionCircleOutlined />} onClick={openHelp}/>
-        <FloatButton.BackTop visibilityHeight={0} />
+        <FloatButton.BackTop  />
       </FloatButton.Group>
     </>
   );

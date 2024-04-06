@@ -9,7 +9,6 @@ import {
   Button,
 } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { SettingOutlined } from "@ant-design/icons";
 
 import styles from "./SearchSetting.module.scss";
 import useChainStore from "@/stores/useChainStore";
@@ -75,7 +74,7 @@ export function SearchSetting() {
             <span style={{ paddingLeft: 4 }}>検索設定</span>
           </>
         }
-        placement={"right"}
+        placement={"left"}
         width={330}
         open={isSearchSetting}
         onClose={closeSearchSetting}

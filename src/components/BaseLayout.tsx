@@ -23,9 +23,6 @@ const BaseLayout = ({ children }: Props) => {
           <MyHeader />
         </header>
         <main>{children}</main>
-        <footer>
-          <Link href={"privacy.html"}>Privacy Policy</Link>
-        </footer>
       </Layout>
     </ConfigProvider>
   );

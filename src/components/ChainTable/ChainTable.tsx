@@ -375,7 +375,7 @@ export function ChainTable() {
             : "100%",
       }}
     >
-      <Table
+      {total > 0 ? <Table
         size="small"
         bordered
         tableLayout="fixed"
@@ -396,7 +396,8 @@ export function ChainTable() {
           else if (extra.action == "paginate")
             handleChangePage(pagination.current || 1);
         }}
-      />
+      />: null}
+      
     </div>
   );
 }

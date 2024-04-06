@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Drawer, Space, Divider, Button, Select, TreeSelect } from "antd";
-import { ToolOutlined } from "@ant-design/icons";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
 import { useMemberSetting } from "./useMemberSetting";
@@ -89,7 +88,7 @@ export function MemberSetting() {
           <span style={{ paddingLeft: 4 }}>連携メンバーの設定</span>
         </>
       }
-      placement={"left"}
+      placement={"right"}
       width={380}
       open={openMember != null}
       onClose={closeMemberSetting}
