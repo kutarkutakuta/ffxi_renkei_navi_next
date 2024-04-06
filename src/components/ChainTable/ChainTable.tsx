@@ -389,7 +389,7 @@ export function ChainTable() {
           current: pageIndex,
           total: total,
           showSizeChanger: false,
-          showTotal: (total) => `　Total ${total} items`,
+          showTotal: (total) => `　${total} items`,
         }}
         onChange={(pagination, filters, _soter, extra) => {
           if (extra.action == "filter") handleChangeFilter(filters);

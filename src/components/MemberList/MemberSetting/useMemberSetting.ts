@@ -142,7 +142,10 @@ export function useMemberSetting() {
               ].includes(m.group)
           );
         // マトン/フェイスの場合、全てクリア
-        if (name == "マトン" || name == "フェイス") memberWepons = [];
+        if (name == "マトン" || name == "フェイス") {
+          member.Job = "";
+          memberWepons = [];
+        }
 
         formWepons.forEach((n) => {
           // weponとweponTypeに分割
