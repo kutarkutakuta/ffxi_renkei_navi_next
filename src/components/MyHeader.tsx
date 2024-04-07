@@ -36,16 +36,11 @@ export function MyHeader() {
 
   return (
     <>
-      <Row justify="space-between" >
+      <Row justify="space-between"  align="middle" style={{height:"100%"}}>
         <Col>
-          <Row justify="start">
-            <Col>
-                  FF11連携Navi
-            </Col>
-          </Row>
-          
+          FF11連携Navi
         </Col>
-        <Col >
+        <Col>
           <Row justify="end">
             <Col>
               <Space>

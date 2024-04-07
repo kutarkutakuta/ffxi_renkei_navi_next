@@ -112,12 +112,10 @@ export function MemberList() {
             }}
           >
             
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", paddingLeft: 10, paddingRight:10 }}>
-            <Tooltip title="連携メンバーを追加してください" placement="right" open={members.length == 0}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", paddingLeft: 10, paddingRight:5 }}>
+            <Tooltip title="連携メンバーを追加してください" placement="right" open={members.length == 0} zIndex={1}>
               <Button
                 type="primary"
-                size="large"
-                shape="circle"
                 icon={<PlusCircleOutlined />}
                 onClick={() => addMember()}
                 disabled ={members.length >= 5}
