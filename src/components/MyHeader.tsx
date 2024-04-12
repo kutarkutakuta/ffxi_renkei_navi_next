@@ -1,23 +1,19 @@
 import useMenuStore from "@/stores/useMenuStore";
-import {
-  Button,
-  Row,
-  Col,
-  Space,
-} from "antd";
-import {
-  SettingOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
+import { Button, Row, Col, Space } from "antd";
+import { SettingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import useMemberStore from "@/stores/useMemberStore";
 import { useEffect, useRef } from "react";
+import { FormattedMessage } from "react-intl";
+import useLocaleStore from "@/stores/useLocaleStore";
 
 export function MyHeader() {
   // メニュー制御用フック
-  const { openSearchSetting, openMemberSetting, openHelp } =
-    useMenuStore();
+  const { openSearchSetting, openMemberSetting, openHelp } = useMenuStore();
   // メンバ制御用Hook
   const { members, addMember } = useMemberStore();
+
+  // 地域設定用Hook
+  const { locale, changeLocale } = useLocaleStore();
 
   // メンバを監視して追加が未設定ならメンバー設定を開く
   const prevCountRef = useRef(members.length);
@@ -36,27 +32,40 @@ export function MyHeader() {
 
   return (
     <>
-      <Row justify="space-between"  align="middle" style={{height:"100%"}}>
+      <Row justify="space-between" align="middle" style={{ height: "100%" }}>
         <Col>
-          FF11連携Navi
+          <FormattedMessage id="title" />
         </Col>
         <Col>
           <Row justify="end">
             <Col>
-              <Space>
+              {locale == "ja" ? (
                 <Button
                   type="text"
-                  icon={<SettingOutlined />}
-                  onClick={openSearchSetting}
-                ></Button>
-              </Space>
-              <Space>
+                  size="small"
+                  onClick={() => changeLocale("en")}
+                >
+                  English
+                </Button>
+              ) : (
                 <Button
                   type="text"
-                  icon={<QuestionCircleOutlined />}
-                  onClick={openHelp}
-                ></Button>
-              </Space>
+                  size="small"
+                  onClick={() => changeLocale("ja")}
+                >
+                  日本語
+                </Button>
+              )}
+              <Button
+                type="text"
+                icon={<SettingOutlined />}
+                onClick={openSearchSetting}
+              ></Button>
+              <Button
+                type="text"
+                icon={<QuestionCircleOutlined />}
+                onClick={openHelp}
+              ></Button>
             </Col>
           </Row>
         </Col>

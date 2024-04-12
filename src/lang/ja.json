@@ -1,0 +1,22 @@
+{
+    "title": "FF11連携Navi",
+    "title.member_setting": "連携メンバーの設定",
+    "add_message": "連携メンバーを追加してください",
+    "placeholder.wepon": "武器",
+    "placeholder.ability": "アビリティ / 魔法",
+    "placeholder.automaton": "オートマトン",
+    "placeholder.trust": "フェイス",
+    "tag.aftermath": "アフマス",
+    "tag.range": "範囲",
+    "tag.support_message": "ポートジョブが必要です",
+    "title.search_setting": "検索設定",
+    "search_option.title": "■ 検索オプション",
+    "search_option.sort1": "合計値が強い順",
+    "search_option.sort2": "WSが強い順",
+    "search_option.range": "範囲技を除外する",
+    "search_option.skillchain": "強さに連携ダメージも含める",
+    "view_option.title": "■ 表示オプション",
+    "view_option.short_name": "WS名を省略",
+    "view_option.power": "強さを表示",
+    "last_element_option.title": "■ 〆の連携属性"
+}

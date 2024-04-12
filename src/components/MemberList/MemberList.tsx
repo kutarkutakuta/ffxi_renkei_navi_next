@@ -19,6 +19,7 @@ import useMembersStore, { Member } from "@/stores/useMemberStore";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
 import { Button, Tooltip } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
+import { useIntl } from "react-intl";
 
 // #region dnd-kit用の制御
 // data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
@@ -76,6 +77,9 @@ export function MemberList() {
   // メンバ制御用Hook
   const { members, sortMember, addMember } = useMembersStore();
 
+  // 国際化用Hooｋ
+  const intl = useIntl()
+  
   const handleDragEnd = useCallback(
     (event: { active: any; over: any }) => {
       const { active, over } = event;
@@ -113,7 +117,7 @@ export function MemberList() {
           >
             
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", paddingLeft: 10, paddingRight:5 }}>
-            <Tooltip title="連携メンバーを追加してください" placement="right" open={members.length == 0} zIndex={1}>
+            <Tooltip title={intl.formatMessage({ id: 'add_message' })} placement="right" open={members.length == 0} zIndex={1}>
               <Button
                 type="primary"
                 icon={<PlusCircleOutlined />}

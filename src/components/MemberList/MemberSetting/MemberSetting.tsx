@@ -4,7 +4,6 @@ import {
   Space,
   Divider,
   Button,
-  Select,
   TreeSelect,
   Radio,
 } from "antd";
@@ -12,16 +11,19 @@ import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
 import useMembersStore from "@/stores/useMemberStore";
 import { useMemberSetting } from "./useMemberSetting";
+import { FormattedMessage, useIntl } from "react-intl";
 
 export function MemberSetting() {
-  // マスタ取得
+  // マスタ取得用Hook
   const { jobs, wepons, weponTypes } = useMasterStore();
   // フォーム値保存用
   const { formData, initialFormData, handleChange } = useMemberSetting();
   // メニュー制御用フック
   const { openMember, closeMemberSetting } = useMenuStore();
   // メンバ操作用Hook
-  const { removeMember } = useMembersStore();
+  const { removeMember } = useMembersStore();  
+  // 国際化用Hook
+  const intl = useIntl()
 
   // 親のイベントを検知してオープン
   useEffect(() => {
@@ -33,14 +35,14 @@ export function MemberSetting() {
       .filter((n) => n.group == "武器種")
       .map((n) => {
         return {
-          title: n.name,
+          title: intl.locale == "ja" ? n.name : intl.formatMessage({id: "wepon." + n.name, defaultMessage: n.name}),
           value: n.name,
           key: n.name,
           children: weponTypes
             .filter((m) => m.group == n.group)
             .map((m) => {
               return {
-                title: `${n.name}(${m.name})`,
+                title: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name})}`,
                 value: `${n.name}-${m.name}`,
                 key: `${n.name}-${m.name}`,
               };
@@ -53,14 +55,14 @@ export function MemberSetting() {
       .filter((n) => ["属性", "召喚獣", "種族", "青魔法"].includes(n.group))
       .map((n) => {
         return {
-          title: n.name,
+          title: intl.locale == "ja" ? n.name : intl.formatMessage({id: "wepon." + n.name, defaultMessage: n.name}),
           value: n.name,
           key: n.name,
           children: weponTypes
             .filter((m) => m.group.startsWith(n.group))
             .map((m) => {
               return {
-                title: `${n.name}(${m.name})`,
+                title: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name})}`,
                 value: `${n.name}-${m.name}`,
                 key: `${n.name}-${m.name}`,
               };
@@ -73,7 +75,7 @@ export function MemberSetting() {
       .filter((m) => m.group.startsWith(group))
       .map((m) => {
         return {
-          title: `${m.name}`,
+          title: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name})}`,
           value: `${weponName}-${m.name}`,
           key: `${weponName}-${m.name}`,
         };
@@ -95,7 +97,9 @@ export function MemberSetting() {
     <Drawer
       title={
         <>
-          <span style={{ paddingLeft: 4 }}>連携メンバーの設定</span>
+          <span style={{ paddingLeft: 4 }}>
+            <FormattedMessage id="title.member_setting" />
+          </span>
         </>
       }
       placement={"right"}
@@ -117,29 +121,23 @@ export function MemberSetting() {
       data-dndkit-disabled-dnd-flag="true"
     >
       <Space direction="vertical" style={{ width: "100%" }}>
-        {/* <Select
-          showSearch
-          placeholder="ジョブ"
-          style={{ width: 120 }}
-          options={jobs.map((m) => ({ value: m.name, label: m.name }))}
-          value={formData.Job}
-          listHeight={400}
-          onChange={(value) => handleChange("Job", value, openMember!)}
-        /> */}
         <Radio.Group
           value={formData.Job}
           size="small"
           onChange={(e) => handleChange("Job", e.target.value, openMember!)}
         >
           {jobs.map((m) => (
-            <Radio.Button value={m.name}>{m.name}</Radio.Button>
+            <Radio.Button key={m.name} value={m.name}>
+              {intl.locale == "ja" ? m.name : intl.formatMessage({ id: "job." + m.name, defaultMessage: m.name })}
+            </Radio.Button>
           ))}
         </Radio.Group>
 
         <TreeSelect
           {...tProps}
-          placeholder="武器"
+          placeholder={intl.formatMessage({ id: "placeholder.wepon" })}
           treeData={getWeponOption()}
+          treeNodeFilterProp="title"
           value={formData.Wepons}
           listHeight={400}
           onChange={(value) => handleChange("武器種", value, openMember!)}
@@ -147,24 +145,27 @@ export function MemberSetting() {
 
         <TreeSelect
           {...tProps}
-          placeholder="アビ/魔法"
+          placeholder={intl.formatMessage({ id: "placeholder.ability" })}
           treeData={getAviOption()}
+          treeNodeFilterProp="title"
           value={formData.Abi}
           onChange={(value) => handleChange("アビ魔法", value, openMember!)}
         />
 
         <TreeSelect
           {...tProps}
-          placeholder="マトン"
+          placeholder={intl.formatMessage({ id: "placeholder.automaton" })}
           treeData={getWeponTypeOption("マトン", "フレーム")}
+          treeNodeFilterProp="title"
           value={formData.Maton}
           onChange={(value) => handleChange("マトン", value, openMember!)}
         />
 
         <TreeSelect
           {...tProps}
-          placeholder="フェイス"
+          placeholder={intl.formatMessage({ id: "placeholder.trust" })}
           treeData={getWeponTypeOption("フェイス", "フェイス")}
+          treeNodeFilterProp="title"
           value={formData.Faith}
           onChange={(value) => handleChange("フェイス", value, openMember!)}
         />

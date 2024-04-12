@@ -14,6 +14,7 @@ import styles from "./SearchSetting.module.scss";
 import useChainStore from "@/stores/useChainStore";
 import useMemberStore from "@/stores/useMemberStore";
 import useMasterStore from "@/stores/useMasterStore";
+import { useIntl } from "react-intl";
 
 export function SearchSetting() {
   // メニュー制御用Hook
@@ -25,7 +26,9 @@ export function SearchSetting() {
   const { members } = useMemberStore();
   // マスタ取得Hook
   const { renkeis } = useMasterStore();
-
+  // 国際化用Hook
+  const intl = useIntl()
+  
   const onChangeSortType = (e: RadioChangeEvent) => {
     chainParam.sortType = e.target.value;
     setChainParam(chainParam);
@@ -71,7 +74,9 @@ export function SearchSetting() {
       <Drawer
         title={
           <>
-            <span style={{ paddingLeft: 4 }}>検索設定</span>
+            <span style={{ paddingLeft: 4 }}>
+              {intl.formatMessage({ id: "title.search_setting" })}
+            </span>
           </>
         }
         placement={"left"}
@@ -79,44 +84,44 @@ export function SearchSetting() {
         open={isSearchSetting}
         onClose={closeSearchSetting}
       >
-        <div className={styles.caption}>■ 検索オプション</div>
+        <div className={styles.caption}>{intl.formatMessage({ id: "search_option.title" })}</div>
         <Radio.Group value={chainParam.sortType} onChange={onChangeSortType}>
-          <Radio value="0">合計値が強い順</Radio>
-          <Radio value="1">〆技が強い順</Radio>
+          <Radio value="0">{intl.formatMessage({ id: "search_option.sort1" })}</Radio>
+          <Radio value="1">{intl.formatMessage({ id: "search_option.sort2" })}</Radio>
         </Radio.Group>
         <br />
         <br />
         <Space>
           <Space.Compact direction="vertical">
             <Checkbox checked={chainParam.noRange} onChange={onChangeNorange}>
-              範囲技を除外する
+            {intl.formatMessage({ id: "search_option.range" })}
             </Checkbox>
             <Checkbox
               checked={chainParam.renkeiDamage}
               onChange={onChangeRenkeiDamage}
             >
-              強さに連携ダメージ分も含める
+              {intl.formatMessage({ id: "search_option.skillchain" })}
             </Checkbox>
           </Space.Compact>
         </Space>
 
         <Divider />
-        <div className={styles.caption}>■ 表示オプション</div>
+        <div className={styles.caption}>{intl.formatMessage({ id: "view_option.title" })}</div>
         <Space>
           <Space.Compact direction="vertical">
             <Checkbox checked={viewParam.viewOmit} onChange={onChangeViewOmit}>
-              WS名称を略称で表示する
+            {intl.formatMessage({ id: "view_option.short_name" })}
             </Checkbox>
             <Checkbox
               checked={viewParam.viewPower}
               onChange={onChangeViewPower}
             >
-              強さを表示する
+              {intl.formatMessage({ id: "view_option.power" })}
             </Checkbox>
           </Space.Compact>
         </Space>
         <Divider />
-        <div className={styles.caption}>■ 〆の連携属性</div>
+        <div className={styles.caption}>{intl.formatMessage({ id: "last_element_option.title" })}</div>
         <Space direction="vertical" size="small" style={{ display: "flex" }}>
           <Space wrap>
             {renkeis
@@ -132,7 +137,7 @@ export function SearchSetting() {
                   }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
-                  {m.name}
+                  {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}
                 </Checkbox>
               ))}
           </Space>
@@ -150,7 +155,7 @@ export function SearchSetting() {
                   }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
-                  {m.name}
+                {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}
                 </Checkbox>
               ))}
           </Space>
@@ -163,7 +168,7 @@ export function SearchSetting() {
                   checked={chainParam.lastChains.includes(m.name)}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
-                  {m.name}
+                {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}
                 </Checkbox>
               ))}
           </Space>

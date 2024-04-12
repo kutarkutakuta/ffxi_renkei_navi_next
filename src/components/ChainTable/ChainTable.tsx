@@ -7,6 +7,7 @@ import useMemberStore from "@/stores/useMemberStore";
 import { Chain } from "@/types/chain";
 import styles from "./ChainTable.module.scss";
 import { FilterValue } from "antd/es/table/interface";
+import { useIntl } from "react-intl";
 
 interface ColumnFilter {
   text: string;
@@ -18,6 +19,8 @@ export function ChainTable() {
   const { members, updateFilters } = useMemberStore();
   // マスタ取得用Hook
   const { renkeis, weponSkills } = useMasterStore();
+  // 国際化用Hooｋ
+  const intl = useIntl();
   // 連携検索用Hook
   const {
     chains,
@@ -93,9 +96,10 @@ export function ChainTable() {
     },
     {
       dataIndex: "chain_first",
-      width: 30,
+      width: 35,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_first!),
+      render: (value) => getRenkeiElement(value),
       filters: chainFilters[0],
       filteredValue: chainParam.chainFilters["chain_first"],
     },
@@ -115,9 +119,10 @@ export function ChainTable() {
     },
     {
       dataIndex: "chain_second",
-      width: 30,
+      width: 35,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_second!),
+      render: (value) => getRenkeiElement(value),
       filters: chainFilters[1],
       filteredValue: chainParam.chainFilters["chain_second"],
     },
@@ -137,9 +142,10 @@ export function ChainTable() {
     },
     {
       dataIndex: "chain_third",
-      width: 30,
+      width: 35,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_third!),
+      render: (value) => getRenkeiElement(value),
       filters: chainFilters[2],
       filteredValue: chainParam.chainFilters["chain_third"],
     },
@@ -159,16 +165,17 @@ export function ChainTable() {
     },
     {
       dataIndex: "chain_fourth",
-      width: 30,
+      width: 35,
       align: "center",
       onCell: (data) => getRenkeiStyleElement(data.chain_fourth!),
+      render: (value) => getRenkeiElement(value),
       filters: chainFilters[3],
       filteredValue: chainParam.chainFilters["chain_fourth"],
     },
     {
-      title: "計",
+      title: "Total",
       dataIndex: "power_sum",
-      width: 40,
+      width: 42,
       align: "right",
       className: styles.power,
     },
@@ -184,10 +191,15 @@ export function ChainTable() {
     .filter((m) => viewParam.viewPower || m.className !== styles.power);
 
   const getWikiURL = (param: string) => {
-    return "http://wiki.ffo.jp/search.cgi?CCC=%E6%84%9B&Command=Search&qf=" +
-    param + "&order=match&ffotype=title&type=title"
-  }
-  
+    return intl.locale == "ja" || !param
+      ? "http://wiki.ffo.jp/search.cgi?CCC=%E6%84%9B&Command=Search&qf=" +
+          param +
+          "&order=match&ffotype=title&type=title"
+      : "https://www.bg-wiki.com/index.php?search=" +
+          intl.formatMessage({ id: param }) +
+          "&title=Special%3ASearch&go=Go";
+  };
+
   /**
    * WSのElement取得
    * 既定の列定義で使用
@@ -204,68 +216,94 @@ export function ChainTable() {
 
     switch (wsNumber) {
       case 1:
-        wsName = viewParam.viewOmit ? data.short_name1! : data.name1!;
+        wsName = viewParam.viewOmit && intl.locale == "ja"  ? data.short_name1! : data.name1!;
         am = data.am1!;
         wsType = data.ws_type1!;
         jobs = data.jobs1!;
-        wikiURL = getWikiURL( data.name1!);
+        wikiURL = getWikiURL(data.name1!);
         break;
       case 2:
-        wsName = viewParam.viewOmit ? data.short_name2! : data.name2!;
+        wsName = viewParam.viewOmit && intl.locale == "ja"  ? data.short_name2! : data.name2!;
         am = data.am2!;
         wsType = data.ws_type2!;
         jobs = data.jobs2!;
-        wikiURL = getWikiURL( data.name2!);
+        wikiURL = getWikiURL(data.name2!);
         break;
       case 3:
-        wsName = viewParam.viewOmit ? data.short_name3! : data.name3!;
+        wsName = viewParam.viewOmit && intl.locale == "ja"  ? data.short_name3! : data.name3!;
         am = data.am3!;
         wsType = data.ws_type3!;
         jobs = data.jobs3!;
-        wikiURL = getWikiURL( data.name3!);
+        wikiURL = getWikiURL(data.name3!);
         break;
       case 4:
-        wsName = viewParam.viewOmit ? data.short_name4! : data.name4!;
+        wsName = viewParam.viewOmit && intl.locale == "ja"  ? data.short_name4! : data.name4!;
         am = data.am4!;
         wsType = data.ws_type4!;
         jobs = data.jobs4!;
-        wikiURL = getWikiURL( data.name4!);
+        wikiURL = getWikiURL(data.name4!);
         break;
       case 5:
-        wsName = viewParam.viewOmit ? data.short_name5! : data.name5!;
+        wsName = viewParam.viewOmit && intl.locale == "ja" ? data.short_name5! : data.name5!;
         am = data.am5!;
         wsType = data.ws_type5!;
         jobs = data.jobs5!;
-        wikiURL = getWikiURL( data.name5!);
+        wikiURL = getWikiURL(data.name5!);
         break;
     }
     return (
       <>
         <a href={wikiURL} target="_blank">
-          {wsName}</a>
+          {intl.locale == "ja" || !wsName  ? wsName : intl.formatMessage({ id: wsName })}
+        </a>
         {am && (
           <Tag bordered={false} color="volcano">
-            アフマス
+            {intl.formatMessage({ id: "tag.aftermath" })}
           </Tag>
         )}
         {wsType && wsType == "範囲" && (
           <Tag bordered={false} color="yellow">
-            {wsType}
+            {intl.formatMessage({ id: "tag.range" })}
           </Tag>
         )}
-        {wsType && wsType != "範囲"  && (
+        {wsType && wsType != "範囲" && (
           <Tag bordered={false} color="cyan">
-            {wsType}
+            {intl.locale == "ja" ? wsType : intl.formatMessage({ id: wsType })}
           </Tag>
         )}
         {jobs && (
-          <Tooltip title="サポートジョブが必要です" color="gold" placement="topLeft">
-            <Tag bordered={false} color="lime" style={{marginLeft:-5}}>
-              {jobs}
+          <Tooltip
+            title={intl.formatMessage({ id: "tag.support_message" })}
+            color="gold"
+            placement="topLeft"
+          >
+            <Tag bordered={false} color="lime" style={{ marginLeft: -5 }}>
+              {intl.locale == "ja"
+                ? jobs
+                : jobs
+                    .split("")
+                    .map((n) => intl.formatMessage({ id: "job." + n }))
+                    .join(",")}
             </Tag>
           </Tooltip>
         )}
       </>
+    );
+  };
+
+  /**
+   * 連携名称のElementを取得
+   * 既定の列定義で使用
+   * @param renkei
+   * @returns
+   */
+  const getRenkeiElement = (renkei: string): any => {
+    return intl.locale != "ja" && renkei ? (
+      <Tooltip title={intl.formatMessage({ id: renkei })}>
+        {intl.formatMessage({ id: "skillchain." + renkei })}
+      </Tooltip>
+    ) : (
+      renkei
     );
   };
   /**
@@ -313,25 +351,29 @@ export function ChainTable() {
         )
         .sort((a, b) => b.id - a.id)
         .map((ws) => {
-          return { text: ws.name, value: ws.name };
+          return { text: intl.locale == "ja" || !ws.name ? ws.name : intl.formatMessage({ id: ws.name }),
+             value: ws.name };
         });
       setColumnFilters(wsFilters);
 
       // 連携列にフィルタセット
-      chainFilters[i] = renkeis.map((m) => ({ text: m.name, value: m.name }));
+      chainFilters[i] = renkeis.map((m) => (
+        { text: intl.locale == "ja" || !m.name ? m.name : intl.formatMessage({ id: m.name }),
+         value: m.name }
+      ));
       setChainFilters(chainFilters);
 
       // メンバが減って非表示になった連携属性フィルタはクリア
-      if(members.length < 5 && chainParam.chainFilters["chain_fourth"]){
+      if (members.length < 5 && chainParam.chainFilters["chain_fourth"]) {
         delete chainParam.chainFilters["chain_fourth"];
       }
-      if(members.length < 4 && chainParam.chainFilters["chain_third"]){
+      if (members.length < 4 && chainParam.chainFilters["chain_third"]) {
         delete chainParam.chainFilters["chain_third"];
       }
-      if(members.length < 3 && chainParam.chainFilters["chain_second"]){
+      if (members.length < 3 && chainParam.chainFilters["chain_second"]) {
         delete chainParam.chainFilters["chain_second"];
       }
-      if(members.length < 2 && chainParam.chainFilters["chain_first"]){
+      if (members.length < 2 && chainParam.chainFilters["chain_first"]) {
         delete chainParam.chainFilters["chain_first"];
       }
 
@@ -357,11 +399,12 @@ export function ChainTable() {
     updateFilters(filters);
 
     // 連携属性
-    const filteredRecord = Object.keys(filters).filter(key => key.startsWith("chain"))
-    .reduce((obj: Record<string, FilterValue | null>, key: string) => {
-      obj[key] = filters[key];
-      return obj;
-    }, {});
+    const filteredRecord = Object.keys(filters)
+      .filter((key) => key.startsWith("chain"))
+      .reduce((obj: Record<string, FilterValue | null>, key: string) => {
+        obj[key] = filters[key];
+        return obj;
+      }, {});
     chainParam.chainFilters = filteredRecord;
     setChainParam(chainParam);
 
@@ -380,29 +423,30 @@ export function ChainTable() {
             : "100%",
       }}
     >
-      {total > 0 ? <Table
-        size="small"
-        bordered
-        tableLayout="fixed"
-        rowKey="id"
-        columns={filterdColumns}
-        dataSource={chains}
-        loading={loading}
-        pagination={{
-          position: ["topLeft"],
-          pageSize: 50,
-          current: pageIndex,
-          total: total,
-          showSizeChanger: false,
-          showTotal: (total) => `　${total} items`,
-        }}
-        onChange={(pagination, filters, _soter, extra) => {
-          if (extra.action == "filter") handleChangeFilter(filters);
-          else if (extra.action == "paginate")
-            handleChangePage(pagination.current || 1);
-        }}
-      />: null}
-      
+      {members.length > 1 ? (
+        <Table
+          size="small"
+          bordered
+          tableLayout="fixed"
+          rowKey="id"
+          columns={filterdColumns}
+          dataSource={chains}
+          loading={loading}
+          pagination={{
+            position: ["topLeft"],
+            pageSize: 50,
+            current: pageIndex,
+            total: total,
+            showSizeChanger: false,
+            showTotal: (total) => `　${total} items`,
+          }}
+          onChange={(pagination, filters, _soter, extra) => {
+            if (extra.action == "filter") handleChangeFilter(filters);
+            else if (extra.action == "paginate")
+              handleChangePage(pagination.current || 1);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

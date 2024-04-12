@@ -3,6 +3,7 @@ import useMasterStore from "@/stores/useMasterStore";
 import useMemberStore, { Member } from "@/stores/useMemberStore";
 import { Wepon } from "@/types/Master/wepon";
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useIntl } from "react-intl";
 
 /**
  * フォーム値定義
@@ -21,7 +22,7 @@ interface FormData {
  */
 export function useMemberSetting() {
   // メンバ操作用フック
-  const { members, updateMember } = useMemberStore();
+  const { updateMember } = useMemberStore();
   // マスタ取得用フック
   const { wepons, jobWepons } = useMasterStore();
   // フォーム値保存用フック
@@ -32,6 +33,8 @@ export function useMemberSetting() {
     Maton: [],
     Faith: [],
   });
+
+  const intl = useIntl()
 
   /**
    * フォーム値初期化
@@ -58,34 +61,34 @@ export function useMemberSetting() {
           m.weponTypes.forEach((n) => {
             if (m.group == "武器種")
               formWepons.push({
-                label: `${m.name}(${n})`,
+                label: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name})}(${intl.formatMessage({id: n})})`,
                 value: `${m.name}-${n}`,
               });
             if (["属性", "召喚獣", "種族", "青魔法"].includes(m.group))
               formAbi.push({
-                label: `${m.name}(${n})`,
+                label: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name})}(${intl.formatMessage({id: n})})`,
                 value: `${m.name}-${n}`,
               });
             if (m.group == "フレーム")
               formMaton.push({
-                label: `${n}`,
+                label: `${intl.locale == "ja" ? n : intl.formatMessage({id: n})}`,
                 value: `${m.name}-${n}`,
               });
             if (m.group == "フェイス")
               formFaith.push({
-                label: `${n}`,
+                label: `${intl.locale == "ja" ? n : intl.formatMessage({id: n})}`,
                 value: `${m.name}-${n}`,
               });
           });
         } else {
           if (m.group == "武器種")
-            formWepons.push({ label: m.name, value: m.name });
+            formWepons.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name}), value: m.name });
           if (["属性", "召喚獣", "種族", "青魔法"].includes(m.group))
-            formAbi.push({ label: m.name, value: m.name });
+            formAbi.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name}), value: m.name });
           if (m.group == "フレーム")
-            formMaton.push({ label: m.name, value: m.name });
+            formMaton.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name}), value: m.name });
           if (m.group == "フェイス")
-            formFaith.push({ label: m.name, value: m.name });
+            formFaith.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name}), value: m.name });
         }
       });
       newformData.Wepons = formWepons;
