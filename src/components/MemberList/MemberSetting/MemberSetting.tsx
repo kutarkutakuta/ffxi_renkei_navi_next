@@ -50,8 +50,9 @@ export function MemberSetting() {
       },
       true
     );
-    messageApi.info(
-      intl.formatMessage(
+    messageApi.open({
+      type: 'success',
+      content: intl.formatMessage(
         { id: "added_message" },
         {
           job:
@@ -59,8 +60,11 @@ export function MemberSetting() {
               ? job
               : intl.formatMessage({ id: "job." + job }),
         }
-      )
-    );
+      ),
+      style: {
+        marginTop: '4vh',
+      },
+    });
   };
 
   const getWeponOption = () =>
