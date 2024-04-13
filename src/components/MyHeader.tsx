@@ -10,7 +10,7 @@ export function MyHeader() {
   // メニュー制御用フック
   const { openSearchSetting, openMemberSetting, openHelp } = useMenuStore();
   // メンバ制御用Hook
-  const { members, addMember } = useMemberStore();
+  const { members } = useMemberStore();
 
   // 地域設定用Hook
   const { locale, changeLocale } = useLocaleStore();

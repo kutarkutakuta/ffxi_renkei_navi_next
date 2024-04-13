@@ -1,11 +1,12 @@
 {
-    "title": "FF11連携Navi",
+    "title": "FF11 連携Navi",
     "title.member_setting": "連携メンバーの設定",
     "add_message": "連携メンバーを追加してください",
+    "added_message": "{job}を追加しました",
     "placeholder.wepon": "武器",
     "placeholder.ability": "アビリティ / 魔法",
-    "placeholder.automaton": "オートマトン",
-    "placeholder.trust": "フェイス",
+    "placeholder.automaton": "フレームを選択してください",
+    "placeholder.trust": "フェイスを選択してください",
     "tag.aftermath": "アフマス",
     "tag.range": "範囲",
     "tag.support_message": "ポートジョブが必要です",
@@ -18,5 +19,7 @@
     "view_option.title": "■ 表示オプション",
     "view_option.short_name": "WS名を省略",
     "view_option.power": "強さを表示",
-    "last_element_option.title": "■ 〆の連携属性"
+    "last_element_option.title": "■ 〆の連携属性",
+    "title.help": "ヘルプ（使い方）",
+    "contact": "更新情報やお問い合わせはこちら"
 }

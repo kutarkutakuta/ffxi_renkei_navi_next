@@ -3,9 +3,10 @@ import { Member } from "./useMemberStore";
 
 interface MenuState {
   openMember: Member | null;
+  isMemberSetting: boolean;
   isSearchSetting: boolean;
   isHelp: boolean;
-  openMemberSetting: (member: Member) => void;
+  openMemberSetting: (member?: Member) => void;
   openSearchSetting: () => void;
   openHelp: () => void;
   closeMemberSetting: () => void;
@@ -18,11 +19,12 @@ interface MenuState {
  */
 const useMenuStore = create<MenuState>((set) => ({
   openMember: null,
+  isMemberSetting: false,
   isSearchSetting: false,
   isHelp: false,
-  openMemberSetting: (member: Member) => {
+  openMemberSetting: (member?: Member) => {
     document.querySelector("html")!.style.overflow = "hidden";
-    set({ openMember: member });
+    set({ openMember: member, isMemberSetting: true });
   },
   openSearchSetting: () => {
     document.querySelector("html")!.style.overflow = "hidden";
@@ -34,7 +36,7 @@ const useMenuStore = create<MenuState>((set) => ({
   },
   closeMemberSetting: () => {
     document.querySelector("html")!.style.overflow = "";
-    set({ openMember: null });
+    set({ isMemberSetting: false });
   },
   closeSearchSetting: () => {
     document.querySelector("html")!.style.overflow = "";

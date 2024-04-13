@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { Wepon } from "../types/Master/wepon";
 import { arrayMove } from "@dnd-kit/sortable";
 import { FilterValue } from "antd/es/table/interface";
+import useMenuStore from "./useMenuStore";
 
 export interface Member {
   id: number;
@@ -12,7 +13,7 @@ export interface Member {
 
 interface MemberState {
   members: Member[];
-  addMember: (copyMember?: Member) => void;
+  addMember: (baseMember: any, isOpenMenu : boolean) => void;
   removeMember: (removeMember: Member) => void;
   updateMember: (updateMember: Member) => void;
   updateFilters: (filters: Record<string, FilterValue | null>) => void;
@@ -24,23 +25,29 @@ interface MemberState {
  */
 const useMemberStore = create<MemberState>((set) => ({
   members: [],
-  addMember: (copyMember) => {
+  addMember: (baseMember, isOpenMenu) => {
     // ステート更新
-    set((state) => ({
-      members: [
-        ...state.members,
-        {
-          id: state.members.length + 1,
-          Job: copyMember ? copyMember.Job : null,
-          Wepons: copyMember
-            ? JSON.parse(JSON.stringify(copyMember.Wepons))
-            : [],
-          WSFilters: copyMember
-            ? JSON.parse(JSON.stringify(copyMember.WSFilters))
-            : [],
-        },
-      ],
-    }));
+    set((state) => {
+      
+      var add_member = {
+        id: state.members.length + 1,
+        Job: baseMember ? baseMember.Job : null,
+        Wepons: baseMember && baseMember.Wepons
+          ? JSON.parse(JSON.stringify(baseMember.Wepons))
+          : [],
+        WSFilters: baseMember && baseMember.WSFilters
+          ? JSON.parse(JSON.stringify(baseMember.WSFilters))
+          : [],
+      };
+
+      if(isOpenMenu){
+        // メニュー制御用フック
+        const { openMemberSetting } = useMenuStore.getState();;
+        openMemberSetting(add_member);
+      }
+      
+      return {members: [...state.members, add_member]};
+    });
   },
   removeMember: (removeMember) =>
     set((state) => {

@@ -1,56 +1,125 @@
-import React from "react";
 import { StyleProvider, createCache, extractStyle } from "@ant-design/cssinjs";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import type { DocumentContext } from "next/document";
 
-const MyDocument = () => (
-  <Html lang="ja">
-    <Head>
-      <meta charSet="utf-8" />
-      <title>FF11連携Navi</title>
-      <meta
-        name="description"
-        content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
-      />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      
-      {/* <!-- Facebook:カード用--> */}
-      <meta property="og:url" content="https://renkei-navi.onrender.com" />
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="FF11連携Navi" />
-      <meta property="og:description" content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。" />
-      <meta property="og:image" content="https://renkei-navi.onrender.com/assets/icons/icon-128x128.png" />
-      {/* <!-- twitter:カード用--> */}
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@kutakutar_ff11" />
-      <meta name="twitter:domain" content="renkei-navi.onrender.com" />
-      <meta name="twitter:url" content="https://renkei-navi.onrender.com" />
-      <meta name="twitter:title" content="FF11連携Navi" />
-      <meta name="twitter:description" content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。" />
-      <meta name="twitter:image" content="https://renkei-navi.onrender.com/assets/icons/icon-128x128.png" />
+const MyDocument = () => {
+  return (
+    <Html>
+      <Head>
+        <meta charSet="utf-8" />
+        <title lang="ja">FF11 連携Navi</title>
+        <title lang="en">FFXI Skillchain Nav</title>
+        <meta
+          lang="ja"
+          name="description"
+          content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
+        />
+        <meta
+          lang="en"
+          name="description"
+          content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <meta
-        name="google-site-verification"
-        content="eKWsAU6fruzFLUVXCaNJ1VF4-8tcVAZrHDUYUNmsGOE"
-      />
-      <link rel="icon" type="image/png" href="assets/icons/icon-16x16.png" sizes="16x16"/>
-      <link rel="icon" type="image/png" href="assets/icons/icon-32x32.png" sizes="32x32"/>
-      <link rel="icon" type="image/png" href="assets/icons/icon-48x48.png" sizes="48x48"/>
-      <link rel="icon" type="image/png" href="assets/icons/icon-64x64.png" sizes="64x64"/>
-      <link rel="icon" type="image/png" href="assets/icons/icon-128x128.png" sizes="128x128"/>
-      <link rel="apple-touch-icon" href="assets/icons/icon-128x128.png" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-      <link rel="manifest" href="manifest.webmanifest" />
-      <meta name="theme-color" content="#2d2d2d" />
-    </Head>
-    <body>
-      <Main />
-      <NextScript />
-    </body>
-  </Html>
-);
+        {/* <!-- Facebook:カード用--> */}
+        <meta property="og:url" content="https://renkei-navi.onrender.com" />
+        <meta property="og:type" content="website" />
+        <meta lang="ja" property="og:title" content="FF11連携Navi" />
+        <meta lang="en" property="og:title" content="FFXI Skillchain Nav" />
+        <meta
+          lang="ja"
+          property="og:description"
+          content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
+        />
+        <meta
+          lang="en"
+          property="og:description"
+          content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!"
+        />
+        <meta
+          property="og:image"
+          content="https://renkei-navi.onrender.com/assets/icons/icon-128x128.png"
+        />
+        {/* <!-- twitter:カード用--> */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@kutakutar_ff11" />
+        <meta name="twitter:domain" content="renkei-navi.onrender.com" />
+        <meta name="twitter:url" content="https://renkei-navi.onrender.com" />
+        <meta lang="ja" name="twitter:title" content="FF11連携Navi" />
+        <meta
+          lang="en"
+          property="twitter:title"
+          content="FFXI Skillchain Nav"
+        />
+        <meta
+          lang="ja"
+          name="twitter:description"
+          content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
+        />
+        <meta
+          lang="en"
+          name="twitter:description"
+          content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://renkei-navi.onrender.com/assets/icons/icon-128x128.png"
+        />
+
+        <meta
+          name="google-site-verification"
+          content="eKWsAU6fruzFLUVXCaNJ1VF4-8tcVAZrHDUYUNmsGOE"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="assets/icons/icon-16x16.png"
+          sizes="16x16"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="assets/icons/icon-32x32.png"
+          sizes="32x32"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="assets/icons/icon-48x48.png"
+          sizes="48x48"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="assets/icons/icon-64x64.png"
+          sizes="64x64"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="assets/icons/icon-128x128.png"
+          sizes="128x128"
+        />
+        <link rel="apple-touch-icon" href="assets/icons/icon-128x128.png" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
+        <link rel="manifest" href="manifest.webmanifest" />
+        <meta name="theme-color" content="#2d2d2d" />
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+};
 
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   const cache = createCache();

@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import Link from "next/link";
 import { ConfigProvider, Layout, ThemeConfig ,theme } from "antd";
 
 import { MyHeader } from "./MyHeader";

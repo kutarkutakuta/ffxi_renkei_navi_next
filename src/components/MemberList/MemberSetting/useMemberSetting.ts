@@ -40,7 +40,7 @@ export function useMemberSetting() {
    * フォーム値初期化
    * @param member
    */
-  const initialFormData = (member: Member | null) => {
+  const initialFormData = (member?: Member| null) => {
     const newformData: FormData = {
       Job: "",
       Wepons: [],
@@ -146,7 +146,7 @@ export function useMemberSetting() {
           );
         // マトン/フェイスの場合、全てクリア
         if (name == "マトン" || name == "フェイス") {
-          member.Job = "";
+          // member.Job = "";
           memberWepons = [];
         }
 

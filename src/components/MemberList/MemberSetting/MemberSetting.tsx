@@ -6,6 +6,7 @@ import {
   Button,
   TreeSelect,
   Radio,
+  message,
 } from "antd";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
@@ -15,34 +16,76 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 export function MemberSetting() {
   // マスタ取得用Hook
-  const { jobs, wepons, weponTypes } = useMasterStore();
+  const { jobs, wepons, weponTypes, jobWepons } = useMasterStore();
   // フォーム値保存用
   const { formData, initialFormData, handleChange } = useMemberSetting();
   // メニュー制御用フック
-  const { openMember, closeMemberSetting } = useMenuStore();
+  const { openMember, isMemberSetting, closeMemberSetting } = useMenuStore();
   // メンバ操作用Hook
-  const { removeMember } = useMembersStore();  
+  const { members, removeMember, addMember } = useMembersStore();
   // 国際化用Hook
-  const intl = useIntl()
+  const intl = useIntl();
+  // メッセージ用Hook
+  const [messageApi, contextHolder] = message.useMessage();
 
   // 親のイベントを検知してオープン
   useEffect(() => {
     initialFormData(openMember);
   }, [openMember]);
 
+  const selectJob = (job: string) => {
+    addMember(
+      {
+        Job: job,
+        Wepons: jobWepons
+          .filter((m) => m.job == job && m.usually)
+          .map((m) => {
+            return {
+              name: m.wepon,
+              weponTypes: [],
+              outWSTypes: [],
+              group: "武器種",
+            };
+          }),
+      },
+      true
+    );
+    messageApi.info(
+      intl.formatMessage(
+        { id: "added_message" },
+        {
+          job:
+            intl.locale == "ja"
+              ? job
+              : intl.formatMessage({ id: "job." + job }),
+        }
+      )
+    );
+  };
+
   const getWeponOption = () =>
     wepons
       .filter((n) => n.group == "武器種")
       .map((n) => {
         return {
-          title: intl.locale == "ja" ? n.name : intl.formatMessage({id: "wepon." + n.name, defaultMessage: n.name}),
+          title:
+            intl.locale == "ja"
+              ? n.name
+              : intl.formatMessage({
+                  id: "wepon." + n.name,
+                  defaultMessage: n.name,
+                }),
           value: n.name,
           key: n.name,
           children: weponTypes
             .filter((m) => m.group == n.group)
             .map((m) => {
               return {
-                title: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name})}`,
+                title: `${
+                  intl.locale == "ja"
+                    ? m.name
+                    : intl.formatMessage({ id: m.name })
+                }`,
                 value: `${n.name}-${m.name}`,
                 key: `${n.name}-${m.name}`,
               };
@@ -55,14 +98,24 @@ export function MemberSetting() {
       .filter((n) => ["属性", "召喚獣", "種族", "青魔法"].includes(n.group))
       .map((n) => {
         return {
-          title: intl.locale == "ja" ? n.name : intl.formatMessage({id: "wepon." + n.name, defaultMessage: n.name}),
+          title:
+            intl.locale == "ja"
+              ? n.name
+              : intl.formatMessage({
+                  id: "wepon." + n.name,
+                  defaultMessage: n.name,
+                }),
           value: n.name,
           key: n.name,
           children: weponTypes
             .filter((m) => m.group.startsWith(n.group))
             .map((m) => {
               return {
-                title: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name})}`,
+                title: `${
+                  intl.locale == "ja"
+                    ? m.name
+                    : intl.formatMessage({ id: m.name })
+                }`,
                 value: `${n.name}-${m.name}`,
                 key: `${n.name}-${m.name}`,
               };
@@ -75,7 +128,9 @@ export function MemberSetting() {
       .filter((m) => m.group.startsWith(group))
       .map((m) => {
         return {
-          title: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name})}`,
+          title: `${
+            intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })
+          }`,
           value: `${weponName}-${m.name}`,
           key: `${weponName}-${m.name}`,
         };
@@ -104,87 +159,98 @@ export function MemberSetting() {
       }
       placement={"right"}
       width={380}
-      open={openMember != null}
+      open={isMemberSetting}
       onClose={() => {
-        if (
-          formData &&
-          !formData.Job &&
-          formData.Maton.length == 0 &&
-          formData.Faith.length == 0 &&
-          formData.Wepons.length == 0 &&
-          formData.Abi.length == 0
-        ) {
-          removeMember(openMember!);
-        }
         closeMemberSetting();
       }}
       data-dndkit-disabled-dnd-flag="true"
     >
-      <Space direction="vertical" style={{ width: "100%" }}>
+      {contextHolder}
+      <Space direction="vertical" style={{ width: "100%" }} size={"large"}>
         <Radio.Group
           value={formData.Job}
           size="small"
-          onChange={(e) => handleChange("Job", e.target.value, openMember!)}
+          disabled={members.length > 4}
         >
           {jobs.map((m) => (
-            <Radio.Button key={m.name} value={m.name}>
-              {intl.locale == "ja" ? m.name : intl.formatMessage({ id: "job." + m.name, defaultMessage: m.name })}
+            <Radio.Button
+              key={m.name}
+              value={m.name}
+              onClick={(e) => selectJob((e.target as HTMLInputElement).value)}
+            >
+              {intl.locale == "ja"
+                ? m.name
+                : intl.formatMessage({ id: "job." + m.name })}
             </Radio.Button>
           ))}
+          <Radio.Button
+            value="マトン"
+            onClick={(e) => selectJob((e.target as HTMLInputElement).value)}
+          >
+            {intl.locale == "ja"
+              ? "マトン"
+              : intl.formatMessage({ id: "job.マトン" })}
+          </Radio.Button>
+          <Radio.Button
+            value="フェイス"
+            onClick={(e) => selectJob((e.target as HTMLInputElement).value)}
+          >
+            {intl.locale == "ja"
+              ? "フェイス"
+              : intl.formatMessage({ id: "job.フェイス" })}
+          </Radio.Button>
         </Radio.Group>
 
-        <TreeSelect
-          {...tProps}
-          placeholder={intl.formatMessage({ id: "placeholder.wepon" })}
-          treeData={getWeponOption()}
-          treeNodeFilterProp="title"
-          value={formData.Wepons}
-          listHeight={400}
-          onChange={(value) => handleChange("武器種", value, openMember!)}
-        />
+        {formData.Job && formData.Job != "マトン" && formData.Job != "フェイス" ? (
+          <>
+            <TreeSelect
+              disabled={formData.Job == "マトン" || formData.Job == "フェイス"}
+              {...tProps}
+              placeholder={intl.formatMessage({ id: "placeholder.wepon" })}
+              treeData={getWeponOption()}
+              treeNodeFilterProp="title"
+              value={formData.Wepons}
+              listHeight={400}
+              onChange={(value) => handleChange("武器種", value, openMember!)}
+            />
+            <TreeSelect
+              {...tProps}
+              placeholder={intl.formatMessage({ id: "placeholder.ability" })}
+              treeData={getAviOption()}
+              treeNodeFilterProp="title"
+              value={formData.Abi}
+              onChange={(value) => handleChange("アビ魔法", value, openMember!)}
+            />
+          </>
+        ) : null}
 
-        <TreeSelect
-          {...tProps}
-          placeholder={intl.formatMessage({ id: "placeholder.ability" })}
-          treeData={getAviOption()}
-          treeNodeFilterProp="title"
-          value={formData.Abi}
-          onChange={(value) => handleChange("アビ魔法", value, openMember!)}
-        />
+        {formData.Job == "マトン" ? (
+          <>
+            <TreeSelect
+              {...tProps}
+              placeholder={intl.formatMessage({ id: "placeholder.automaton" })}
+              treeData={getWeponTypeOption("マトン", "フレーム")}
+              treeNodeFilterProp="title"
+              value={formData.Maton}
+              onChange={(value) => handleChange("マトン", value, openMember!)}
+            />
+          </>
+        ) : null}
 
-        <TreeSelect
-          {...tProps}
-          placeholder={intl.formatMessage({ id: "placeholder.automaton" })}
-          treeData={getWeponTypeOption("マトン", "フレーム")}
-          treeNodeFilterProp="title"
-          value={formData.Maton}
-          onChange={(value) => handleChange("マトン", value, openMember!)}
-        />
-
-        <TreeSelect
-          {...tProps}
-          placeholder={intl.formatMessage({ id: "placeholder.trust" })}
-          treeData={getWeponTypeOption("フェイス", "フェイス")}
-          treeNodeFilterProp="title"
-          value={formData.Faith}
-          onChange={(value) => handleChange("フェイス", value, openMember!)}
-        />
-
-        {/* <Button onClick={closeMemberSetting}>☓ Close</Button> */}
+        {formData.Job == "フェイス" ? (
+          <TreeSelect
+            {...tProps}
+            placeholder={intl.formatMessage({ id: "placeholder.trust" })}
+            treeData={getWeponTypeOption("フェイス", "フェイス")}
+            treeNodeFilterProp="title"
+            value={formData.Faith}
+            onChange={(value) => handleChange("フェイス", value, openMember!)}
+          />
+        ) : null}
       </Space>
       <Divider />
       <Button
         onClick={() => {
-          if (
-            formData &&
-            !formData.Job &&
-            formData.Maton.length == 0 &&
-            formData.Faith.length == 0 &&
-            formData.Wepons.length == 0 &&
-            formData.Abi.length == 0
-          ) {
-            removeMember(openMember!);
-          }
           closeMemberSetting();
         }}
         style={{ width: "100%" }}

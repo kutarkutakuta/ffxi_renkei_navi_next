@@ -20,6 +20,7 @@ import { MemberSetting } from "./MemberSetting/MemberSetting";
 import { Button, Tooltip } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useIntl } from "react-intl";
+import useMenuStore from "@/stores/useMenuStore";
 
 // #region dnd-kit用の制御
 // data-dndkit-disabled-dnd-flag="true" が指定されている要素はドラッグ無効にする
@@ -75,7 +76,9 @@ export function MemberList() {
   );
 
   // メンバ制御用Hook
-  const { members, sortMember, addMember } = useMembersStore();
+  const { members, sortMember } = useMembersStore();
+  // メニュー制御用Hook
+  const { openMemberSetting } = useMenuStore();
 
   // 国際化用Hooｋ
   const intl = useIntl()
@@ -121,7 +124,7 @@ export function MemberList() {
               <Button
                 type="primary"
                 icon={<PlusCircleOutlined />}
-                onClick={() => addMember()}
+                onClick={() => openMemberSetting()}
                 disabled ={members.length >= 5}
               ></Button>
               </Tooltip>

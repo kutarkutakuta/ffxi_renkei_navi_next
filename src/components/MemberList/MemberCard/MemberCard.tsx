@@ -36,7 +36,7 @@ export function MemberCard({ member }: MemberCardProps) {
   const intl = useIntl();
 
   const handleCopy = (member: Member) => {
-    addMember(member);
+    addMember(member, false);
   };
   const handleRemove = (member: Member) => {
     removeMember(member);
@@ -101,7 +101,7 @@ export function MemberCard({ member }: MemberCardProps) {
       <div className={styles.wepons}>
         {intl.locale == "ja"
           ? member.Wepons.map((m) => {
-              if (m.name == "フェイス") {
+              if (m.name == "マトン" || m.name == "フェイス" ) {
                 return weponTypes
                   .filter((n) => m.weponTypes.includes(n.name))
                   .map((n) => n.short_name)
@@ -125,7 +125,7 @@ export function MemberCard({ member }: MemberCardProps) {
               }
             }).join(" / ")
           : member.Wepons.map((m) => {
-              if (m.name == "フェイス") {
+              if (m.name == "マトン" || m.name == "フェイス") {
                 return weponTypes
                   .filter((n) => m.weponTypes.includes(n.name))
                   .map((n) => intl.formatMessage({ id: n.name }))
