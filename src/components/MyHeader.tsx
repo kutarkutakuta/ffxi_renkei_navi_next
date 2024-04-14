@@ -1,10 +1,10 @@
 import useMenuStore from "@/stores/useMenuStore";
-import { Button, Row, Col, Space } from "antd";
+import { Button, Row, Col } from "antd";
 import { SettingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import useMemberStore from "@/stores/useMemberStore";
 import { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
-import useLocaleStore from "@/stores/useLocaleStore";
+import { useRouter } from "next/router";
 
 export function MyHeader() {
   // メニュー制御用フック
@@ -12,9 +12,8 @@ export function MyHeader() {
   // メンバ制御用Hook
   const { members } = useMemberStore();
 
-  // 地域設定用Hook
-  const { locale, changeLocale } = useLocaleStore();
-
+  const router = useRouter();
+  
   // メンバを監視して追加が未設定ならメンバー設定を開く
   const prevCountRef = useRef(members.length);
   useEffect(() => {
@@ -39,11 +38,11 @@ export function MyHeader() {
         <Col>
           <Row justify="end">
             <Col>
-              {locale == "ja" ? (
+              {router.locale == "ja" ? (
                 <Button
                   type="text"
                   size="small"
-                  onClick={() => changeLocale("en")}
+                  onClick={() => router.push("/","/",{locale: "en"} )}
                 >
                   English
                 </Button>
@@ -51,7 +50,7 @@ export function MyHeader() {
                 <Button
                   type="text"
                   size="small"
-                  onClick={() => changeLocale("ja")}
+                  onClick={() => router.push("/","/",{locale: "ja"} )}
                 >
                   日本語
                 </Button>

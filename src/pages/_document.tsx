@@ -1,26 +1,14 @@
 import { StyleProvider, createCache, extractStyle } from "@ant-design/cssinjs";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import type { DocumentContext } from "next/document";
+import { useRouter } from "next/router";
 
 const MyDocument = () => {
+
   return (
     <Html>
       <Head>
         <meta charSet="utf-8" />
-        <title lang="ja">FF11 連携Navi</title>
-        <title lang="en">FFXI Skillchain Nav</title>
-        <meta
-          lang="ja"
-          name="description"
-          content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
-        />
-        <meta
-          lang="en"
-          name="description"
-          content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         {/* <!-- Facebook:カード用--> */}
         <meta property="og:url" content="https://renkei-navi.onrender.com" />
         <meta property="og:type" content="website" />
