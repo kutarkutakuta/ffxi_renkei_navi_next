@@ -5,6 +5,7 @@ import useMemberStore from "@/stores/useMemberStore";
 import { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
 import { useRouter } from "next/router";
+import useLocaleStore from "@/stores/useLocaleStore";
 
 export function MyHeader() {
   // メニュー制御用フック
@@ -13,6 +14,8 @@ export function MyHeader() {
   const { members } = useMemberStore();
 
   const router = useRouter();
+  // 地域設定用Hook
+  const { locale } = useLocaleStore();
   
   // メンバを監視して追加が未設定ならメンバー設定を開く
   const prevCountRef = useRef(members.length);
@@ -38,11 +41,11 @@ export function MyHeader() {
         <Col>
           <Row justify="end">
             <Col>
-              {router.locale == "ja" ? (
+              {locale == "ja" ? (
                 <Button
                   type="text"
                   size="small"
-                  onClick={() => router.push("/","/",{locale: "en"} )}
+                  onClick={() => router.push("/en")}
                 >
                   English
                 </Button>
@@ -50,7 +53,7 @@ export function MyHeader() {
                 <Button
                   type="text"
                   size="small"
-                  onClick={() => router.push("/","/",{locale: "ja"} )}
+                  onClick={() => router.push("/")}
                 >
                   日本語
                 </Button>
