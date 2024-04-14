@@ -11,9 +11,6 @@ export default function Home() {
     const { changeLocale } = useLocaleStore();
     
   useEffect(() => {
-    const meta = document.querySelector(`meta[name="description"]`);  
-    document.title = "FFXI Skillchain Nav";
-    meta?.setAttribute('content', "Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!");
     changeLocale("en");
   }, []);
 
