@@ -26,7 +26,7 @@ https://renkei-navi.onrender.com/
 
 ## 仕様
 - システム構成
-![システム構成図 drawio](https://github.com/kutarkutakuta/ffxi_renkei_navi_next/assets/122729867/b2295078-cc78-4f44-9f09-4ab7542cf909)
+![image](https://github.com/kutarkutakuta/ffxi_renkei_navi_next/assets/122729867/b2e98897-718d-4cd2-95fd-4e58461cec11)
 - ER図
 ![image](https://github.com/kutarkutakuta/ffxi_renkei_navi_next/assets/122729867/9fa6d19e-ee02-4eec-aa96-8692442b42db)
 
