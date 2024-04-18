@@ -4,6 +4,7 @@ import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
 import messagesEn  from '../lang/en-US.json';
 import { useEffect } from 'react';
 import useLocaleStore from '@/stores/useLocaleStore';
+import Head from 'next/head';
 
 export default function Home() {
 
@@ -16,6 +17,10 @@ export default function Home() {
 
   return (
     <IntlProvider messages={messagesEn} locale={"en"}>
+      <Head>
+        <title>FFXI Skillchain Nav</title>
+        <meta lang="en" name="description" content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!" />
+      </Head>
       <BaseLayout>
         <MyComponent></MyComponent>
       </BaseLayout>

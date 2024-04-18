@@ -5,6 +5,7 @@ import messagesJa  from '../lang/ja.json';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useLocaleStore from '@/stores/useLocaleStore';
+import Head from 'next/head';
 
 export default function Home() {
   const router = useRouter();
@@ -24,6 +25,10 @@ export default function Home() {
 
   return (
     <IntlProvider messages={messagesJa} locale={"ja"}>
+      <Head>
+        <title>FF11 連携Navi</title>
+        <meta lang="ja" name="description" content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。" />
+      </Head>
       <BaseLayout>
         <MyComponent></MyComponent>
       </BaseLayout>
