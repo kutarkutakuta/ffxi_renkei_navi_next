@@ -21,7 +21,7 @@ const MyDocument = () => {
         <meta
           lang="en"
           property="og:description"
-          content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!"
+          content="Search and navigate FFXI Skillchain. Strong combinations are obvious at a glance with intuitive operation. Find the best Skillchain!"
         />
         <meta
           property="og:image"
@@ -46,7 +46,7 @@ const MyDocument = () => {
         <meta
           lang="en"
           name="twitter:description"
-          content="Search and navigate FFXI skillchains. Strong combinations are obvious at a glance with intuitive operation. Find the best skillchains!"
+          content="Search and navigate FFXI Skillchain. Strong combinations are obvious at a glance with intuitive operation. Find the best Skillchain!"
         />
         <meta
           name="twitter:image"
