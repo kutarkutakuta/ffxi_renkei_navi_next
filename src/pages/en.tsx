@@ -19,7 +19,7 @@ export default function Home() {
     <IntlProvider messages={messagesEn} locale={"en"}>
       <Head>
         <title>FFXI Skillchain Nav</title>
-        <meta lang="en" name="description" content="Search and navigate FFXI Skillchain. Strong combinations are obvious at a glance with intuitive operation. Find the best Skillchain!" />
+        <meta lang="en" name="description" content="Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" />
       </Head>
       <BaseLayout>
         <MyComponent></MyComponent>
