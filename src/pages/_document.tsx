@@ -100,6 +100,7 @@ const MyDocument = () => {
         <link rel="manifest" href="manifest.webmanifest" />
         <meta name="theme-color" content="#2d2d2d" />
         <meta name="google-adsense-account" content="ca-pub-3944708275620353" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3944708275620353" crossOrigin="anonymous"></script>
       </Head>
       <body>
         <Main />
