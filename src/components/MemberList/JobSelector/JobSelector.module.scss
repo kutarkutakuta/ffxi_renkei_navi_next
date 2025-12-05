@@ -1,0 +1,54 @@
+.jobSelector {
+  background: var(--job-selector-bg);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: clamp(13px, 3.5vw, 15px);
+    font-weight: 600;
+
+    .title {
+      color: var(--card-text);
+      margin-right: 8px;
+    }
+
+    .counter {
+      color: var(--card-sub-text);
+      font-size: clamp(12px, 3vw, 14px);
+    }
+  }
+
+  .jobButtons {
+    :global(.ant-radio-group) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-start;
+    }
+
+    .jobButton {
+      font-size: clamp(12px, 2.8vw, 14px) !important;
+      height: clamp(30px, 8vw, 34px) !important;
+      line-height: clamp(28px, 7.5vw, 32px) !important;
+      padding: 0 clamp(8px, 2.5vw, 14px) !important;
+      border-radius: 4px !important;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+  }
+}
+
+:root[data-theme=light] {
+  .jobSelector {
+    background: var(--job-selector-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+  }
+}

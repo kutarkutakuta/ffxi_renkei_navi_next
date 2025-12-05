@@ -69,13 +69,17 @@ const MyContent = () => {
 
   return (
     <>
-      {/* メンバーリスト */}
+      {/* メンバーリスト（ジョブ選択を含む） */}
       <div id="member_list" className={`${styles.navbar} ${isHidden ? styles.hidden : ''}`}>
           {/* メンバーカードコンテナ */}
           <MemberList></MemberList>
         </div>
       {/* 一覧 */}
-      <div style={{ marginTop:  navbarHeight ? `${navbarHeight}px` : '0', paddingLeft:10, paddingRight:10 }}>
+      <div style={{ 
+        marginTop: navbarHeight ? `${navbarHeight + 10}px` : '10px', 
+        paddingLeft: 'clamp(8px, 2.5vw, 16px)', 
+        paddingRight: 'clamp(8px, 2.5vw, 16px)' 
+      }}>
         <ChainTable />
       </div>
       {/* 検索設定 */}
@@ -83,7 +87,7 @@ const MyContent = () => {
       {/* ヘルプ */}
       <Help></Help>
       {/* BackTop */}
-      <FloatButton.Group shape="circle" style={{ right: 24 }}>
+      <FloatButton.Group shape="circle" style={{ right: 'clamp(12px, 3vw, 24px)', bottom: 'clamp(16px, 4vw, 24px)' }}>
         <FloatButton.BackTop  />
       </FloatButton.Group>
     </>

@@ -21,13 +21,13 @@ export function Help() {
     <Drawer
       title={
         <>
-          <span style={{ paddingLeft: 4 }}>
+          <span style={{ paddingLeft: 4, fontSize: 'clamp(14px, 3.5vw, 16px)' }}>
             {intl.formatMessage({ id: "title.help" })}
           </span>
         </>
       }
       placement={"left"}
-      width={450}
+      width="min(450px, 90vw)"
       open={isHelp}
       onClose={closeHelp}
       data-dndkit-disabled-dnd-flag="true"

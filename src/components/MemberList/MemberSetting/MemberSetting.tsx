@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  Drawer,
+  Modal,
   Space,
   Divider,
   Button,
@@ -32,40 +32,6 @@ export function MemberSetting() {
   useEffect(() => {
     initialFormData(openMember);
   }, [openMember]);
-
-  const selectJob = (job: string) => {
-    addMember(
-      {
-        Job: job,
-        Wepons: jobWepons
-          .filter((m) => m.job == job && m.usually)
-          .map((m) => {
-            return {
-              name: m.wepon,
-              weponTypes: [],
-              outWSTypes: [],
-              group: "武器種",
-            };
-          }),
-      },
-      true
-    );
-    messageApi.open({
-      type: 'success',
-      content: intl.formatMessage(
-        { id: "added_message" },
-        {
-          job:
-            intl.locale == "ja"
-              ? job
-              : intl.formatMessage({ id: "job." + job }),
-        }
-      ),
-      style: {
-        marginTop: '4vh',
-      },
-    });
-  };
 
   const getWeponOption = () =>
     wepons
@@ -153,60 +119,29 @@ export function MemberSetting() {
   };
 
   return (
-    <Drawer
+    <Modal
       title={
-        <>
-          <span style={{ paddingLeft: 4 }}>
-            <FormattedMessage id="title.member_setting" />
-          </span>
-        </>
-      }
-      placement={"right"}
-      width={380}
+      <>
+        『{intl.locale == "ja" ? formData.Job : intl.formatMessage({ id: "job." + formData.Job })}』
+        <FormattedMessage id="title.member_setting" />
+      </>}
       open={isMemberSetting}
-      onClose={() => {
-        closeMemberSetting();
-      }}
-      data-dndkit-disabled-dnd-flag="true"
+      onCancel={closeMemberSetting}
+      footer={[
+        <Button key="close" onClick={closeMemberSetting}>
+          Close
+        </Button>
+      ]}
+      width="min(500px, 95vw)"
+      centered
     >
       {contextHolder}
-      <Space direction="vertical" style={{ width: "100%" }} size={"large"}>
-        <Radio.Group
-          value={formData.Job}
-          size="small"
-          disabled={members.length > 4}
-        >
-          {jobs.map((m) => (
-            <Radio.Button
-              key={m.name}
-              value={m.name}
-              onClick={(e) => selectJob((e.target as HTMLInputElement).value)}
-            >
-              {intl.locale == "ja"
-                ? m.name
-                : intl.formatMessage({ id: "job." + m.name })}
-            </Radio.Button>
-          ))}
-          <Radio.Button
-            value="マトン"
-            onClick={(e) => selectJob((e.target as HTMLInputElement).value)}
-          >
-            {intl.locale == "ja"
-              ? "マトン"
-              : intl.formatMessage({ id: "job.マトン" })}
-          </Radio.Button>
-          <Radio.Button
-            value="フェイス"
-            onClick={(e) => selectJob((e.target as HTMLInputElement).value)}
-          >
-            {intl.locale == "ja"
-              ? "フェイス"
-              : intl.formatMessage({ id: "job.フェイス" })}
-          </Radio.Button>
-        </Radio.Group>
-
+      <Space direction="vertical" style={{ width: "100%", marginTop: 5 }} size={"small"}>
         {formData.Job && formData.Job != "マトン" && formData.Job != "フェイス" ? (
           <>
+            <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--card-sub-text)', paddingBottom: 2 }}>
+              {intl.formatMessage({ id: 'label.wepon' })}
+            </div>
             <TreeSelect
               disabled={formData.Job == "マトン" || formData.Job == "フェイス"}
               {...tProps}
@@ -217,6 +152,9 @@ export function MemberSetting() {
               listHeight={400}
               onChange={(value) => handleChange("武器種", value, openMember!)}
             />
+            <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--card-sub-text)', paddingBottom: 2 }}>
+              {intl.formatMessage({ id: 'label.ability' })}
+            </div>
             <TreeSelect
               {...tProps}
               placeholder={intl.formatMessage({ id: "placeholder.ability" })}
@@ -230,6 +168,9 @@ export function MemberSetting() {
 
         {formData.Job == "マトン" ? (
           <>
+            <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--card-sub-text)', paddingBottom: 2 }}>
+              {intl.formatMessage({ id: 'label.automaton' })}
+            </div>
             <TreeSelect
               {...tProps}
               placeholder={intl.formatMessage({ id: "placeholder.automaton" })}
@@ -242,7 +183,11 @@ export function MemberSetting() {
         ) : null}
 
         {formData.Job == "フェイス" ? (
-          <TreeSelect
+          <>
+            <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--card-sub-text)', paddingBottom: 6 }}>
+              {intl.formatMessage({ id: 'label.trust' })}
+            </div>
+            <TreeSelect
             {...tProps}
             placeholder={intl.formatMessage({ id: "placeholder.trust" })}
             treeData={getWeponTypeOption("フェイス", "フェイス")}
@@ -250,17 +195,9 @@ export function MemberSetting() {
             value={formData.Faith}
             onChange={(value) => handleChange("フェイス", value, openMember!)}
           />
+          </>
         ) : null}
       </Space>
-      <Divider />
-      <Button
-        onClick={() => {
-          closeMemberSetting();
-        }}
-        style={{ width: "100%" }}
-      >
-        Close
-      </Button>
-    </Drawer>
+    </Modal>
   );
 }

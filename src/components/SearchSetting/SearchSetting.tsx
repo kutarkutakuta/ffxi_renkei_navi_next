@@ -74,47 +74,48 @@ export function SearchSetting() {
       <Drawer
         title={
           <>
-            <span style={{ paddingLeft: 4 }}>
+            <span style={{ paddingLeft: 4, fontSize: 'clamp(14px, 3.5vw, 16px)' }}>
               {intl.formatMessage({ id: "title.search_setting" })}
             </span>
           </>
         }
         placement={"left"}
-        width={330}
+        width="min(340px, 85vw)"
         open={isSearchSetting}
         onClose={closeSearchSetting}
       >
         <div className={styles.caption}>{intl.formatMessage({ id: "search_option.title" })}</div>
-        <Radio.Group value={chainParam.sortType} onChange={onChangeSortType}>
-          <Radio value="0">{intl.formatMessage({ id: "search_option.sort1" })}</Radio>
-          <Radio value="1">{intl.formatMessage({ id: "search_option.sort2" })}</Radio>
+        <Radio.Group value={chainParam.sortType} onChange={onChangeSortType} style={{ fontSize: 14 }}>
+          <Radio value="0" style={{ fontSize: 14 }}>{intl.formatMessage({ id: "search_option.sort1" })}</Radio>
+          <Radio value="1" style={{ fontSize: 14 }}>{intl.formatMessage({ id: "search_option.sort2" })}</Radio>
         </Radio.Group>
         <br />
         <br />
         <Space>
           <Space.Compact direction="vertical">
-            <Checkbox checked={chainParam.noRange} onChange={onChangeNorange}>
+            <Checkbox checked={chainParam.noRange} onChange={onChangeNorange} style={{ fontSize: 14 }}>
             {intl.formatMessage({ id: "search_option.range" })}
             </Checkbox>
             <Checkbox
               checked={chainParam.renkeiDamage}
               onChange={onChangeRenkeiDamage}
+              style={{ fontSize: 14 }}
             >
               {intl.formatMessage({ id: "search_option.skillchain" })}
             </Checkbox>
           </Space.Compact>
         </Space>
 
-        <Divider />
         <div className={styles.caption}>{intl.formatMessage({ id: "view_option.title" })}</div>
         <Space>
           <Space.Compact direction="vertical">
-            <Checkbox checked={viewParam.viewOmit} onChange={onChangeViewOmit}>
+            <Checkbox checked={viewParam.viewOmit} onChange={onChangeViewOmit} style={{ fontSize: 14 }}>
             {intl.formatMessage({ id: "view_option.short_name" })}
             </Checkbox>
             <Checkbox
               checked={viewParam.viewPower}
               onChange={onChangeViewPower}
+              style={{ fontSize: 14 }}
             >
               {intl.formatMessage({ id: "view_option.power" })}
             </Checkbox>
@@ -134,6 +135,7 @@ export function SearchSetting() {
                     borderBottomWidth: 4,
                     borderBottomStyle: "solid",
                     borderBottomColor: m.color,
+                    fontSize: 14,
                   }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
@@ -152,6 +154,7 @@ export function SearchSetting() {
                     borderBottomWidth: 4,
                     borderBottomStyle: "solid",
                     borderBottomColor: m.color,
+                    fontSize: 14,
                   }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
@@ -166,6 +169,7 @@ export function SearchSetting() {
                 <Checkbox
                   key={m.name}
                   checked={chainParam.lastChains.includes(m.name)}
+                  style={{ fontSize: 14 }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
                 {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}

@@ -17,6 +17,7 @@ import {
 import { MemberCard } from "./MemberCard/MemberCard";
 import useMembersStore, { Member } from "@/stores/useMemberStore";
 import { MemberSetting } from "./MemberSetting/MemberSetting";
+import { JobSelector } from "./JobSelector/JobSelector";
 import { Button, Tooltip } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useIntl } from "react-intl";
@@ -107,6 +108,9 @@ export function MemberList() {
   );
   return (
     <>
+      {/* ジョブ選択UI - メイン画面に常時表示 */}
+      <JobSelector />
+
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={members} strategy={rectSortingStrategy}>
           <div
@@ -115,20 +119,9 @@ export function MemberList() {
               flexWrap: "wrap",
               touchAction: "none",
               paddingLeft: "5px",
-              minHeight:"108px"
+              minHeight: members.length > 0 ? "120px" : "60px"
             }}
           >
-            
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", paddingLeft: 10, paddingRight:5 }}>
-            <Tooltip title={intl.formatMessage({ id: 'add_message' })} placement="right" open={members.length == 0} zIndex={1}>
-              <Button
-                type="primary"
-                icon={<PlusCircleOutlined />}
-                onClick={() => openMemberSetting()}
-                disabled ={members.length >= 5}
-              ></Button>
-              </Tooltip>
-            </div>
             {members.map((item) => (
               <MemberCard key={item.id} member={item}></MemberCard>
             ))}

@@ -1,15 +1,22 @@
-/* styles.css */
+/* Member list navbar styles */
 .navbar {
     position: fixed;
-    top: 50;
+    top: 50px;
     left: 0;
     right: 0;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.3s ease-in-out;
-    opacity: 1; /* 最初は表示 */
-    z-index: 1;
+    background: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--color-border);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 100;
+    padding: clamp(8px, 2vw, 12px) clamp(8px, 2.5vw, 16px);
   }
   
   .navbar.hidden {
-    opacity: 0; /* スクロール時に非表示に */
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
   }

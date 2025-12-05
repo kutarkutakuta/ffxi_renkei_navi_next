@@ -1,43 +1,57 @@
-:root {
-  --color-text: #fff;
-  --color-bg: #333;
-  --color-code-bg: #2d2d2d;
-  --color-border: #dfdfdf;
-  --color-link: #96bdcf;
-  --header-bg: #191E29;
-  --card-text: #fafafa;
-  --card-sub-text: #dfdfdf;
-  --card-bg: #00497a;
-  --card-header-text: #fafafa;
-  --card-header-bg: #2d2d2d;
+:root[data-theme=dark] {
+  --color-text: #e8f4f8;
+  --color-bg: #0a1929;
+  --color-bg-gradient: linear-gradient(135deg, #0a1929 0%, #1a2942 50%, #0f2847 100%);
+  --color-code-bg: #132f4c;
+  --color-border: #1e4976;
+  --color-link: #66b2ff;
+  --header-bg: linear-gradient(90deg, #0d47a1 0%, #1976d2 100%);
+  --primary-color: #1976d2;
+  --primary-hover: #42a5f5;
+  --card-text: #e8f4f8;
+  --card-sub-text: #b0bec5;
+  --card-bg: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+  --card-header-text: #ffffff;
+  --card-header-bg: rgba(13, 71, 161, 0.8);
+  --navbar-bg: rgba(10, 25, 41, 0.95);
+  --job-selector-bg: rgba(21, 101, 192, 0.15);
 }
-:root[data-theme=light] {
-  --color-text: #000;
+:root {
+  --color-text: #1a237e;
   --color-button-text: #fff;
-  --color-bg: #fff;
-  --color-code-bg: #fafafa;
-  --color-border: #eaeaea;
-  --color-link: #0070f3;
-  --header-bg: #fff;
+  --color-bg: #f5f7fa;
+  --color-bg-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #e1f5fe 100%);
+  --color-code-bg: #e3f2fd;
+  --color-border: #90caf9;
+  --color-link: #1976d2;
+  --header-bg: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  --primary-color: #1976d2;
+  --primary-hover: #1565c0;
+  --card-text: #0d47a1;
+  --card-sub-text: #455a64;
+  --card-bg: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  --card-header-text: #ffffff;
+  --card-header-bg: #1976d2;
+  --navbar-bg: rgba(255, 255, 255, 0.95);
+  --job-selector-bg: rgba(25, 118, 210, 0.08);
 }
 
 html,
 body {
-  color:  var(--color-text) !important;;
+  color:  var(--color-text) !important;
+  // background: var(--color-bg-gradient) !important;
+  // background-attachment: fixed !important;
   max-width: 100vw;
   overflow-x: hidden;
   margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 a {
   color: var(--color-link) !important;
   text-decoration:underline;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
 
 // ここから追加
@@ -50,8 +64,10 @@ header {
   z-index: 10;
   padding-left: 15px;
   padding-right: 15px;
-  height:45px;
-  background-color: var(--header-bg);
+  height: 50px;
+  background: var(--header-bg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 main {
@@ -69,16 +85,90 @@ footer {
 
 /* row data */
 .ant-table-tbody > tr > td {
-  height: 55px; 
-  font-size: 12px;
+  height: clamp(50px, 12vw, 60px); 
+  font-size: clamp(12px, 3vw, 14px);
+  padding: clamp(8px, 2.5vw, 12px) clamp(4px, 1.5vw, 8px);
   /* row tags */
   .ant-tag {
-    font-size: 10px;
+    font-size: clamp(10px, 2.5vw, 12px);
+    padding: clamp(1px, 0.5vw, 2px) clamp(6px, 1.5vw, 8px);
+    margin: 2px;
   }
 
 }
 
+/* テーブルヘッダーもレスポンシブに */
+.ant-table-thead > tr > th {
+  font-size: clamp(12px, 3vw, 14px);
+  padding: clamp(8px, 2vw, 12px) clamp(4px, 1.5vw, 8px);
+}
+
 .ant-table-tbody .renkei {
-  color: var(--color-bg);
+  color: var(--color-text);
   opacity: 0.9;
+}
+
+/* Ant Design カスタマイズ */
+.ant-table {
+  // background: rgba(13, 47, 76, 0.4) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background: rgba(13, 71, 161, 0.6) !important;
+  color: var(--card-header-text) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  font-weight: 600;
+}
+
+.ant-table-tbody > tr {
+  background: transparent !important;
+  
+  &:hover > td {
+    background: rgba(25, 118, 210, 0.15) !important;
+  }
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid rgba(30, 73, 118, 0.3) !important;
+}
+
+// /* ボタンのカスタマイズ */
+// .ant-btn-primary {
+//   background: var(--primary-color) !important;
+//   border-color: var(--primary-color) !important;
+//   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+  
+//   &:hover {
+//     background: var(--primary-hover) !important;
+//     border-color: var(--primary-hover) !important;
+//     transform: translateY(-1px);
+//     box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4);
+//   }
+// }
+
+/* FloatButton */
+.ant-float-btn-primary {
+  background: var(--primary-color) !important;
+  
+  &:hover {
+    background: var(--primary-hover) !important;
+  }
+}
+
+/* Drawer */
+.ant-drawer-content {
+  background: var(--navbar-bg) !important;
+  backdrop-filter: blur(20px);
+}
+
+.ant-drawer-header {
+  background: var(--header-bg) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+.ant-drawer-title {
+  color: var(--card-header-text) !important;
 }

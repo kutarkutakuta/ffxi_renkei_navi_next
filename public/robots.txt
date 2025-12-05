@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
+
+# Sitemap
+Sitemap: https://ffxi-renkei-navi.example.com/sitemap.xml

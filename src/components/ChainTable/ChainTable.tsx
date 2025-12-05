@@ -257,17 +257,17 @@ export function ChainTable() {
           {intl.locale == "ja" || !wsName  ? wsName : intl.formatMessage({ id: wsName })}
         </a>
         {am && (
-          <Tag bordered={false} color="volcano">
+          <Tag bordered={true} color="volcano">
             {intl.formatMessage({ id: "tag.aftermath" })}
           </Tag>
         )}
         {wsType && wsType == "範囲" && (
-          <Tag bordered={false} color="yellow">
+          <Tag bordered={true} color="orange">
             {intl.formatMessage({ id: "tag.range" })}
           </Tag>
         )}
         {wsType && wsType != "範囲" && (
-          <Tag bordered={false} color="cyan">
+          <Tag bordered={true} color="cyan">
             {intl.locale == "ja" ? wsType : intl.formatMessage({ id: wsType })}
           </Tag>
         )}
@@ -277,7 +277,7 @@ export function ChainTable() {
             color="gold"
             placement="topLeft"
           >
-            <Tag bordered={false} color="lime" style={{ marginLeft: -5 }}>
+            <Tag bordered={true} color="lime" style={{ marginLeft: -5 }}>
               {intl.locale == "ja"
                 ? jobs
                 : jobs
