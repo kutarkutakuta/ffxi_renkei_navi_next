@@ -1,0 +1,41 @@
+.headerTitle {
+  color: var(--header-text);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 70vw;
+}
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--header-text);
+}
+.controlTextButton {
+  height: 36px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.btnLabel {
+  font-size: 15px;
+  color: var(--header-text);
+}
+/* Responsive: hide title and btn labels on narrow screens */
+@media (max-width: 768px) {
+  .headerTitle {
+    display: none;
+  }
+  .btnLabel {
+    display: none;
+  }
+  .menuButton {
+    margin-right: 6px;
+  }
+}

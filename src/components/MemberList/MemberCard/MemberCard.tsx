@@ -96,7 +96,9 @@ export function MemberCard({ member }: MemberCardProps) {
       )}
 
       <div className={styles.job}>
-        {intl.locale != "ja" && member.Job ? intl.formatMessage({ id: "job." + member.Job}) : member.Job}
+        {intl.locale != "ja" && member.Job
+          ? intl.formatMessage({ id: "job." + member.Job, defaultMessage: member.Job })
+          : member.Job}
       </div>
       <div className={styles.wepons}>
         {intl.locale == "ja"
@@ -128,7 +130,7 @@ export function MemberCard({ member }: MemberCardProps) {
               if (m.name == "マトン" || m.name == "フェイス") {
                 return weponTypes
                   .filter((n) => m.weponTypes.includes(n.name))
-                  .map((n) => intl.formatMessage({ id: n.name }))
+                  .map((n) => intl.formatMessage({ id: n.name, defaultMessage: n.name }))
                   .join();
               } else {
                 let ret = intl.formatMessage({ id: "wepon." + m.name, defaultMessage: m.name });
@@ -137,7 +139,7 @@ export function MemberCard({ member }: MemberCardProps) {
                     ? "(" +
                       weponTypes
                         .filter((n) => m.weponTypes.includes(n.name))
-                        .map((n) => intl.formatMessage({ id: n.name }))
+                        .map((n) => intl.formatMessage({ id: n.name, defaultMessage: n.name }))
                         .join() +
                       ")"
                     : "";

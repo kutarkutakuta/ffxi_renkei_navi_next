@@ -193,11 +193,11 @@ export function ChainTable() {
   const getWikiURL = (param: string) => {
     return intl.locale == "ja" || !param
       ? "http://wiki.ffo.jp/search.cgi?CCC=%E6%84%9B&Command=Search&qf=" +
-          param +
-          "&order=match&ffotype=title&type=title"
+        param +
+        "&order=match&ffotype=title&type=title"
       : "https://www.bg-wiki.com/index.php?search=" +
-          intl.formatMessage({ id: param }) +
-          "&title=Special%3ASearch&go=Go";
+        intl.formatMessage({ id: param, defaultMessage: param }) +
+        "&title=Special%3ASearch&go=Go";
   };
 
   /**
@@ -254,7 +254,7 @@ export function ChainTable() {
     return (
       <>
         <a href={wikiURL} target="_blank">
-          {intl.locale == "ja" || !wsName  ? wsName : intl.formatMessage({ id: wsName })}
+          {intl.locale == "ja" || !wsName  ? wsName : intl.formatMessage({ id: wsName, defaultMessage: wsName })}
         </a>
         {am && (
           <Tag bordered={true} color="volcano">
@@ -268,7 +268,7 @@ export function ChainTable() {
         )}
         {wsType && wsType != "範囲" && (
           <Tag bordered={true} color="cyan">
-            {intl.locale == "ja" ? wsType : intl.formatMessage({ id: wsType })}
+            {intl.locale == "ja" ? wsType : intl.formatMessage({ id: wsType, defaultMessage: wsType })}
           </Tag>
         )}
         {jobs && (
@@ -282,7 +282,7 @@ export function ChainTable() {
                 ? jobs
                 : jobs
                     .split("")
-                    .map((n) => intl.formatMessage({ id: "job." + n }))
+                    .map((n) => intl.formatMessage({ id: "job." + n, defaultMessage: n }))
                     .join(",")}
             </Tag>
           </Tooltip>
@@ -299,8 +299,8 @@ export function ChainTable() {
    */
   const getRenkeiElement = (renkei: string): any => {
     return intl.locale != "ja" && renkei ? (
-      <Tooltip title={intl.formatMessage({ id: renkei })}>
-        {intl.formatMessage({ id: "skillchain." + renkei })}
+      <Tooltip title={intl.formatMessage({ id: renkei, defaultMessage: renkei })}>
+        {intl.formatMessage({ id: "skillchain." + renkei, defaultMessage: renkei })}
       </Tooltip>
     ) : (
       renkei
@@ -351,14 +351,14 @@ export function ChainTable() {
         )
         .sort((a, b) => b.id - a.id)
         .map((ws) => {
-          return { text: intl.locale == "ja" || !ws.name ? ws.name : intl.formatMessage({ id: ws.name }),
+          return { text: intl.locale == "ja" || !ws.name ? ws.name : intl.formatMessage({ id: ws.name, defaultMessage: ws.name }),
              value: ws.name };
         });
       setColumnFilters(wsFilters);
 
       // 連携列にフィルタセット
       chainFilters[i] = renkeis.map((m) => (
-        { text: intl.locale == "ja" || !m.name ? m.name : intl.formatMessage({ id: m.name }),
+        { text: intl.locale == "ja" || !m.name ? m.name : intl.formatMessage({ id: m.name, defaultMessage: m.name }),
          value: m.name }
       ));
       setChainFilters(chainFilters);

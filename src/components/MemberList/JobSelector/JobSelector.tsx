@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Radio, Space, Divider, message } from "antd";
-import { UserAddOutlined, SettingOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { UserAddOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import useMenuStore from "@/stores/useMenuStore";
 import useMasterStore from "@/stores/useMasterStore";
 import useMembersStore from "@/stores/useMemberStore";
-import useMenuStore from "@/stores/useMenuStore";
 import { useIntl } from "react-intl";
 import styles from "./JobSelector.module.scss";
 
@@ -13,8 +13,8 @@ import styles from "./JobSelector.module.scss";
 export function JobSelector() {
   const { jobs, jobWepons } = useMasterStore();
   const { members, addMember } = useMembersStore();
-  const { openSearchSetting, openHelp } = useMenuStore();
   const intl = useIntl();
+  const { openHelp } = useMenuStore();
   const [messageApi, contextHolder] = message.useMessage();
 
   const selectJob = (job: string) => {
@@ -42,19 +42,6 @@ export function JobSelector() {
       },
       true
     );
-    
-    // messageApi.success({
-    //   content: intl.formatMessage(
-    //     { id: "added_message" },
-    //     {
-    //       job:
-    //         intl.locale == "ja"
-    //           ? job
-    //           : intl.formatMessage({ id: "job." + job }),
-    //     }
-    //   ),
-    //   style: { marginTop: "4vh" },
-    // });
   };
   return (
     <div className={styles.jobSelector}>
@@ -69,30 +56,19 @@ export function JobSelector() {
             ({members.length}/5)
           </span>
         </div>
-        <div className={styles.controls}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <Button
             type="text"
-            className={styles.controlTextButton}
-            onClick={openSearchSetting}
-            size="small"
-            title={intl.formatMessage({ id: "title.search_setting" })}
-            style={{ color: 'var(--card-text)' }}
-          >
-            <SettingOutlined className={styles.iconLarge} />
-            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.search_setting' })}</span>
-          </Button>
-          <Button
-            type="text"
-            className={styles.controlTextButton}
+            className={styles.controlButton}
             onClick={openHelp}
             size="small"
-            title={intl.formatMessage({ id: "title.help" })}
+            title={intl.formatMessage({ id: 'title.help' })}
             style={{ color: 'var(--card-text)' }}
           >
-            <QuestionCircleOutlined className={styles.iconLarge} />
-            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.help' })}</span>
+            <QuestionCircleOutlined style={{ fontSize: 16 }} />
           </Button>
         </div>
+        {/* Controls moved to site header menu */}
       </div>
       <div className={styles.jobButtons}>
         <Radio.Group size="small" value={null}>
@@ -106,7 +82,7 @@ export function JobSelector() {
             >
               {intl.locale == "ja"
                 ? m.name
-                : intl.formatMessage({ id: "job." + m.name })}
+                : intl.formatMessage({ id: "job." + m.name, defaultMessage: m.name })}
             </Radio.Button>
           ))}
           <Radio.Button
@@ -117,7 +93,7 @@ export function JobSelector() {
           >
             {intl.locale == "ja"
               ? "マトン"
-              : intl.formatMessage({ id: "job.マトン" })}
+              : intl.formatMessage({ id: "job.マトン", defaultMessage: "マトン" })}
           </Radio.Button>
           <Radio.Button
             value="フェイス"
@@ -127,7 +103,7 @@ export function JobSelector() {
           >
             {intl.locale == "ja"
               ? "フェイス"
-              : intl.formatMessage({ id: "job.フェイス" })}
+              : intl.formatMessage({ id: "job.フェイス", defaultMessage: "フェイス" })}
           </Radio.Button>
         </Radio.Group>
       </div>

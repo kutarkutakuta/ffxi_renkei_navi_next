@@ -55,7 +55,7 @@ export function MemberSetting() {
                 title: `${
                   intl.locale == "ja"
                     ? m.name
-                    : intl.formatMessage({ id: m.name })
+                    : intl.formatMessage({ id: m.name, defaultMessage: m.name })
                 }`,
                 value: `${n.name}-${m.name}`,
                 key: `${n.name}-${m.name}`,
@@ -85,7 +85,7 @@ export function MemberSetting() {
                 title: `${
                   intl.locale == "ja"
                     ? m.name
-                    : intl.formatMessage({ id: m.name })
+                    : intl.formatMessage({ id: m.name, defaultMessage: m.name })
                 }`,
                 value: `${n.name}-${m.name}`,
                 key: `${n.name}-${m.name}`,
@@ -100,7 +100,7 @@ export function MemberSetting() {
       .map((m) => {
         return {
           title: `${
-            intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })
+            intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name, defaultMessage: m.name })
           }`,
           value: `${weponName}-${m.name}`,
           key: `${weponName}-${m.name}`,
@@ -119,12 +119,18 @@ export function MemberSetting() {
     },
   };
 
+  const jobLabel = formData.Job
+    ? intl.locale == "ja"
+      ? formData.Job
+      : intl.formatMessage({ id: "job." + formData.Job, defaultMessage: formData.Job })
+    : "";
+
   return (
     <Modal
       title={
         <>
           <EditOutlined style={{ marginRight: 8 }} aria-hidden />
-          『{intl.locale == "ja" ? formData.Job : intl.formatMessage({ id: "job." + formData.Job })}』
+          『{jobLabel}』
           <FormattedMessage id="title.member_setting" />
         </>}
       open={isMemberSetting}

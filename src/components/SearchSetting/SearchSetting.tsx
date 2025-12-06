@@ -105,6 +105,7 @@ export function SearchSetting() {
             </Checkbox>
           </Space.Compact>
         </Space>
+        <Divider />
 
         <div className={styles.caption}>{intl.formatMessage({ id: "view_option.title" })}</div>
         <Space>
@@ -139,7 +140,7 @@ export function SearchSetting() {
                   }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
-                  {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}
+                  {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name, defaultMessage: m.name })}
                 </Checkbox>
               ))}
           </Space>
@@ -158,7 +159,7 @@ export function SearchSetting() {
                   }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
-                {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}
+                {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name, defaultMessage: m.name })}
                 </Checkbox>
               ))}
           </Space>
@@ -172,17 +173,11 @@ export function SearchSetting() {
                   style={{ fontSize: 14 }}
                   onChange={(e) => onChangeLastChain(e, m.name)}
                 >
-                {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name })}
+                {intl.locale == "ja" ? m.name : intl.formatMessage({ id: m.name, defaultMessage: m.name })}
                 </Checkbox>
               ))}
           </Space>
           <Divider />
-          <Button
-            onClick={() => closeSearchSetting()}
-            style={{ width: "100%" }}
-          >
-            Close
-          </Button>
         </Space>
       </Drawer>
     </>

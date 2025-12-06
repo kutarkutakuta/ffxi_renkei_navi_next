@@ -1,4 +1,51 @@
 .caption {
-    padding-bottom: 10px;
-    font-size: 15px;
+    padding-bottom: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    border-left: 4px solid var(--primary-color);
+    padding-left: 8px;
+    margin-top: 18px;
+}
+
+.helpSection {
+    margin-bottom: 12px;
+    color: var(--card-text);
+}
+
+.tip {
+    background: rgba(255,255,255,0.02);
+    border-left: 4px solid var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 8px 0 12px 0;
+    color: var(--card-sub-text);
+}
+
+.iconInline {
+    margin-right: 8px;
+    vertical-align: middle;
+    color: var(--primary-color);
+}
+
+/* More readable paragraphs and lists (scoped) */
+.helpSection p {
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.helpSection ul {
+    padding-left: 1.1em;
+    margin: 6px 0 12px 0;
+}
+
+.helpSection li {
+    margin-bottom: 6px;
+}
+
+@media (max-width: 768px) {
+    .caption {
+        font-size: 15px;
+        padding-left: 6px;
+    }
 }

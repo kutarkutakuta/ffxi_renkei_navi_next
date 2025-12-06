@@ -34,89 +34,100 @@ export function Help() {
     >
       {intl.locale == "ja" ? (
         <>
-          <div className={styles.caption}>■ 連携メンバー</div>
-          <p>
-            連携メンバーはカード形式で、ドラッグ＆ドロップで順番の入れ替えができます。
-          </p>
-          <p>カードは5つ（4連携）まで追加できます。</p>
-          <p>
-            <EditOutlined />
-            ：連携メンバーを設定するパネルを表示します。
-          </p>
-          <p>Copy ：連携メンバーを末尾にコピーします。</p>
-          <p>
-            <CloseOutlined />
-            ：連携メンバーを削除します。
-          </p>
+          <section className={styles.helpSection}>
+            <div className={styles.caption}>メンバーの選択</div>
+            <p>
+              画面上部の<strong>「メンバーを選択」</strong>からジョブ、マトン、フェイスを選択して連携メンバーを追加します。<br />メンバーは5人（4連携）まで追加できます。
+            </p>
+          </section>
           <Divider />
-          <div className={styles.caption}>■ 連携メンバーの設定</div>
-          <p>
-            「ジョブ」を選択するとメンバーが追加されて、メインの「武器」を自動選択します。
-            また、そのジョブが使用できないWSが検索に引っかからないようになります。
-          </p>
-          <p>
-            「マトン」「フェイス」を選択した場合もメンバーが追加されます。
-            「マトン」を選択した場合は「フレーム」ドロップダウンを指定してください。
-            「フェイス」を選択した場合は「フェイス」ドロップダウンを指定してください。
-          </p>
-          <p>
-            ドロップダウンは手入力による検索ができます。
-            「アビ/魔法」や「フェイス」は項目数が多いので有効活用してください。
-          </p>
-          <p>武器種を指定すると対応するWSの強さにボーナスが乗ります。※1.2倍</p>
+
+          <section className={styles.helpSection}>
+            <div className={styles.caption}>メンバーの設定</div>
+            <ul>
+              <li>
+                ジョブを選択：<strong>「武器」</strong>または<strong>「アビリティ / 魔法」</strong>を指定します。
+                <div className={styles.tip}>
+                  <EyeOutlined className={styles.iconInline} />
+                  ヒント：「武器」の「武器種」まで指定すると対応するWSの強さにボーナスが乗ります（1.2倍）。
+                </div>
+              </li>
+              <li>マトンを選択：<strong>「フレーム」</strong>を指定します。</li>
+              <li>
+                フェイスを選択：<strong>「フェイス」</strong>を指定します。
+                <div className={styles.tip}>
+                  <EyeOutlined className={styles.iconInline} />
+                  ヒント：ドロップダウンは入力検索が可能です。項目が多い場合はフィルタで絞り込むと便利です。
+                </div>
+              </li>
+            </ul>
+          </section>
+          <Divider />
+
+          <section className={styles.helpSection}>
+            <div className={styles.caption}>メンバーの操作</div>
+            <p>
+              メンバーはカード形式で表示され、ドラッグ＆ドロップで並び替えが可能です。
+            </p>
+            カードのヘッダにあるボタンで以下の操作が可能です。
+            <ul>
+              <li><EditOutlined className={styles.iconInline} />：メンバーの設定パネルを開く</li>
+              <li>Copy：メンバーを末尾へコピー</li>
+              <li><CloseOutlined className={styles.iconInline} />：メンバーを削除</li>
+            </ul>
+          </section>
+          <Divider />
         </>
       ) : (
         <>
-          <div className={styles.caption}>■ Members</div>
-          <p>
-            Members are in card format, and the order can be changed by dragging
-            and dropping.
-          </p>
-          <p>You can add up to 5 cards (4 skillchanins).</p>
-          <p>
-            <EditOutlined />: Displays the panel for Member Settings.
-          </p>
-          <p>Copy : Copy the members to the end.</p>
-          <p>
-            <CloseOutlined />: Delete member.
-          </p>
-          <Divider />
-          <div className={styles.caption}>■ Member Settings</div>
-          <p>
-            When you select "Job", members will be added and the main weapon will be automatically
-            selected. Also, Wepon skills that cannot be used by that job will
-            not be caught in the search.
-          </p>
-          <p>
-            Members will also be added if you select "Automaton" or "Trust".
-            If you select "Automaton", please specify the "Frame" dropdown.
-            If you select "Trust", please specify the "Trust" dropdown.
-          </p>
-          <p>
-            The dropdown allows you to search manually. Ability, Magic and Trust
-            have a large number of items, so please make effective use of them.
-          </p>
-          <p>
-           Select weapon type Then, the bonus will be added to the strength
-            of the wepon skill. (1.2 times)
-          </p>
+          <section className={styles.helpSection}>
+            <div className={styles.caption}>{intl.formatMessage({ id: 'select_job' })}</div>
+            <p>
+              Use the <strong>"{intl.formatMessage({ id: 'select_job' })}"</strong> control at the top of the page to select a job, automaton, or trust and add them as members.
+              Members appear as cards and can be reordered with drag & drop.
+            </p>
+            <ul>
+              <li>{intl.formatMessage({ id: 'max_members_message' })}</li>
+              <li>Selecting a job will add a default main weapon and relevant weapon skills for that job.</li>
+            </ul>
+          </section>
+
+          <section className={styles.helpSection}>
+            <div className={styles.caption}>Member Settings</div>
+            <ul>
+              <li>
+                <strong>Job selection:</strong> choose the <strong>{intl.formatMessage({ id: 'label.wepon' })}</strong> or <strong>{intl.formatMessage({ id: 'label.ability' })}</strong> to configure the member.
+                <div className={styles.tip}>
+                  <EyeOutlined className={styles.iconInline} />
+                  Tip: When you specify the weapon type down to the weapon category, the corresponding weapon skill receives a bonus to its strength (e.g., x1.2).
+                </div>
+              </li>
+              <li>
+                <strong>Automaton selection:</strong> pick a <strong>{intl.formatMessage({ id: 'label.automaton' })}</strong> frame.
+              </li>
+              <li>
+                <strong>Trust selection:</strong> pick a <strong>{intl.formatMessage({ id: 'label.trust' })}</strong>.
+                <div className={styles.tip}>
+                  <EyeOutlined className={styles.iconInline} />
+                  Tip: The dropdown fields support typing to search — use the filter when lists are long.
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.helpSection}>
+            <div className={styles.caption}>Operations</div>
+            <p>Members are displayed as cards and can be reordered by drag & drop.</p>
+            <div>Use the buttons in each card header to perform the following actions:</div>
+            <ul>
+              <li><EditOutlined className={styles.iconInline} />: Open the member settings panel.</li>
+              <li>Copy: Duplicate the member and append them to the list.</li>
+              <li><CloseOutlined className={styles.iconInline} />: Remove the member.</li>
+            </ul>
+          </section>
         </>
       )}
 
-      <Divider />
-
-      <div className={styles.caption}>
-        {intl.formatMessage({ id: "contact" })}
-        <br />
-        <a href="https://twitter.com/kutakutar_ff11" target="_blank">
-          <TwitterOutlined /> kutakutar_ff11
-        </a>
-      </div>
-
-      <div className={styles.caption}>
-        <EyeOutlined />
-        &nbsp;<Link href={"privacy.html"}>Privacy Policy</Link>
-      </div>
     </Drawer>
   );
 }

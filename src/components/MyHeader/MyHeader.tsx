@@ -47,6 +47,18 @@ export function MyHeader() {
         </Col>
         <Col>
           <Space align="center">
+                      <Button
+            type="text"
+            className={styles.controlTextButton}
+            onClick={openSearchSetting}
+            size="large"
+            style={{ color: 'var(--header-text)' }}
+            title={intl.formatMessage({ id: 'title.search_setting' })}
+          >
+            <SettingOutlined  />
+            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.search_setting' })}</span>
+          </Button>
+          
           {locale == "ja" ? (
             <Button
               type="text"
@@ -66,17 +78,6 @@ export function MyHeader() {
               JP
             </Button>
           )}
-          <Button
-            type="text"
-            className={styles.controlTextButton}
-            onClick={openSearchSetting}
-            size="small"
-            style={{ color: '#ffffff' }}
-            title={intl.formatMessage({ id: 'title.search_setting' })}
-          >
-            <SettingOutlined style={{ fontSize: 16, color: '#ffffff' }} />
-            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.search_setting' })}</span>
-          </Button>
           </Space>
         </Col>
       </Row>

@@ -61,12 +61,12 @@ export function useMemberSetting() {
           m.weponTypes.forEach((n) => {
             if (m.group == "武器種")
               formWepons.push({
-                label: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name})}(${intl.formatMessage({id: n})})`,
+                label: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name, defaultMessage: m.name})}(${intl.formatMessage({id: n, defaultMessage: n})})`,
                 value: `${m.name}-${n}`,
               });
             if (["属性", "召喚獣", "種族", "青魔法"].includes(m.group))
               formAbi.push({
-                label: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name})}(${intl.formatMessage({id: n})})`,
+                label: `${intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name, defaultMessage: m.name})}(${intl.formatMessage({id: n, defaultMessage: n})})`,
                 value: `${m.name}-${n}`,
               });
             if (m.group == "フレーム")
@@ -82,13 +82,13 @@ export function useMemberSetting() {
           });
         } else {
           if (m.group == "武器種")
-            formWepons.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name}), value: m.name });
+            formWepons.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name, defaultMessage: m.name}), value: m.name });
           if (["属性", "召喚獣", "種族", "青魔法"].includes(m.group))
-            formAbi.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name}), value: m.name });
+            formAbi.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: "wepon." + m.name, defaultMessage: m.name}), value: m.name });
           if (m.group == "フレーム")
-            formMaton.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name}), value: m.name });
+            formMaton.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name, defaultMessage: m.name}), value: m.name });
           if (m.group == "フェイス")
-            formFaith.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name}), value: m.name });
+            formFaith.push({ label: intl.locale == "ja" ? m.name : intl.formatMessage({id: m.name, defaultMessage: m.name}), value: m.name });
         }
       });
       newformData.Wepons = formWepons;
