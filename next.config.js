@@ -5,7 +5,13 @@ const withPWA = require('next-pwa')({
   disable: !isProd,
   // helpful defaults
   register: true,
-  skipWaiting: true,
+  skipWaiting: false,
+  // document fallback（ネットワーク失敗時に index を返す）
+  fallbacks: {
+    document: '/index.html',
+  },
+  // 追加で startUrl をプリキャッシュ（もし必要なら）
+  buildExcludes: [],
 })
 
 module.exports = withPWA({
