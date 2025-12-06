@@ -37,44 +37,43 @@ export function MyHeader() {
               <MenuOutlined style={{ fontSize: 18, color: '#ffffff' }} />
             </Button>
           </Dropdown>
-          <img src="/assets/images/logo.png" alt="FFXI Navi" className={styles.logo} />
-          <span className={styles.headerTitle} style={{ fontSize: "clamp(14px, 4vw, 18px)" }}>
+          <img src="/assets/icons/icon-32x32.png" alt="FFXI Navi" className={styles.logo} />
+          <span className={styles.headerTitle} style={{ fontSize: "clamp(12px, 4vw, 18px)" }}>
             <FormattedMessage id="title" />
           </span>
         </Col>
         <Col>
           <Space align="center">
-                      <Button
-            type="text"
-            className={styles.controlTextButton}
-            onClick={openSearchSetting}
-            size="large"
-            style={{ color: 'var(--header-text)' }}
-            title={intl.formatMessage({ id: 'title.search_setting' })}
-          >
-            <SettingOutlined  />
-            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.search_setting' })}</span>
-          </Button>
-          
-          {locale == "ja" ? (
             <Button
               type="text"
-              size="small"
-              onClick={() => router.push("/en")}
-              style={{ padding: "4px 8px", fontSize: "12px", color: "#ffffff" }}
+              className={styles.controlTextButton}
+              onClick={openSearchSetting}
+              size="large"
+              style={{ color: 'var(--header-text)' }}
+              title={intl.formatMessage({ id: 'title.search_setting' })}
             >
-              EN
+              <SettingOutlined  />
+              <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.search_setting' })}</span>
             </Button>
-          ) : (
-            <Button
-              type="text"
-              size="small"
-              onClick={() => router.push("/")}
-              style={{ padding: "4px 8px", fontSize: "12px", color: "#ffffff" }}
-            >
-              JP
-            </Button>
-          )}
+            {locale == "ja" ? (
+              <Button
+                type="text"
+                size="small"
+                onClick={() => router.push("/en")}
+                style={{ padding: "4px 8px", fontSize: "12px", color: "#ffffff" }}
+              >
+                EN
+              </Button>
+            ) : (
+              <Button
+                type="text"
+                size="small"
+                onClick={() => router.push("/")}
+                style={{ padding: "4px 8px", fontSize: "12px", color: "#ffffff" }}
+              >
+                JP
+              </Button>
+            )}
           </Space>
         </Col>
       </Row>

@@ -37,14 +37,15 @@
 }
 /* Responsive: hide title and btn labels on narrow screens */
 @media (max-width: 768px) {
-  .headerTitle {
-    display: none;
-  }
+  // .headerTitle {
+  //   display: none;
+  // }
   .btnLabel {
-    display: none;
+    display: none !important;
+    // font-size: 1px;
   }
   .menuButton {
-    margin-right: 6px;
+    margin-right: -10px;
   }
   // .logo {
   //   display: none;
