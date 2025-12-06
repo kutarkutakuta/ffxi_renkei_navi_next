@@ -72,12 +72,6 @@ const MyDocument = () => {
         <link
           rel="icon"
           type="image/png"
-          href="assets/icons/icon-48x48.png"
-          sizes="48x48"
-        />
-        <link
-          rel="icon"
-          type="image/png"
           href="assets/icons/icon-64x64.png"
           sizes="64x64"
         />
@@ -86,6 +80,12 @@ const MyDocument = () => {
           type="image/png"
           href="assets/icons/icon-128x128.png"
           sizes="128x128"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="assets/icons/icon-512x512.png"
+          sizes="512x512"
         />
         <link rel="apple-touch-icon" href="assets/icons/icon-128x128.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
