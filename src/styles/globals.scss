@@ -19,10 +19,8 @@
 }
 :root {
   --color-text: #1a237e;
-  --color-button-text: #fff;
   --color-bg: #f5f7fa;
   --color-bg-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #e1f5fe 100%);
-  --color-code-bg: #e3f2fd;
   --color-border: #90caf9;
   --color-link: #1976d2;
   --header-text: #ffffff;
@@ -42,8 +40,6 @@
 html,
 body {
   color:  var(--color-text) !important;
-  // background: var(--color-bg-gradient) !important;
-  // background-attachment: fixed !important;
   max-width: 100vw;
   overflow-x: hidden;
   margin: 0;
@@ -77,7 +73,7 @@ main {
   margin-top: 40px;
   top:10px;
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 40px;
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
 }
@@ -122,7 +118,7 @@ footer {
 }
 
 .ant-table-thead > tr > th {
-  background: rgba(13, 71, 161, 0.6) !important;
+  background: #1976d2 !important;
   color: var(--card-header-text) !important;
   border-bottom: 1px solid var(--color-border) !important;
   font-weight: 600;
@@ -139,20 +135,6 @@ footer {
 .ant-table-tbody > tr > td {
   border-bottom: 1px solid rgba(30, 73, 118, 0.3) !important;
 }
-
-// /* ボタンのカスタマイズ */
-// .ant-btn-primary {
-//   background: var(--primary-color) !important;
-//   border-color: var(--primary-color) !important;
-//   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
-  
-//   &:hover {
-//     background: var(--primary-hover) !important;
-//     border-color: var(--primary-hover) !important;
-//     transform: translateY(-1px);
-//     box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4);
-//   }
-// }
 
 /* FloatButton */
 .ant-float-btn-primary {
@@ -176,4 +158,17 @@ footer {
 
 .ant-drawer-title {
   color: var(--card-header-text) !important;
+}
+
+.ant-modal-header {
+  // border-radius: 6px 6px 0 0 !important;
+  // margin: -10px !important;
+  // padding: 5px !important;
+  border-bottom: 2px solid var(--color-border) !important;
+  background-color: #e3f2fd !important;
+  color: var(--card-text) !important;
+}
+
+.ant-modal-content {
+  background-color: #e3f2fd !important;
 }

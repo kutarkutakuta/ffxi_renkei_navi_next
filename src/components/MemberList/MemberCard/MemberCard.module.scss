@@ -1,3 +1,14 @@
+/* Drag hint animation - subtle shake to hint at draggability */
+@keyframes dragHint {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+    50% { box-shadow: 0 4px 12px rgba(66, 165, 245, 0.5); }
+}
 
 .memberCard {
     position: relative;
@@ -9,6 +20,9 @@
     color: var(--card-text);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    cursor: grab;
+    
+    /* no drag handle (user requested) */
 
     .header{
         background-color: var(--card-header-bg);
@@ -48,10 +62,38 @@
         font-size: 14px;
     }
 }
-.memberCard:hover{
+/* Hint animation triggered on mouse out */
+.showHint {
+    animation: dragHint 0.6s ease-in-out 0.3s 2;
+}
+
+.memberCard:hover {
     border-color: var(--primary-hover);
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.02);
     box-shadow: 0 6px 20px rgba(66, 165, 245, 0.4), 
                 inset 0 0 20px rgba(255, 255, 255, 0.1);
+    cursor: grab;
+    
+    &::before {
+        opacity: 0.8;
     }
+}
+
+.memberCard:active {
+    cursor: grabbing;
+}
+
+/* Dragging state */
+.dragging {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 24px rgba(66, 165, 245, 0.6);
+    border-color: var(--primary-color);
+    z-index: 1000;
+    cursor: grabbing;
+    
+    &::before {
+        opacity: 1;
+        color: var(--primary-color);
+    }
+}
  

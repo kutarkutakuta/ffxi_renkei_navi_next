@@ -79,7 +79,7 @@ export function SearchSetting() {
             </span>
           </>
         }
-        placement={"left"}
+        placement={"right"}
         width="min(340px, 85vw)"
         open={isSearchSetting}
         onClose={closeSearchSetting}

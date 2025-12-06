@@ -41,6 +41,7 @@ export function MyHeader() {
               <MenuOutlined style={{ fontSize: 18, color: '#ffffff' }} />
             </Button>
           </Dropdown>
+          <img src="/assets/images/logo.png" alt="FFXI Navi" className={styles.logo} />
           <span className={styles.headerTitle} style={{ fontSize: "clamp(14px, 4vw, 18px)" }}>
             <FormattedMessage id="title" />
           </span>

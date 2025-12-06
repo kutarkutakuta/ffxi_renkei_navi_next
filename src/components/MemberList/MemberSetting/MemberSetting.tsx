@@ -128,11 +128,12 @@ export function MemberSetting() {
   return (
     <Modal
       title={
-        <>
+        <div style={{color: 'var(--card-text)', fontWeight: 600, fontSize: '16px'}}>
           <EditOutlined style={{ marginRight: 8 }} aria-hidden />
           『{jobLabel}』
           <FormattedMessage id="title.member_setting" />
-        </>}
+        </div>
+      }
       open={isMemberSetting}
       onCancel={closeMemberSetting}
       footer={[

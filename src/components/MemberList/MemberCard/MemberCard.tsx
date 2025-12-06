@@ -3,6 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { Button, Row, Col } from "antd";
 import { EditOutlined, CloseOutlined } from "@ant-design/icons";
 import styles from "./MemberCard.module.scss";
+import { useState } from "react";
 import useMembersStore, { Member } from "@/stores/useMemberStore";
 import useMenuStore from "@/stores/useMenuStore";
 import useMasterStore from "@/stores/useMasterStore";
@@ -13,8 +14,9 @@ interface MemberCardProps {
 }
 
 export function MemberCard({ member }: MemberCardProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: member.id });
+  const [showHint, setShowHint] = useState(false);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -23,7 +25,8 @@ export function MemberCard({ member }: MemberCardProps) {
     margin: 4,
     padding: 2,
     borderRadius: 5,
-    cursor: "grab",
+    cursor: isDragging ? "grabbing" : "grab",
+    opacity: isDragging ? 0.5 : 1,
   };
 
   // メニュー制御用Hook
@@ -46,8 +49,13 @@ export function MemberCard({ member }: MemberCardProps) {
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div
       ref={setNodeRef}
-      className={styles.memberCard}
+      className={`${styles.memberCard} ${isDragging ? styles.dragging : ''} ${showHint ? styles.showHint : ''}`}
       style={style}
+      onMouseEnter={() => setShowHint(false)}
+      onMouseLeave={() => {
+        setShowHint(true);
+        setTimeout(() => setShowHint(false), 700);
+      }}
       {...attributes}
       {...listeners}
     >
@@ -86,7 +94,7 @@ export function MemberCard({ member }: MemberCardProps) {
 
       {/* 矢印 - 次のカードへつなぐための矢印 */}
       {members[members.length - 1] != member && (
-        <span className={styles.arrow} aria-hidden>
+        <span className={styles.arrow}>
           ▶
         </span>
       )}

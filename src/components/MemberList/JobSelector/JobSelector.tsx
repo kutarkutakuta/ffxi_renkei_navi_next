@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Radio, Space, Divider, message } from "antd";
+import { Button, Space, Divider, message } from "antd";
 import { UserAddOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import useMenuStore from "@/stores/useMenuStore";
 import useMasterStore from "@/stores/useMasterStore";
@@ -71,11 +71,10 @@ export function JobSelector() {
         {/* Controls moved to site header menu */}
       </div>
       <div className={styles.jobButtons}>
-        <Radio.Group size="small" value={null}>
+        <Space wrap>
           {jobs.map((m) => (
-            <Radio.Button
+            <Button
               key={m.name}
-              value={m.name}
               disabled={members.length >= 5}
               onClick={() => selectJob(m.name)}
               className={styles.jobButton}
@@ -83,9 +82,9 @@ export function JobSelector() {
               {intl.locale == "ja"
                 ? m.name
                 : intl.formatMessage({ id: "job." + m.name, defaultMessage: m.name })}
-            </Radio.Button>
+            </Button>
           ))}
-          <Radio.Button
+          <Button
             value="マトン"
             disabled={members.length >= 5}
             onClick={() => selectJob("マトン")}
@@ -94,8 +93,8 @@ export function JobSelector() {
             {intl.locale == "ja"
               ? "マトン"
               : intl.formatMessage({ id: "job.マトン", defaultMessage: "マトン" })}
-          </Radio.Button>
-          <Radio.Button
+          </Button>
+          <Button
             value="フェイス"
             disabled={members.length >= 5}
             onClick={() => selectJob("フェイス")}
@@ -104,8 +103,8 @@ export function JobSelector() {
             {intl.locale == "ja"
               ? "フェイス"
               : intl.formatMessage({ id: "job.フェイス", defaultMessage: "フェイス" })}
-          </Radio.Button>
-        </Radio.Group>
+          </Button>
+        </Space>
       </div>
     </div>
   );

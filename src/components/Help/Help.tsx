@@ -26,7 +26,7 @@ export function Help() {
           </span>
         </>
       }
-      placement={"left"}
+      placement={"right"}
       width="min(450px, 90vw)"
       open={isHelp}
       onClose={closeHelp}

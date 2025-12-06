@@ -63,22 +63,25 @@
   }
 
   .jobButtons {
-    :global(.ant-radio-group) {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      justify-content: flex-start;
-    }
+
 
     .jobButton {
       font-size: clamp(12px, 2.8vw, 14px) !important;
       height: clamp(30px, 8vw, 34px) !important;
       line-height: clamp(28px, 7.5vw, 32px) !important;
       padding: 0 clamp(8px, 2.5vw, 14px) !important;
-      border-radius: 4px !important;
+      border-radius: 8px !important;
       flex: 0 0 auto;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
       white-space: nowrap;
+      transition: all 0.18s ease;
     }
+    // .jobButton[disabled] {
+    //   opacity: 0.48;
+    //   cursor: not-allowed;
+    // }
   }
 }
 
