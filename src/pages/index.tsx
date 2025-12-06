@@ -31,7 +31,7 @@ export default function Home() {
         <meta name="keywords" content="FF11,FFXI,連携,スキルチェーン,WS,ウェポンスキル,ファイナルファンタジー11,FINAL FANTASY XI" />
         <meta name="author" content="kutakutar_ff11" />
 
-        <meta property="og:title" content="FF11 連携Navi" />
+        <meta property="og:title" content="FF11連携Navi" />
         <meta property="og:description" content="オンラインRPG『FF11』のWS連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！" />
         <meta property="og:type" content="website" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

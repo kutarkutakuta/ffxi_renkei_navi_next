@@ -2,26 +2,25 @@ import { StyleProvider, createCache, extractStyle } from "@ant-design/cssinjs";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import type { DocumentContext } from "next/document";
 
-const MyDocument = () => {
+interface MyDocumentProps {
+  locale?: string;
+}
+
+const MyDocument = ({ locale }: MyDocumentProps) => {
+  const pageLocale = locale ?? "ja";
+  const isEn = pageLocale === "en";
 
   return (
-    <Html>
+    <Html lang={pageLocale}>
       <Head>
         <meta charSet="utf-8" />
         {/* <!-- Facebook:カード用--> */}
         <meta property="og:url" content="https://renkei-navi.onrender.com" />
         <meta property="og:type" content="website" />
-        <meta lang="ja" property="og:title" content="FF11連携Navi" />
-        <meta lang="en" property="og:title" content="FFXI Skillchain Nav" />
+        <meta property="og:title" content={isEn ? "FFXI Skillchain Nav" : "FF11連携Navi"} />
         <meta
-          lang="ja"
           property="og:description"
-          content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
-        />
-        <meta
-          lang="en"
-          property="og:description"
-          content="Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!"
+          content={isEn ? "Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" : "FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"}
         />
         <meta
           property="og:image"
@@ -32,31 +31,14 @@ const MyDocument = () => {
         <meta name="twitter:site" content="@kutakutar_ff11" />
         <meta name="twitter:domain" content="renkei-navi.onrender.com" />
         <meta name="twitter:url" content="https://renkei-navi.onrender.com" />
-        <meta lang="ja" name="twitter:title" content="FF11連携Navi" />
-        <meta
-          lang="en"
-          property="twitter:title"
-          content="FFXI Skillchain Nav"
-        />
-        <meta
-          lang="ja"
-          name="twitter:description"
-          content="FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"
-        />
-        <meta
-          lang="en"
-          name="twitter:description"
-          content="Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!"
-        />
+        <meta name="twitter:title" content={isEn ? "FFXI Skillchain Nav" : "FF11連携Navi"} />
+        <meta name="twitter:description" content={isEn ? "Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" : "FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"} />
         <meta
           name="twitter:image"
           content="https://renkei-navi.onrender.com/assets/icons/icon-128x128.png"
         />
 
-        <meta
-          name="google-site-verification"
-          content="eKWsAU6fruzFLUVXCaNJ1VF4-8tcVAZrHDUYUNmsGOE"
-        />
+        <meta name="google-site-verification" content="eKWsAU6fruzFLUVXCaNJ1VF4-8tcVAZrHDUYUNmsGOE" />
         <link
           rel="icon"
           type="image/png"
@@ -124,9 +106,12 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     });
 
   const initialProps = await Document.getInitialProps(ctx);
+  // Determine requested locale from the context (Next.js i18n)
+  const pageLocale = (ctx.locale as string) ?? (ctx?.req?.url?.startsWith("/en") ? "en" : "ja");
   const style = extractStyle(cache, true);
   return {
     ...initialProps,
+    locale: pageLocale,
     styles: (
       <>
         {initialProps.styles}
