@@ -76,9 +76,7 @@ const MyContent = () => {
         </div>
       {/* 一覧 */}
       <div style={{ 
-        marginTop: navbarHeight ? `${navbarHeight + 10}px` : '10px', 
-        paddingLeft: 'clamp(8px, 2.5vw, 16px)', 
-        paddingRight: 'clamp(8px, 2.5vw, 16px)' 
+        marginTop: navbarHeight ? `${navbarHeight + 10}px` : '10px'
       }}>
         <ChainTable />
       </div>

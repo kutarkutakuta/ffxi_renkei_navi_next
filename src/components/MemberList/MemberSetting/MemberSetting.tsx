@@ -8,6 +8,7 @@ import {
   Radio,
   message,
 } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import useMasterStore from "@/stores/useMasterStore";
 import useMenuStore from "@/stores/useMenuStore";
 import useMembersStore from "@/stores/useMemberStore";
@@ -121,10 +122,11 @@ export function MemberSetting() {
   return (
     <Modal
       title={
-      <>
-        『{intl.locale == "ja" ? formData.Job : intl.formatMessage({ id: "job." + formData.Job })}』
-        <FormattedMessage id="title.member_setting" />
-      </>}
+        <>
+          <EditOutlined style={{ marginRight: 8 }} aria-hidden />
+          『{intl.locale == "ja" ? formData.Job : intl.formatMessage({ id: "job." + formData.Job })}』
+          <FormattedMessage id="title.member_setting" />
+        </>}
       open={isMemberSetting}
       onCancel={closeMemberSetting}
       footer={[

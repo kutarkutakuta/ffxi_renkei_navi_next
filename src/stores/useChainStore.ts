@@ -66,7 +66,7 @@ const useChainStore = create<ChainState>((set) => ({
   loading: false,
   error: null,
   total: 0,
-  pageSize: 50,
+  pageSize: 20,
   pageIndex: 1,
   setChainParam: async (chainParam: ChainParam) => set({ chainParam }),
   setViewParam: async (viewParam: ViewParam) => set({ viewParam }),

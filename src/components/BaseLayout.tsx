@@ -24,7 +24,7 @@ const BaseLayout = ({ children }: Props) => {
         <main>{children}</main>
         <footer style={{ 
           textAlign: 'center', 
-          padding: '30px 20px',
+          padding: '30px var(--page-padding)',
           marginTop: '40px',
           borderTop: '1px solid var(--color-border)',
           background: 'var(--navbar-bg)',

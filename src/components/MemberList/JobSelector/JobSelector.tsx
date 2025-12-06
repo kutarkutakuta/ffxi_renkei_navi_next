@@ -60,7 +60,7 @@ export function JobSelector() {
     <div className={styles.jobSelector}>
       {contextHolder}
       <div className={styles.header}>
-        <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+        <div className={styles.left}>
           <UserAddOutlined style={{ marginRight: 6, fontSize: 16 }} />
           <span className={styles.title}>
             {intl.formatMessage({ id: "select_job" })}
@@ -69,23 +69,29 @@ export function JobSelector() {
             ({members.length}/5)
           </span>
         </div>
-        <div style={{ display: 'flex', gap: '4px' }}>
+        <div className={styles.controls}>
           <Button
             type="text"
-            icon={<SettingOutlined />}
+            className={styles.controlTextButton}
             onClick={openSearchSetting}
             size="small"
             title={intl.formatMessage({ id: "title.search_setting" })}
             style={{ color: 'var(--card-text)' }}
-          />
+          >
+            <SettingOutlined className={styles.iconLarge} />
+            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.search_setting' })}</span>
+          </Button>
           <Button
             type="text"
-            icon={<QuestionCircleOutlined />}
+            className={styles.controlTextButton}
             onClick={openHelp}
             size="small"
             title={intl.formatMessage({ id: "title.help" })}
             style={{ color: 'var(--card-text)' }}
-          />
+          >
+            <QuestionCircleOutlined className={styles.iconLarge} />
+            <span className={styles.btnLabel}>{intl.formatMessage({ id: 'title.help' })}</span>
+          </Button>
         </div>
       </div>
       <div className={styles.jobButtons}>

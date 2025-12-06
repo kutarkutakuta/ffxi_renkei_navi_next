@@ -61,7 +61,7 @@ export function ChainTable() {
    */
   const defaultColumns: ColumnsType<Chain> = [
     {
-      title: "ID",
+      title: "#",
       dataIndex: "id",
       width: 40,
       align: "center",

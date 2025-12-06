@@ -88,7 +88,7 @@ export function MemberCard({ member }: MemberCardProps) {
       {members[members.length - 1] != member && (
         <span style={{ position: "relative" }}>
           <span
-            style={{ position: "absolute", top: 10, left: 140, color: "#ddd" }}
+            style={{ position: "absolute", top: 10, left: 150, color: "var(--card-text)" }}
           >
             ▶
           </span>

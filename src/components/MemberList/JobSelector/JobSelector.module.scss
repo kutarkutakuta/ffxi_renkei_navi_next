@@ -11,9 +11,17 @@
     display: flex;
     align-items: center;
     margin-bottom: 8px;
+    justify-content: space-between;
+    gap: 8px;
     font-size: clamp(13px, 3.5vw, 15px);
     font-weight: 600;
-
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1 1 auto;
+      min-width: 0; /* allow truncation */
+    }
     .title {
       color: var(--card-text);
       margin-right: 8px;
@@ -22,6 +30,41 @@
     .counter {
       color: var(--card-sub-text);
       font-size: clamp(12px, 3vw, 14px);
+    }
+    .controlButton {
+      height: 34px;
+      width: 34px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+    .iconLarge {
+      font-size: 18px;
+      transform: scale(1.4);
+      transform-origin: center;
+      display: inline-block;
+    }
+    .controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+    .controlTextButton {
+      height: 34px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .btnLabel {
+      font-size: clamp(12px, 2.6vw, 14px);
+      color: var(--card-text);
+      display: inline-block;
     }
   }
 
