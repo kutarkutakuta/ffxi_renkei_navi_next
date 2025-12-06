@@ -26,10 +26,6 @@ export function MyHeader() {
                   label: (<a href="/about.html">📖 {intl.formatMessage({ id: 'title.about' })}</a>)
                 },
                 {
-                  key: 'contact',
-                  label: (<a href="/contact.html">📮 {intl.formatMessage({ id: 'title.contact' })}</a>)
-                },
-                {
                   key: 'privacy',
                   label: (<a href="/privacy.html">🔒 {intl.formatMessage({ id: 'title.privacy' })}</a>)
                 }
