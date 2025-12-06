@@ -1,6 +1,6 @@
 {
-  "name": "連携Navi",
-  "short_name": "連携Navi",
+  "name": "𝑭𝑭𝟭𝟭連携Navi",
+  "short_name": "FF11連携Navi",
   "theme_color": "#2d2d2d",
   "background_color": "#333",
   "display": "standalone",
@@ -11,31 +11,31 @@
       "src": "assets/icons/icon-16x16.png",
       "sizes": "16x16",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/icon-32x32.png",
       "sizes": "32x32",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/icon-64x64.png",
       "sizes": "64x64",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     }
   ]
 }
