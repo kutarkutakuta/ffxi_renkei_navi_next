@@ -20,7 +20,7 @@ const MyDocument = ({ locale }: MyDocumentProps) => {
         <meta property="og:title" content={isEn ? "FFXI Skillchain Nav" : "FF11連携Navi"} />
         <meta
           property="og:description"
-          content={isEn ? "Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" : "FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"}
+          content={isEn ? "Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" : "オンラインRPG『FF11』のWS連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！"}
         />
         <meta
           property="og:image"
@@ -32,7 +32,7 @@ const MyDocument = ({ locale }: MyDocumentProps) => {
         <meta name="twitter:domain" content="renkei-navi.onrender.com" />
         <meta name="twitter:url" content="https://renkei-navi.onrender.com" />
         <meta name="twitter:title" content={isEn ? "FFXI Skillchain Nav" : "FF11連携Navi"} />
-        <meta name="twitter:description" content={isEn ? "Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" : "FF11の連携を検索ナビゲート。直感的な操作で強い組み合わせが一目瞭然。PTメンバーに最適な連携が見つかります。"} />
+        <meta name="twitter:description" content={isEn ? "Search and navigate FFXI Skillchain. You can easily find strong combinations. Find the best Skillchain!" : "オンラインRPG『FF11』のWS連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！"} />
         <meta
           name="twitter:image"
           content="https://renkei-navi.onrender.com/assets/icons/icon-128x128.png"
