@@ -1,5 +1,6 @@
 
 .memberCard {
+    position: relative;
     width: clamp(140px, 28vw, 165px);
     min-height: clamp(100px, 20vw, 110px);
     border: 2px solid var(--color-border);
@@ -27,6 +28,24 @@
         font-size: clamp(11px, 2.5vw, 13px);
         color: var(--card-sub-text);
         line-height: 1.4;
+    }
+}
+/* Arrow shown between cards */
+.arrow {
+    position: absolute;
+    top: 50%;
+    right: -10px; /* place slightly outside card edge so it points to next card */
+    transform: translateY(-50%);
+    color: var(--card-text);
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .arrow {
+        right: -8px;
+        font-size: 14px;
     }
 }
 .memberCard:hover{

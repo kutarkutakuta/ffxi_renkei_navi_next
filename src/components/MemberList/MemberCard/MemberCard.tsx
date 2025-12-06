@@ -84,14 +84,10 @@ export function MemberCard({ member }: MemberCardProps) {
         </Col>
       </Row>
 
-      {/* 矢印 */}
+      {/* 矢印 - 次のカードへつなぐための矢印 */}
       {members[members.length - 1] != member && (
-        <span style={{ position: "relative" }}>
-          <span
-            style={{ position: "absolute", top: 10, left: 150, color: "var(--card-text)" }}
-          >
-            ▶
-          </span>
+        <span className={styles.arrow} aria-hidden>
+          ▶
         </span>
       )}
 
