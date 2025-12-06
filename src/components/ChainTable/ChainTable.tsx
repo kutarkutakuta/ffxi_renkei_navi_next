@@ -75,6 +75,7 @@ export function ChainTable() {
       filteredValue: members.length > 0 ? members[0].WSFilters : null,
     },
     {
+      title: "P1",
       dataIndex: "power1",
       width: 40,
       align: "right",
@@ -89,6 +90,7 @@ export function ChainTable() {
       filteredValue: members.length > 1 ? members[1].WSFilters : null,
     },
     {
+      title: "P2",
       dataIndex: "power2",
       width: 40,
       align: "right",
@@ -112,6 +114,7 @@ export function ChainTable() {
       filteredValue: members.length > 2 ? members[2].WSFilters : null,
     },
     {
+      title: "P3",
       dataIndex: "power3",
       width: 40,
       align: "right",
@@ -135,6 +138,7 @@ export function ChainTable() {
       filteredValue: members.length > 3 ? members[3].WSFilters : null,
     },
     {
+      title: "P4",
       dataIndex: "power4",
       width: 40,
       align: "right",
@@ -158,6 +162,7 @@ export function ChainTable() {
       filteredValue: members.length > 4 ? members[4].WSFilters : null,
     },
     {
+      title: "P5",
       dataIndex: "power5",
       width: 40,
       align: "right",
@@ -175,7 +180,7 @@ export function ChainTable() {
     {
       title: "Total",
       dataIndex: "power_sum",
-      width: 42,
+      width: 48,
       align: "right",
       className: styles.power,
     },
