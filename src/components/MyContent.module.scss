@@ -20,3 +20,19 @@
     transform: translateY(-10px);
     pointer-events: none;
   }
+
+  /* BackTop custom control */
+  .backTopGroup {
+    position: fixed;
+    right: clamp(12px, 3vw, 24px);
+    bottom: clamp(16px, 4vw, 24px);
+    z-index: 9999;
+  }
+  .backTopButton {
+    width: clamp(44px, 5vw, 48px);
+    height: clamp(44px, 5vw, 48px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }

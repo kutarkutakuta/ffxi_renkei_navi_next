@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FloatButton } from "antd";
+import { Button } from "antd";
+import { UpOutlined } from '@ant-design/icons';
 
 import useMasterStore from "@/stores/useMasterStore";
 import useMemberStore from "@/stores/useMemberStore";
@@ -35,6 +36,7 @@ const MyContent = () => {
   // スクロールで隠れるやつ
   const { members } = useMemberStore();
   const [isHidden, setIsHidden] = useState(false);
+  const [showBackTop, setShowBackTop] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState<number | null>(null);
 
   useEffect(() => {
@@ -46,6 +48,8 @@ const MyContent = () => {
         if(window.scrollY <= 50) setIsHidden(false);
       }
       currentScrollY = window.scrollY;
+      // show BackTop button when scrolled down
+      setShowBackTop(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -85,9 +89,20 @@ const MyContent = () => {
       {/* ヘルプ */}
       <Help></Help>
       {/* BackTop */}
-      <FloatButton.Group shape="circle" style={{ right: 'clamp(12px, 3vw, 24px)', bottom: 'clamp(16px, 4vw, 24px)' }}>
-        <FloatButton.BackTop  />
-      </FloatButton.Group>
+      <div className={styles.backTopGroup}>
+        {showBackTop && (
+          <Button
+            type="primary"
+            shape="circle"
+            className={styles.backTopButton}
+            aria-label="Back to top"
+            title="Back to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            <UpOutlined />
+          </Button>
+        )}
+      </div>
     </>
   );
 };
