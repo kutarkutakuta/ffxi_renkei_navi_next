@@ -67,27 +67,18 @@
     animation: dragHint 0.6s ease-in-out 0.3s 2;
 }
 
-.memberCard:hover {
-    border-color: var(--primary-hover);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 6px 20px rgba(66, 165, 245, 0.4), 
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
-    cursor: grab;
-    
-    &::before {
-        opacity: 0.8;
-    }
-}
+/* Hover/active effects removed per user request (avoid implying draggability) */
 
-.memberCard:active {
-    cursor: grabbing;
-}
+/* Active pseudo-class intentionally removed */
 
 /* Dragging state */
 .dragging {
+    /* More distinct dragging indication but avoid matching the hover outline.
+       Use a dashed border to clearly show it's the dragging state. */
     transform: scale(1.05) rotate(2deg);
-    box-shadow: 0 8px 24px rgba(66, 165, 245, 0.6);
+    box-shadow: 0 10px 28px rgba(66, 165, 245, 0.36);
     border-color: var(--primary-color);
+    border-style: dashed;
     z-index: 1000;
     cursor: grabbing;
     
