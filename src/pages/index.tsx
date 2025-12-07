@@ -27,19 +27,22 @@ export default function Home() {
     <IntlProvider messages={messagesJa} locale={"ja"}>
       <Head>
         <title>FF11連携Navi</title>
-        <meta name="description" content="オンラインRPG『FF11』のWS連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！"></meta>
+        <meta name="description" content="オンラインRPG『FF11』の技連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！"></meta>
         <meta name="keywords" content="FF11,FFXI,連携,スキルチェーン,WS,ウェポンスキル,ファイナルファンタジー11,FINAL FANTASY XI" />
         <meta name="author" content="kutakutar_ff11" />
 
         <meta property="og:title" content="FF11連携Navi" />
-        <meta property="og:description" content="オンラインRPG『FF11』のWS連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！" />
+        <meta property="og:description" content="オンラインRPG『FF11』の技連携を簡単に検索できる非公式アプリです。PTメンバーに最適な連携がすぐに見つかります！" />
         <meta property="og:type" content="website" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {/* viewport meta moved to _document.tsx - keep only on top-level document */}
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ffxi-renkei-navi.example.com/" />
       </Head>
       <BaseLayout>
-        <MyComponent></MyComponent>
+        <section className="pageIntro">
+          ファイナルファンタジーXI『FF11』の技連携を簡単に検索できます。パーティーメンバーを設定して最適な連携をすばやく見つけましょう！
+        </section>
+        <MyComponent />
       </BaseLayout>
     </IntlProvider>
   )

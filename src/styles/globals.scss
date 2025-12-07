@@ -33,6 +33,8 @@
   --card-header-bg: #90caf9;
   --navbar-bg: rgba(255, 255, 255, 0.95);
   --job-selector-bg: rgba(25, 118, 210, 0.08);
+  --page-padding: clamp(8px, 2.5vw, 24px);
+  --header-height: 56px;
 }
 
 html,
@@ -61,25 +63,32 @@ header {
   z-index: 10;
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
-  height: 50px;
+  height: var(--header-height);
   background: var(--header-bg);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
 }
 
 main {
-  margin-top: 40px;
+  margin-top: calc(var(--header-height) + 8px);
   top:10px;
   padding-top: 10px;
   padding-bottom: 40px;
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
   background-color: var(--color-bg);
 }
 
 footer {
   text-align: center;
-  padding: 5px;
-  height: 40px;
+  padding: 12px 8px;
+  height: auto;
+  font-size: 13px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0));
+  color: var(--card-sub-text);
 }
+
+footer a { color: var(--color-link); }
 
 /* row data */
 .ant-table-tbody > tr > td {
@@ -151,4 +160,11 @@ footer {
 
 .ant-modal-content {
   background-color: #e3f2fd !important;
+}
+
+/* Page intro text used on top of main pages */
+.pageIntro {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--card-sub-text);
+  margin-bottom: 8px;
 }

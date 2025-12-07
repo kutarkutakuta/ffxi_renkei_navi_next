@@ -13,17 +13,19 @@
   gap: 6px;
   cursor: pointer;
   color: var(--header-text);
+  min-width: 44px;
+  min-height: 44px;
 }
 .logo {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   display: inline-block;
   vertical-align: middle;
   margin-right: 6px;
 }
 .controlTextButton {
-  height: 36px;
+  height: 44px;
   padding: 4px 8px;
   border-radius: 6px;
   display: inline-flex;

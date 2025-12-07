@@ -1,9 +1,9 @@
-import { Button, Row, Col, Dropdown, Space } from "antd";
+import { Button, Row, Col, Space } from "antd";
 import styles from "./MyHeader.module.scss";
 import { FormattedMessage } from "react-intl";
 import { useRouter } from "next/router";
 import useLocaleStore from "@/stores/useLocaleStore";
-import { SettingOutlined, QuestionCircleOutlined, MenuOutlined } from "@ant-design/icons";
+import { SettingOutlined } from "@ant-design/icons";
 import useMenuStore from "@/stores/useMenuStore";
 import { useIntl } from "react-intl";
 
@@ -18,25 +18,7 @@ export function MyHeader() {
     <>
       <Row justify="space-between" align="middle" style={{ height: "100%", padding: "0 4px" }}>
         <Col flex="auto" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Dropdown
-            menu={{
-              items: [
-                {
-                  key: 'about',
-                  label: (<a href="/about.html">📖 {intl.formatMessage({ id: 'title.about' })}</a>)
-                },
-                {
-                  key: 'privacy',
-                  label: (<a href="/privacy.html">🔒 {intl.formatMessage({ id: 'title.privacy' })}</a>)
-                }
-              ]
-            }}
-            trigger={["click"]}
-          >
-            <Button type="text" className={styles.menuButton} aria-label={intl.formatMessage({id: 'title.menu'})}>
-              <MenuOutlined style={{ fontSize: 18, color: '#ffffff' }} />
-            </Button>
-          </Dropdown>
+          {/* Left-side menu removed per user request */}
           <img src="/assets/images/logo.png" alt="FFXI Navi" className={styles.logo} />
           <span className={styles.headerTitle} style={{ fontSize: "clamp(12px, 4vw, 18px)" }}>
             <FormattedMessage id="title" />

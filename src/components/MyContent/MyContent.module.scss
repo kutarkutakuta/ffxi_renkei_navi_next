@@ -3,12 +3,23 @@
   background: var(--navbar-bg);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid var(--color-border);
-  padding: clamp(12px, 2vw, 12px) clamp(25px, 2.5vw, 16px);
+  /* stretch background full-width while keeping inner padding */
+  margin-left: calc(var(--page-padding) * -1);
+  margin-right: calc(var(--page-padding) * -1);
+  width: calc(100% + calc(var(--page-padding) * 2));
+  padding: clamp(12px, 2vw, 12px) var(--page-padding);
   margin-bottom: 6px;
 }
 
 .tableSection {
   padding: 0 20px;
+}
+
+/* Page intro / short description on top of page */
+.pageIntro {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--card-sub-text);
+  margin-bottom: 8px;
 }
 
 /* Reduce left/right spacing for small screens */

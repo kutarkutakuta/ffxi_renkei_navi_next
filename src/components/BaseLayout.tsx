@@ -22,6 +22,13 @@ const BaseLayout = ({ children }: Props) => {
           <MyHeader />
         </header>
         <main>{children}</main>
+        <Layout.Footer style={{ textAlign: 'center' }}>
+          <small>
+            <a href="/about.html" style={{ marginRight: 12 }}>About</a>
+            <a href="/privacy.html" style={{ marginRight: 12 }}>Privacy</a>
+            <a href="https://twitter.com/kutakutar_ff11" target="_blank" rel="noopener noreferrer">Contact</a>
+          </small>
+        </Layout.Footer>
         {/* Footer removed - moved into header menu */}
       </Layout>
     </ConfigProvider>
