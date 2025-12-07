@@ -1,38 +1,43 @@
-/* Member list navbar styles */
-.navbar {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    right: 0;
-    background: var(--navbar-bg);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid var(--color-border);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    opacity: 1;
-    transform: translateY(0);
-    z-index: 100;
-    padding: clamp(8px, 2vw, 12px) clamp(8px, 2.5vw, 16px);
-  }
-  
-  .navbar.hidden {
-    opacity: 0;
-    transform: translateY(-10px);
-    pointer-events: none;
-  }
+/* Member list section styles */
+.memberListSection {
+  background: var(--navbar-bg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--color-border);
+  padding: clamp(12px, 2vw, 12px) clamp(25px, 2.5vw, 16px);
+  margin-bottom: 16px;
+  margin-left: -25px;
+  margin-right: -25px;
+}
 
-  /* BackTop custom control */
-  .backTopGroup {
-    position: fixed;
-    right: clamp(12px, 3vw, 24px);
-    bottom: clamp(16px, 4vw, 24px);
-    z-index: 9999;
+.tableSection {
+  padding: 0 clamp(8px, 2.5vw, 16px);
+}
+
+/* Reduce left/right spacing for small screens */
+@media (max-width: 768px) {
+  .tableSection {
+    padding: 0 clamp(4px, 1.5vw, 4px);
   }
-  .backTopButton {
-    width: clamp(44px, 5vw, 48px);
-    height: clamp(44px, 5vw, 48px);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 480px) {
+  .tableSection {
+    padding: 0 6px;
   }
+}
+
+/* BackTop custom control */
+.backTopGroup {
+  position: fixed;
+  right: clamp(12px, 3vw, 24px);
+  bottom: clamp(16px, 4vw, 24px);
+  z-index: 9999;
+}
+.backTopButton {
+  width: clamp(44px, 5vw, 48px);
+  height: clamp(44px, 5vw, 48px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}

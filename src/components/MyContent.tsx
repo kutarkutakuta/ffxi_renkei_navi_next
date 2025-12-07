@@ -33,55 +33,29 @@ const MyContent = () => {
     }
   }, []);
 
-  // スクロールで隠れるやつ
-  const { members } = useMemberStore();
-  const [isHidden, setIsHidden] = useState(false);
   const [showBackTop, setShowBackTop] = useState(false);
-  const [navbarHeight, setNavbarHeight] = useState<number | null>(null);
 
   useEffect(() => {
-    let currentScrollY = 0;
     const handleScroll = () => {
-      if (window.scrollY > currentScrollY ) {
-        setIsHidden(true);
-      } else {
-        if(window.scrollY <= 50) setIsHidden(false);
-      }
-      currentScrollY = window.scrollY;
       // show BackTop button when scrolled down
       setShowBackTop(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', calculateNavbarHeight);
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', calculateNavbarHeight);
     };
   }, []);
-  
-  const calculateNavbarHeight = () => {
-    const navbarElement = document.getElementById('member_list');
-    if (navbarElement) {
-      setNavbarHeight(navbarElement.clientHeight);
-    }
-  };
-
-  useEffect(() => {
-    calculateNavbarHeight();
-  }, [members]);
 
   return (
     <>
       {/* メンバーリスト（ジョブ選択を含む） */}
-      <div id="member_list" className={`${styles.navbar} ${isHidden ? styles.hidden : ''}`}>
-          {/* メンバーカードコンテナ */}
-          <MemberList></MemberList>
-        </div>
+      <div className={styles.memberListSection}>
+        {/* メンバーカードコンテナ */}
+        <MemberList></MemberList>
+      </div>
       {/* 一覧 */}
-      <div style={{ 
-        marginTop: navbarHeight ? `${navbarHeight + 10}px` : '10px'
-      }}>
+      <div className={styles.tableSection}>
         <ChainTable />
       </div>
       {/* 検索設定 */}

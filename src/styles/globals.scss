@@ -76,6 +76,7 @@ main {
   padding-bottom: 40px;
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
+  background-color: var(--color-bg);
 }
 
 footer {
@@ -107,14 +108,6 @@ footer {
 .ant-table-tbody .renkei {
   color: var(--color-text);
   opacity: 0.9;
-}
-
-/* Ant Design カスタマイズ */
-.ant-table {
-  // background: rgba(13, 47, 76, 0.4) !important;
-  backdrop-filter: blur(10px);
-  border-radius: 12px !important;
-  overflow: hidden;
 }
 
 .ant-table-thead > tr > th {
@@ -152,10 +145,8 @@ footer {
   color: var(--card-header-text) !important;
 }
 
+/* Modal */
 .ant-modal-header {
-  // border-radius: 6px 6px 0 0 !important;
-  // margin: -10px !important;
-  // padding: 5px !important;
   border-bottom: 2px solid var(--color-border) !important;
   background-color: #e3f2fd !important;
   color: var(--card-text) !important;

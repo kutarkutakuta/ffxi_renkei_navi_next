@@ -118,7 +118,6 @@ export function MemberList() {
               display: "flex",
               flexWrap: "wrap",
               touchAction: "none",
-              paddingLeft: "5px",
               minHeight: members.length > 0 ? "120px" : "60px"
             }}
           >
