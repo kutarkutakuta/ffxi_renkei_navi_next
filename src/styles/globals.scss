@@ -105,11 +105,6 @@ footer {
   padding: clamp(8px, 2vw, 12px) clamp(4px, 1.5vw, 8px);
 }
 
-.ant-table-tbody .renkei {
-  color: var(--color-text);
-  opacity: 0.9;
-}
-
 .ant-table-thead > tr > th {
   background: #1976d2 !important;
   color: var(--card-header-text) !important;
@@ -119,6 +114,12 @@ footer {
 
 .ant-table-tbody > tr > td {
   border-bottom: 1px solid rgba(30, 73, 118, 0.3) !important;
+}
+
+.ant-table-tbody > tr td.renkei {
+  // color: var(--color-text);
+  // border: 1px solid var(--color-border);
+  font-weight: 500;
 }
 
 /* FloatButton */
