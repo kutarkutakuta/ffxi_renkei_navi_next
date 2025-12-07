@@ -15,7 +15,6 @@
   --card-header-bg: rgba(13, 71, 161, 0.8);
   --navbar-bg: rgba(10, 25, 41, 0.95);
   --job-selector-bg: rgba(21, 101, 192, 0.15);
-  --page-padding: clamp(8px, 2.5vw, 24px);
 }
 :root {
   --color-text: #1a237e;
@@ -34,7 +33,6 @@
   --card-header-bg: #90caf9;
   --navbar-bg: rgba(255, 255, 255, 0.95);
   --job-selector-bg: rgba(25, 118, 210, 0.08);
-  --page-padding: clamp(8px, 2.5vw, 24px);
 }
 
 html,
@@ -74,8 +72,6 @@ main {
   top:10px;
   padding-top: 10px;
   padding-bottom: 40px;
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
   background-color: var(--color-bg);
 }
 

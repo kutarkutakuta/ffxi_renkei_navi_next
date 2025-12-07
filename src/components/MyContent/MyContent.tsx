@@ -6,10 +6,10 @@ import useMasterStore from "@/stores/useMasterStore";
 import useMemberStore from "@/stores/useMemberStore";
 import useChainStore from "@/stores/useChainStore";
 
-import { MemberList } from "./MemberList/MemberList";
-import { ChainTable } from "./ChainTable/ChainTable";
-import { SearchSetting } from "./SearchSetting/SearchSetting";
-import { Help } from "./Help/Help";
+import { MemberList } from "../MemberList/MemberList";
+import { ChainTable } from "../ChainTable/ChainTable";
+import { SearchSetting } from "../SearchSetting/SearchSetting";
+import { Help } from "../Help/Help";
 
 import styles from './MyContent.module.scss';
 

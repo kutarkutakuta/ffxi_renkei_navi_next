@@ -4,23 +4,27 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid var(--color-border);
   padding: clamp(12px, 2vw, 12px) clamp(25px, 2.5vw, 16px);
-  margin-bottom: 16px;
-  margin-left: -25px;
-  margin-right: -25px;
+  margin-bottom: 6px;
 }
 
 .tableSection {
-  padding: 0 clamp(8px, 2.5vw, 16px);
+  padding: 0 20px;
 }
 
 /* Reduce left/right spacing for small screens */
 @media (max-width: 768px) {
+  .memberListSection {
+    padding: clamp(8px, 2vw, 8px) clamp(12px, 2.5vw, 12px);
+  }
   .tableSection {
-    padding: 0 clamp(4px, 1.5vw, 4px);
+    padding: 0 12px;
   }
 }
 
 @media (max-width: 480px) {
+  .memberListSection {
+    padding: clamp(6px, 2vw, 6px) clamp(8px, 2.5vw, 8px);
+  }
   .tableSection {
     padding: 0 6px;
   }

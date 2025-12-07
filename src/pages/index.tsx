@@ -1,4 +1,4 @@
-import MyComponent from '@/components/MyContent'
+import MyComponent from '@/components/MyContent/MyContent'
 import BaseLayout from '@/components/BaseLayout'
 import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
 import messagesJa  from '../lang/ja.json';
