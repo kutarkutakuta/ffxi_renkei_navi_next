@@ -278,11 +278,21 @@ export function ChainTable() {
         )}
         {jobs && (
           <Tooltip
-            title={intl.formatMessage({ id: "tag.support_message" })}
-            color="gold"
-            placement="topLeft"
-          >
-            <Tag bordered={true} color="lime" style={{ marginLeft: -5 }}>
+            title={
+              <div>
+                {intl.formatMessage({ id: "tag.support_message" })}
+                :
+                <br />
+                {intl.locale == "ja" ? jobs : jobs
+                  .split("")
+                  .map((n) => intl.formatMessage({ id: "job." + n, defaultMessage: n }))
+                  .join(",")}
+              </div>
+            }
+              color="gold"
+              placement="topLeft"
+            >
+              <Tag bordered={true} color="lime" className={styles.jobTag} style={{ marginLeft: -5 }}>
               {intl.locale == "ja"
                 ? jobs
                 : jobs

@@ -2,3 +2,13 @@
     font-size: 11px;
     line-height: 1.4;
 }
+
+.jobTag {
+    display: inline-block;
+    max-width: calc(100%); /* leave space for Tag padding and margin */
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
