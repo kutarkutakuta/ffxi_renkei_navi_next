@@ -76,13 +76,13 @@ const useChainStore = create<ChainState>((set) => ({
     set({ loading: true, error: null });
     try {
 
-      let params: {[key: string]: any} = {};
+    let params: {[key: string]: any} = {};
     let memberCount = 0;
     for(let m of members){
+      memberCount++;
+      const jobKey = "job" + memberCount
+      params[jobKey] = m.Job;
       if(m.Wepons.length > 0){
-        memberCount++;
-        const jobKey = "job" + memberCount
-        params[jobKey] = m.Job;
         const weponsKey = "wepons" + memberCount
         params[weponsKey] = m.Wepons.map(n=> n.name + (n.weponTypes.length > 0 ? "-" + n.weponTypes.join("/") : "")).join();
       }else{
